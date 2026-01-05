@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:artneidich_app/loading.dart';
+import 'package:artneidich_app/features/authentication/sign_up/sign_up_screen.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -81,7 +81,7 @@ class UtillScreenMobile extends StatelessWidget {
             },
             navigatorKey: NavigationService.navigatorKey,
             onGenerateRoute: RouteGenerator.generateRoute,
-            home: const Loading(),
+            home: const SignUpScreen(),
           ),
         );
       },

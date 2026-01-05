@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, unused_local_variable, avoid_print
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dotted_line/dotted_line.dart';
@@ -9,8 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// ignore: depend_on_referenced_packages
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
@@ -117,13 +114,13 @@ String language(String languageKey) {
   return language;
 }
 
-Future<String?> networkImageToBase64(String imageUrl) async {
-  http.Response response = await http.get(Uri.parse(imageUrl));
-  final bytes = response.bodyBytes;
+// Future<String?> networkImageToBase64(String imageUrl) async {
+//   http.Response response = await http.get(Uri.parse(imageUrl));
+//   final bytes = response.bodyBytes;
 
-  // ignore: unnecessary_null_comparison
-  return (bytes != null ? base64Encode(bytes) : null);
-}
+//   // ignore: unnecessary_null_comparison
+//   return (bytes != null ? base64Encode(bytes) : null);
+// }
 
 Future<void> setInitValue() async {
   // Map<String,dynamic> arabicDefault = {};
@@ -273,115 +270,112 @@ Future<File> getLocalFile(String filename) async {
 void showMaterialDialog(BuildContext context) {
   showDialog<bool>(
     context: context,
-    builder:
-        (context) => AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.r)),
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16.r)),
+      ),
+      title: Column(
+        children: [
+          Text(
+            "Exit",
+            textAlign: TextAlign.center,
+            style: TextFontStyle.text16c2F1E19StyleRobotoW600,
           ),
-          title: Column(
-            children: [
-              Text(
-                "Exit",
-                textAlign: TextAlign.center,
-                style: TextFontStyle.text16c2F1E19StyleRobotoW600,
-              ),
-              UIHelper.verticalSpace(16.h),
-              SizedBox(
-                width: 250.w,
-                child: DottedLine(
-                  // lineThickness: 2.h,
-                  dashColor: AppColors.c6C564C,
-                  dashLength: 10.w,
-                ),
-              ),
-              UIHelper.verticalSpace(16.h),
-              Text(
-                "Do you want to exit this app?",
-                textAlign: TextAlign.center,
-                style: TextFontStyle.text16c6C564CStyleRobotoW400,
-              ),
-            ],
+          UIHelper.verticalSpace(16.h),
+          SizedBox(
+            width: 250.w,
+            child: DottedLine(
+              // lineThickness: 2.h,
+              dashColor: AppColors.c6C564C,
+              dashLength: 10.w,
+            ),
           ),
-          actions: <Widget>[
-            Column(
+          UIHelper.verticalSpace(16.h),
+          Text(
+            "Do you want to exit this app?",
+            textAlign: TextAlign.center,
+            style: TextFontStyle.text16c6C564CStyleRobotoW400,
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop(false);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10.w),
-                          width: double.infinity,
-                          height: 40.sp,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(color: AppColors.cB18E5E),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      width: double.infinity,
+                      height: 40.sp,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(color: AppColors.cB18E5E),
+                      ),
+                      // alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "No",
+                            style: TextFontStyle.text16c2F1E19StyleRobotoW600
+                                .copyWith(color: AppColors.c2F1E19),
                           ),
-                          // alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "No",
-                                style: TextFontStyle
-                                    .text16c2F1E19StyleRobotoW600
-                                    .copyWith(color: AppColors.c2F1E19),
-                              ),
-                            ],
-                          ),
-                        ),
+                        ],
                       ),
                     ),
-                    // UIHelper.horizontalSpace(10.w),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          if (Platform.isAndroid) {
-                            SystemNavigator.pop();
-                          } else if (Platform.isIOS) {
-                            exit(0);
-                          }
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.symmetric(horizontal: 10.w),
-                          height: 40.sp,
-                          decoration: ShapeDecoration(
-                            gradient: const RadialGradient(
-                              center: Alignment(0.00, -1.7),
-                              radius: 2,
-                              colors: [Color(0xFFEBE6E0), Color(0xFFCBC1B4)],
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                          ),
-                          // alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Yes",
-                                style: TextFontStyle
-                                    .text16c2F1E19StyleRobotoW600
-                                    .copyWith(color: AppColors.c2F1E19),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-                UIHelper.verticalSpace(10.h),
+                // UIHelper.horizontalSpace(10.w),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      if (Platform.isAndroid) {
+                        SystemNavigator.pop();
+                      } else if (Platform.isIOS) {
+                        exit(0);
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      height: 40.sp,
+                      decoration: ShapeDecoration(
+                        gradient: const RadialGradient(
+                          center: Alignment(0.00, -1.7),
+                          radius: 2,
+                          colors: [Color(0xFFEBE6E0), Color(0xFFCBC1B4)],
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                      ),
+                      // alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Yes",
+                            style: TextFontStyle.text16c2F1E19StyleRobotoW600
+                                .copyWith(color: AppColors.c2F1E19),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
+            UIHelper.verticalSpace(10.h),
           ],
         ),
+      ],
+    ),
   );
 }
 
@@ -444,60 +438,59 @@ void showPickImageBottomSheet(
 
   showCupertinoModalPopup(
     context: context,
-    builder:
-        (BuildContext context) => CupertinoActionSheet(
-          title: TextStyleExample(
-            name: 'Choose Image',
-            style: textTheme.headlineSmall!.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              letterSpacing: 0.1,
-            ),
-          ),
-          message: TextStyleExample(
-            name: "Choose an image from your camera or existing gallery.",
-            style: textTheme.bodyMedium!.copyWith(letterSpacing: 0.1),
-          ),
-          actions: <Widget>[
-            // List of actions
-            showCameraOption
-                ? CupertinoActionSheetAction(
-                  child: TextStyleExample(
-                    name: 'Camera',
-                    style: textTheme.titleMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
+    builder: (BuildContext context) => CupertinoActionSheet(
+      title: TextStyleExample(
+        name: 'Choose Image',
+        style: textTheme.headlineSmall!.copyWith(
+          color: Theme.of(context).colorScheme.primary,
+          letterSpacing: 0.1,
+        ),
+      ),
+      message: TextStyleExample(
+        name: "Choose an image from your camera or existing gallery.",
+        style: textTheme.bodyMedium!.copyWith(letterSpacing: 0.1),
+      ),
+      actions: <Widget>[
+        // List of actions
+        showCameraOption
+            ? CupertinoActionSheetAction(
+                child: TextStyleExample(
+                  name: 'Camera',
+                  style: textTheme.titleMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
-                  onPressed: () {
-                    selectImageFromCamera(context, imageFileNotifier);
-                  },
-                )
-                : const SizedBox.shrink(),
-            CupertinoActionSheetAction(
-              child: TextStyleExample(
-                name: 'Gallery',
-                style: textTheme.titleMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
                 ),
-              ),
-              onPressed: () {
-                selectImageFromGallery(context, imageFileNotifier);
-              },
+                onPressed: () {
+                  selectImageFromCamera(context, imageFileNotifier);
+                },
+              )
+            : const SizedBox.shrink(),
+        CupertinoActionSheetAction(
+          child: TextStyleExample(
+            name: 'Gallery',
+            style: textTheme.titleMedium!.copyWith(
+              color: Theme.of(context).colorScheme.secondary,
             ),
-          ],
-          // A cancel button at the bottom of the modal popup
-          cancelButton: CupertinoActionSheetAction(
-            child: TextStyleExample(
-              name: 'Close',
-              style: textTheme.titleLarge!.copyWith(
-                color: Colors.grey,
-                letterSpacing: 0.1,
-              ),
-            ),
-            onPressed: () {
-              Navigator.pop(context); // Close the modal popup
-            },
+          ),
+          onPressed: () {
+            selectImageFromGallery(context, imageFileNotifier);
+          },
+        ),
+      ],
+      // A cancel button at the bottom of the modal popup
+      cancelButton: CupertinoActionSheetAction(
+        child: TextStyleExample(
+          name: 'Close',
+          style: textTheme.titleLarge!.copyWith(
+            color: Colors.grey,
+            letterSpacing: 0.1,
           ),
         ),
+        onPressed: () {
+          Navigator.pop(context); // Close the modal popup
+        },
+      ),
+    ),
   );
 }
 
@@ -596,194 +589,192 @@ String getGreetingMessage() {
 void showLogoutDialog(BuildContext context) {
   showDialog<bool>(
     context: context,
-    builder:
-        (context) => AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.r)),
-          ),
-          title: Column(
-            children: [
-              UIHelper.verticalSpace(16.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Text(
-                  "Are you sure you want to Logout",
-                  textAlign: TextAlign.center,
-                  style: TextFontStyle.headline16c666666tyleMontserratW600
-                      .copyWith(color: AppColors.c1E1E1E, fontSize: 16.sp),
-                ),
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16.r)),
+      ),
+      title: Column(
+        children: [
+          UIHelper.verticalSpace(16.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Text(
+              "Are you sure you want to Logout",
+              textAlign: TextAlign.center,
+              style: TextFontStyle.headline16c666666tyleMontserratW600.copyWith(
+                color: AppColors.c1E1E1E,
+                fontSize: 16.sp,
               ),
-            ],
+            ),
           ),
-          actions: <Widget>[
-            Column(
+        ],
+      ),
+      actions: <Widget>[
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop(false);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10.w),
-                          width: double.infinity,
-                          height: 45.sp,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.r),
-                            color: AppColors.allPrimaryColor,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      width: double.infinity,
+                      height: 45.sp,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        color: AppColors.allPrimaryColor,
+                      ),
+                      // alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "No",
+                            style: TextFontStyle
+                                .headline16c666666tyleMontserratW700
+                                .copyWith(color: AppColors.cFFFFFF),
                           ),
-                          // alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "No",
-                                style: TextFontStyle
-                                    .headline16c666666tyleMontserratW700
-                                    .copyWith(color: AppColors.cFFFFFF),
-                              ),
-                            ],
-                          ),
-                        ),
+                        ],
                       ),
                     ),
-                    // UIHelper.horizontalSpace(10.w),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop(false);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10.w),
-                          width: double.infinity,
-                          height: 45.sp,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(
-                              color: AppColors.allPrimaryColor,
-                            ),
-                          ),
-                          // alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Yes",
-                                style: TextFontStyle
-                                    .headline16c666666tyleMontserratW700
-                                    .copyWith(color: AppColors.c57AE8F),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-                UIHelper.verticalSpace(10.h),
+                // UIHelper.horizontalSpace(10.w),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      width: double.infinity,
+                      height: 45.sp,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(color: AppColors.allPrimaryColor),
+                      ),
+                      // alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Yes",
+                            style: TextFontStyle
+                                .headline16c666666tyleMontserratW700
+                                .copyWith(color: AppColors.c57AE8F),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
+            UIHelper.verticalSpace(10.h),
           ],
         ),
+      ],
+    ),
   );
 }
 
 void showAccountDeleteDialog(BuildContext context) {
   showDialog<bool>(
     context: context,
-    builder:
-        (context) => AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.r)),
-          ),
-          title: Column(
-            children: [
-              UIHelper.verticalSpace(16.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Text(
-                  "Are you sure you want to Delete Account",
-                  textAlign: TextAlign.center,
-                  style: TextFontStyle.headline16c666666tyleMontserratW600
-                      .copyWith(color: AppColors.c1E1E1E, fontSize: 16.sp),
-                ),
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16.r)),
+      ),
+      title: Column(
+        children: [
+          UIHelper.verticalSpace(16.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Text(
+              "Are you sure you want to Delete Account",
+              textAlign: TextAlign.center,
+              style: TextFontStyle.headline16c666666tyleMontserratW600.copyWith(
+                color: AppColors.c1E1E1E,
+                fontSize: 16.sp,
               ),
-            ],
+            ),
           ),
-          actions: <Widget>[
-            Column(
+        ],
+      ),
+      actions: <Widget>[
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop(false);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10.w),
-                          width: double.infinity,
-                          height: 45.sp,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.r),
-                            color: AppColors.allPrimaryColor,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      width: double.infinity,
+                      height: 45.sp,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        color: AppColors.allPrimaryColor,
+                      ),
+                      // alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "No",
+                            style: TextFontStyle
+                                .headline16c666666tyleMontserratW700
+                                .copyWith(color: AppColors.cFFFFFF),
                           ),
-                          // alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "No",
-                                style: TextFontStyle
-                                    .headline16c666666tyleMontserratW700
-                                    .copyWith(color: AppColors.cFFFFFF),
-                              ),
-                            ],
-                          ),
-                        ),
+                        ],
                       ),
                     ),
-                    // UIHelper.horizontalSpace(10.w),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop(false);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10.w),
-                          width: double.infinity,
-                          height: 45.sp,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.r),
-                            border: Border.all(
-                              color: AppColors.allPrimaryColor,
-                            ),
-                          ),
-                          // alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Yes",
-                                style: TextFontStyle
-                                    .headline16c666666tyleMontserratW700
-                                    .copyWith(color: AppColors.c57AE8F),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-                UIHelper.verticalSpace(10.h),
+                // UIHelper.horizontalSpace(10.w),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      width: double.infinity,
+                      height: 45.sp,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(color: AppColors.allPrimaryColor),
+                      ),
+                      // alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Yes",
+                            style: TextFontStyle
+                                .headline16c666666tyleMontserratW700
+                                .copyWith(color: AppColors.c57AE8F),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
+            UIHelper.verticalSpace(10.h),
           ],
         ),
+      ],
+    ),
   );
 }
 

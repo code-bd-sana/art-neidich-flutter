@@ -12,45 +12,14 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/Asset 2 1.svg
-  String get asset21 => 'assets/icons/Asset 2 1.svg';
+  /// File path: assets/icons/eye_off.svg
+  String get eyeOff => 'assets/icons/eye_off.svg';
 
-  /// File path: assets/icons/apple_icon.svg
-  String get appleIcon => 'assets/icons/apple_icon.svg';
-
-  /// File path: assets/icons/check_icon.svg
-  String get checkIcon => 'assets/icons/check_icon.svg';
-
-  /// File path: assets/icons/finger_icon.svg
-  String get fingerIcon => 'assets/icons/finger_icon.svg';
-
-  /// File path: assets/icons/google_icon.svg
-  String get googleIcon => 'assets/icons/google_icon.svg';
-
-  /// File path: assets/icons/logos_facebook.svg
-  String get logosFacebook => 'assets/icons/logos_facebook.svg';
-
-  /// File path: assets/icons/mdi_scan.svg
-  String get mdiScan => 'assets/icons/mdi_scan.svg';
-
-  /// File path: assets/icons/trip_icon.svg
-  String get tripIcon => 'assets/icons/trip_icon.svg';
-
-  /// File path: assets/icons/upload_icon.svg
-  String get uploadIcon => 'assets/icons/upload_icon.svg';
+  /// File path: assets/icons/eye_on.svg
+  String get eyeOn => 'assets/icons/eye_on.svg';
 
   /// List of all assets
-  List<String> get values => [
-    asset21,
-    appleIcon,
-    checkIcon,
-    fingerIcon,
-    googleIcon,
-    logosFacebook,
-    mdiScan,
-    tripIcon,
-    uploadIcon,
-  ];
+  List<String> get values => [eyeOff, eyeOn];
 }
 
 class $AssetsImagesGen {
@@ -60,15 +29,8 @@ class $AssetsImagesGen {
   AssetGenImage get noImageAvailable =>
       const AssetGenImage('assets/images/no_image_available.png');
 
-  /// File path: assets/images/onboard.png
-  AssetGenImage get onboard => const AssetGenImage('assets/images/onboard.png');
-
-  /// File path: assets/images/splash_bg.png
-  AssetGenImage get splashBg =>
-      const AssetGenImage('assets/images/splash_bg.png');
-
   /// List of all assets
-  List<AssetGenImage> get values => [noImageAvailable, onboard, splashBg];
+  List<AssetGenImage> get values => [noImageAvailable];
 }
 
 class $AssetsLottieGen {
@@ -94,17 +56,17 @@ class $AssetsLottieGen {
 
   /// List of all assets
   List<String> get values => [
-    wedeAnimation,
-    hamburger,
-    imageShimmer,
-    loading,
-    removeFromCart,
-    success,
-  ];
+        wedeAnimation,
+        hamburger,
+        imageShimmer,
+        loading,
+        removeFromCart,
+        success
+      ];
 }
 
 class Assets {
-  const Assets._();
+  Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
@@ -112,7 +74,11 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
@@ -140,7 +106,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.medium,
+    FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -172,8 +138,15 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({AssetBundle? bundle, String? package}) {
-    return AssetImage(_assetName, bundle: bundle, package: package);
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
+    );
   }
 
   String get path => _assetName;

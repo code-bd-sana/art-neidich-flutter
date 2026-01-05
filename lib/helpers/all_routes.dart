@@ -1,6 +1,7 @@
 import 'dart:io';
+
+import 'package:artneidich_app/features/authentication/sign_up/sign_up_screen.dart';
 import 'package:flutter/cupertino.dart';
-import '../loading.dart';
 
 final class Routes {
   static final Routes _routes = Routes._internal();
@@ -8,6 +9,7 @@ final class Routes {
   static Routes get instance => _routes;
 
   static const String loadingScreen = '/Loading';
+  static const String signUpScreen = '/signUpScreen';
 }
 
 final class RouteGenerator {
@@ -17,10 +19,18 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.loadingScreen:
+      case Routes.signUpScreen:
         return Platform.isAndroid
-            ? _FadedTransitionRoute(widget: const Loading(), settings: settings)
-            : CupertinoPageRoute(builder: (context) => const Loading());
+            ? _FadedTransitionRoute(
+                widget: const SignUpScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => const SignUpScreen());
+
+      //     case Routes.loadingScreen:
+      // return Platform.isAndroid
+      //     ? _FadedTransitionRoute(widget: const Loading(), settings: settings)
+      //     : CupertinoPageRoute(builder: (context) => const Loading());
 
       default:
         return null;
@@ -53,25 +63,27 @@ class _FadedTransitionRoute extends PageRouteBuilder {
     : super(
         settings: settings,
         reverseTransitionDuration: const Duration(milliseconds: 1),
-        pageBuilder: (
-          BuildContext context,
-          Animation<double> animation,
-          Animation<double> secondaryAnimation,
-        ) {
-          return widget;
-        },
+        pageBuilder:
+            (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+            ) {
+              return widget;
+            },
         transitionDuration: const Duration(milliseconds: 1),
-        transitionsBuilder: (
-          BuildContext context,
-          Animation<double> animation,
-          Animation<double> secondaryAnimation,
-          Widget child,
-        ) {
-          return FadeTransition(
-            opacity: CurvedAnimation(parent: animation, curve: Curves.ease),
-            child: child,
-          );
-        },
+        transitionsBuilder:
+            (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child,
+            ) {
+              return FadeTransition(
+                opacity: CurvedAnimation(parent: animation, curve: Curves.ease),
+                child: child,
+              );
+            },
       );
 }
 

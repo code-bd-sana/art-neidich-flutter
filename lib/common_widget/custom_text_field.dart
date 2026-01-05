@@ -83,7 +83,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: AppColors.c000000,
-      style: style ?? TextFontStyle.text14c3B3F4BPoppinsW500,
+      style: style ?? TextFontStyle.headLine16c888888InterBold,
       obscuringCharacter: obscuringCharacter,
       controller: controller,
       obscureText: obscureText,
@@ -101,25 +101,24 @@ class CustomTextField extends StatelessWidget {
       onTap: onTap,
       decoration: InputDecoration(
         hintStyle: hintStyle ?? TextFontStyle.text14c3B3F4BPoppinsW500,
-        fillColor: fillColor ?? AppColors.cF8F8F8,
+        fillColor: fillColor ?? Color(0xFFEFEFF1),
         filled: filled,
         labelText: labelText,
         hintText: hintText,
         helperText: helperText,
         errorText: errorText,
-        prefixIcon:
-            prefixIcon != null
-                ? Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w),
-                  child: SvgPicture.asset(
-                    prefixIcon!,
-                    width: 20.w,
-                    height: 20.h,
-                    colorFilter: prefixIconColorFilter,
-                    fit: BoxFit.contain,
-                  ),
-                )
-                : null,
+        prefixIcon: prefixIcon != null
+            ? Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: SvgPicture.asset(
+                  prefixIcon!,
+                  width: 20.w,
+                  height: 20.h,
+                  colorFilter: prefixIconColorFilter,
+                  fit: BoxFit.contain,
+                ),
+              )
+            : null,
         suffixIcon: suffixIcon,
         contentPadding:
             contentPadding ??
@@ -127,25 +126,25 @@ class CustomTextField extends StatelessWidget {
         border:
             border ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.r),
+              borderRadius: BorderRadius.circular(6.r),
               borderSide: BorderSide(color: AppColors.cE1E3E5, width: 1.w),
             ),
         enabledBorder:
             enabledBorder ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.sp),
+              borderRadius: BorderRadius.circular(6.sp),
               borderSide: BorderSide(color: AppColors.cE1E3E5, width: 1.w),
             ),
         focusedBorder:
             focusedBorder ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.sp),
+              borderRadius: BorderRadius.circular(6.sp),
               borderSide: BorderSide(color: AppColors.cE1E3E5, width: 1.w),
             ),
         errorBorder:
             errorBorder ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.sp),
+              borderRadius: BorderRadius.circular(6.sp),
               borderSide: BorderSide(color: AppColors.cFF0000, width: 1.w),
             ),
       ),

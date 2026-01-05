@@ -1,12 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../gen/colors.gen.dart';
 
 class TextFontStyle {
   //Initialising Constractor
   TextFontStyle._();
 
+  //Artneidich
+
+  static final headLine16c141414InterW400 = GoogleFonts.inter(
+    color: Color(0xFF141414),
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+  );
+  static final headLine16c2D8D7CInterW700 = GoogleFonts.inter(
+    color: Color(0xFFFFFFFF),
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w700,
+  );
+  //#
+
+  static final headLine28c3D3D3DInterW700 = GoogleFonts.inter(
+    color: Color(0xFF3D3D3D),
+    fontSize: 28.sp,
+    fontWeight: FontWeight.w700,
+  );
+
+  static final headLine16c888888InterW400 = GoogleFonts.inter(
+    color: Color(0xFF888888),
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+  );
+  static final headLine16c888888InterBold = GoogleFonts.inter(
+    color: Color(0xFF888888),
+    fontSize: 16.sp,
+    fontWeight: FontWeight.bold,
+  );
+
+
+
+  ///////////////
   //new
   static final headLine18c051F42PoppinsW600 = GoogleFonts.poppins(
     color: AppColors.c051F42,
