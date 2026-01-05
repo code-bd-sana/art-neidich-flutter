@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:artneidich_app/features/authentication/forget_password/forget_passwor_screen.dart';
+import 'package:artneidich_app/features/authentication/otp_verified/otp_verified_screen.dart';
 import 'package:artneidich_app/features/authentication/sign_up/sign_up_screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,7 +14,9 @@ final class Routes {
 
   static const String loadingScreen = '/Loading';
   static const String signUpScreen = '/signUpScreen';
-    static const String signinScreen = '/signinScreen';
+  static const String signinScreen = '/signinScreen';
+  static const String forgetPasswordScreen = '/forgetPasswordScreen';
+  static const String otpVerifiedScreen = '/otpVerifiedScreen';
 }
 
 final class RouteGenerator {
@@ -22,6 +26,25 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.otpVerifiedScreen:
+        final args = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget:  OtpVerifiedScreen(email: args["args"]),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) =>  OtpVerifiedScreen(email: args["email"],),
+              );
+      case Routes.forgetPasswordScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const ForgetPasswordScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => const ForgetPasswordScreen(),
+              );
       case Routes.signUpScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -30,7 +53,7 @@ final class RouteGenerator {
               )
             : CupertinoPageRoute(builder: (context) => const SignUpScreen());
 
-             case Routes.signinScreen:
+      case Routes.signinScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
                 widget: const SigninScreen(),

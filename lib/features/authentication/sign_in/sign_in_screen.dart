@@ -103,7 +103,9 @@ class _SigninScreenState extends State<SigninScreen> {
               Align(
                 alignment: Alignment.topRight,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    NavigationService.navigateTo(Routes.forgetPasswordScreen);
+                  },
                   child: Text(
                     "Forget Password?",
                     style: TextFontStyle.headLine16c141414InterW400,
