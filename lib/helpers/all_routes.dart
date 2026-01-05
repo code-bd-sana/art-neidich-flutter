@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:artneidich_app/features/authentication/sign_up/sign_up_screen.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../features/authentication/sign_in/sign_in_screen.dart';
+
 final class Routes {
   static final Routes _routes = Routes._internal();
   Routes._internal();
@@ -10,6 +12,7 @@ final class Routes {
 
   static const String loadingScreen = '/Loading';
   static const String signUpScreen = '/signUpScreen';
+    static const String signinScreen = '/signinScreen';
 }
 
 final class RouteGenerator {
@@ -26,6 +29,14 @@ final class RouteGenerator {
                 settings: settings,
               )
             : CupertinoPageRoute(builder: (context) => const SignUpScreen());
+
+             case Routes.signinScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: const SigninScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => const SigninScreen());
 
       //     case Routes.loadingScreen:
       // return Platform.isAndroid

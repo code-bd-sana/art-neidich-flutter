@@ -1,7 +1,10 @@
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
+import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -202,11 +205,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
 
-              // CustomTextField(
-              //   controller: _password,
-              //   filled: true,
-              //   validator: passwordValidation,
-              // ),
               UIHelper.verticalSpace(24.h),
 
               CustomButton(
@@ -214,6 +212,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   if (_formKey.currentState!.validate()) {}
                 },
                 text: "Sign up",
+              ),
+
+              UIHelper.verticalSpace(24.h),
+
+              Center(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TextFontStyle.headLine16c141414InterW400,
+                    children: [
+                      TextSpan(text: "Already have an account? "),
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            NavigationService.navigateToReplacement(
+                              Routes.signinScreen,
+                            );
+                          },
+                        text: "Login",
+                        style: TextFontStyle.headLine16c141414InterW400
+                            .copyWith(color: Colors.blue),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
