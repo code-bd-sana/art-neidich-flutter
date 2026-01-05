@@ -1,3 +1,4 @@
+import 'package:artneidich_app/provider/reset_password_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/otp_provider.dart';
@@ -13,4 +14,7 @@ var providers = [
     create: ((context) => SigninProvider()),
   ),
   ChangeNotifierProvider<OtpProvider>(create: ((context) => OtpProvider())),
+  ChangeNotifierProvider<ResetPasswordProvider>(
+    create: ((context) => ResetPasswordProvider()),
+  ),
 ];

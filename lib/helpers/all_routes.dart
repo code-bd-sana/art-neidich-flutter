@@ -1,10 +1,11 @@
 import 'dart:io';
 
-import 'package:artneidich_app/features/authentication/forget_password/forget_passwor_screen.dart';
+import 'package:artneidich_app/features/authentication/forget_password/forget_password_screen.dart';
 import 'package:artneidich_app/features/authentication/otp_verified/otp_verified_screen.dart';
 import 'package:artneidich_app/features/authentication/sign_up/sign_up_screen.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../features/authentication/reset_password/reset_password_screen.dart';
 import '../features/authentication/sign_in/sign_in_screen.dart';
 
 final class Routes {
@@ -17,6 +18,7 @@ final class Routes {
   static const String signinScreen = '/signinScreen';
   static const String forgetPasswordScreen = '/forgetPasswordScreen';
   static const String otpVerifiedScreen = '/otpVerifiedScreen';
+  static const String resetPasswordScreen = '/resetPasswordScreen';
 }
 
 final class RouteGenerator {
@@ -26,15 +28,22 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.resetPasswordScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: ResetPasswordScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => ResetPasswordScreen());
       case Routes.otpVerifiedScreen:
         final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget:  OtpVerifiedScreen(email: args["args"]),
+                widget: OtpVerifiedScreen(email: args["args"]),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) =>  OtpVerifiedScreen(email: args["email"],),
+                builder: (context) => OtpVerifiedScreen(email: args["email"]),
               );
       case Routes.forgetPasswordScreen:
         return Platform.isAndroid
