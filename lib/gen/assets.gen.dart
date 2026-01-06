@@ -18,12 +18,29 @@ class $AssetsIconsGen {
   /// File path: assets/icons/eye_on.svg
   String get eyeOn => 'assets/icons/eye_on.svg';
 
+  /// File path: assets/icons/filter.png
+  AssetGenImage get filter => const AssetGenImage('assets/icons/filter.png');
+
+  /// File path: assets/icons/search.png
+  AssetGenImage get search => const AssetGenImage('assets/icons/search.png');
+
   /// List of all assets
-  List<String> get values => [eyeOff, eyeOn];
+  List<dynamic> get values => [eyeOff, eyeOn, filter, search];
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/Frame (4).png
+  AssetGenImage get frame4 =>
+      const AssetGenImage('assets/images/Frame (4).png');
+
+  /// File path: assets/images/Frame (5).png
+  AssetGenImage get frame5 =>
+      const AssetGenImage('assets/images/Frame (5).png');
+
+  /// File path: assets/images/Vector.png
+  AssetGenImage get vector => const AssetGenImage('assets/images/Vector.png');
 
   /// File path: assets/images/inspection.png
   AssetGenImage get inspection =>
@@ -31,6 +48,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/jobs.png
   AssetGenImage get jobs => const AssetGenImage('assets/images/jobs.png');
+
+  /// File path: assets/images/jobs_icon.png
+  AssetGenImage get jobsIcon =>
+      const AssetGenImage('assets/images/jobs_icon.png');
 
   /// File path: assets/images/label.png
   AssetGenImage get label => const AssetGenImage('assets/images/label.png');
@@ -44,8 +65,17 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/overview.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [inspection, jobs, label, noImageAvailable, overview];
+  List<AssetGenImage> get values => [
+        frame4,
+        frame5,
+        vector,
+        inspection,
+        jobs,
+        jobsIcon,
+        label,
+        noImageAvailable,
+        overview
+      ];
 }
 
 class $AssetsLottieGen {

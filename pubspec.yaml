@@ -31,6 +31,7 @@ dependencies:
   auto_animated: ^3.2.0
   cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
+  data_table_2: ^2.7.2
   dio: ^5.8.0+1
   dotlottie_loader: ^0.0.5
   dotted_line: ^3.2.3
@@ -44,6 +45,7 @@ dependencies:
   get_storage: ^2.1.1
   google_fonts: ^6.2.1
   google_nav_bar: ^5.0.7
+  horizontal_data_table: ^4.3.3
   image_picker: ^1.1.2
   internet_connection_checker: ^3.0.1
   intl: ^0.20.2

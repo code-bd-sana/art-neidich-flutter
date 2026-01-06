@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common_widget/custom_app_bar.dart';
+import '../../../common_widget/auth_custom_app_bar.dart';
 import '../../../common_widget/custom_button.dart';
 import '../../../common_widget/custom_text_field.dart';
 import '../../../constants/text_font_style.dart';

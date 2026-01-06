@@ -6,7 +6,7 @@ import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../common_widget/custom_app_bar.dart';
+import '../../../common_widget/auth_custom_app_bar.dart';
 import '../../../common_widget/custom_button.dart';
 import '../../../constants/validation.dart';
 

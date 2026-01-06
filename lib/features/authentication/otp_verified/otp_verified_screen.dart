@@ -7,7 +7,7 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_button/timer_button.dart';
 
-import '../../../common_widget/custom_app_bar.dart';
+import '../../../common_widget/auth_custom_app_bar.dart';
 import '../../../common_widget/custom_button.dart';
 import '../../../constants/text_font_style.dart';
 import '../../../helpers/ui_helpers.dart';
