@@ -1,247 +1,105 @@
-/* // ignore_for_file: use_super_parameters, library_private_types_in_public_api, deprecated_member_use
+import 'package:artneidich_app/constants/text_font_style.dart';
+import 'package:artneidich_app/features/inspection/presentation/inspection_screen.dart';
+import 'package:artneidich_app/features/labels/presentation/labels_screen.dart';
+import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
-
-// Global ValueNotifier for currentIndex
-final ValueNotifier<int> globalCurrentIndexNotifier = ValueNotifier<int>(0);
+import 'features/jobs/presentation/jobs_screen.dart';
+import 'features/overview/presentation/overview_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
-  final Widget? pageNum;
-
-  const NavigationScreen({Key? key, this.pageNum}) : super(key: key);
+  const NavigationScreen({super.key});
 
   @override
-  _NavigationScreenState createState() => _NavigationScreenState();
+  State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
-  int _currentIndex = 0;
-  // ignore: unused_field
-  int _colorIndex = 0;
+  int _selectedIndex = 0;
 
-  // ignore: prefer_final_fields
-  bool _isFisrtBuild = true;
-  // ignore: unused_field, prefer_final_fields
-  bool _navigationOn = true;
-  // bool _isFirstBuild = true;
-
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const ChatScreen(),
-    const ReminderScreen(),
-    const SavedArticalScreen(),
-    const JournalScreen(),
+  final List<Widget> _pages = const [
+    OverviewScreen(),
+    JobsScreen(),
+    InspectionScreen(),
+    LabelsScreen(),
   ];
-  @override
-  void initState() {
-    super.initState();
-    // _currentIndex = widget.pageNum ?? 0;
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    Object? args;
-    StatefulWidget? screenPage;
-    if (_isFisrtBuild) {
-      args = ModalRoute.of(context)!.settings.arguments;
-    }
-    if (args != null) {
-      _colorIndex = 4;
-      screenPage = args as StatefulWidget;
-      var newColorIndex = -1;
-
-      for (var element in _screens) {
-        newColorIndex++;
-        if (element.toString() == screenPage.toString()) {
-          _colorIndex = newColorIndex;
-          Future.delayed(const Duration(microseconds: 300), () {
-            globalCurrentIndexNotifier.value = _colorIndex;
-          });
-
-          break;
-        }
-      }
-    }
-    // ignore: no_leading_underscores_for_local_identifiers
-
-    return WillPopScope(
-        onWillPop: () async {
-          showMaterialDialog(context);
-          return false;
-        },
-        child: Scaffold(
-          key: scaffoldKey,
-          drawer: const CustomDrawer(),
-          backgroundColor: AppColors.cFFFFFF,
-          extendBody: true,
-          body: ValueListenableBuilder<int>(
-            valueListenable: globalCurrentIndexNotifier,
-            builder: (context, currentIndex, child) {
-              return Center(
-                child: (screenPage != null)
-                    ? screenPage
-                    : _screens.elementAt(_currentIndex),
-              );
-            },
-          ),
-          bottomNavigationBar: Container(
-            height: 70.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: AppColors.cFFFFFF,
-                borderRadius: BorderRadius.circular(48.r),
-                border:
-                    Border.all(color: AppColors.allPrimaryColor, width: 1.5.h)),
-            margin: EdgeInsets.symmetric(vertical: 24.h, horizontal: 32.h),
-            padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 12.h),
-            child: ValueListenableBuilder<int>(
-                valueListenable: globalCurrentIndexNotifier,
-                builder: (context, currentIndex, child) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomNavigationButtonWidget(
-                        svgPath: Assets.icons.homeIcon,
-                        title: "Home",
-                        isActive: _currentIndex == 0,
-                        onTap: () {
-                          setState(() {
-                            _currentIndex = 0;
-                          });
-                        },
-                      ),
-                      CustomNavigationButtonWidget(
-                        svgPath: Assets.icons.chatIcon,
-                        title: "Chat",
-                        isActive: _currentIndex == 1,
-                        onTap: () {
-                          setState(() {
-                            _currentIndex = 1;
-                          });
-                        },
-                      ),
-                      CustomNavigationButtonWidget(
-                        svgPath: Assets.icons.reminderIcon,
-                        title: "Reminder",
-                        isActive: _currentIndex == 2,
-                        onTap: () {
-                          setState(() {
-                            _currentIndex = 2;
-                          });
-                        },
-                      ),
-                      CustomNavigationButtonWidget(
-                        svgPath: Assets.icons.bookmarkNavIcon,
-                        title: "Bookmark",
-                        isActive: _currentIndex == 3,
-                        onTap: () {
-                          setState(() {
-                            _currentIndex = 3;
-                          });
-                        },
-                      ),
-                      CustomNavigationButtonWidget(
-                        svgPath: Assets.icons.journalIcon,
-                        title: "Journal",
-                        isActive: _currentIndex == 4,
-                        onTap: () {
-                          setState(() {
-                            _currentIndex = 4;
-                          });
-                        },
-                      ),
-                    ],
-                  );
-                }),
-          ),
-        ));
-  }
-}
-
-class CustomNavigationButtonWidget extends StatefulWidget {
-  final String svgPath, title;
-  final Function() onTap;
-  final bool isActive;
-  const CustomNavigationButtonWidget(
-      {super.key,
-      required this.title,
-      required this.svgPath,
-      required this.onTap,
-      required this.isActive});
-
-  @override
-  State<CustomNavigationButtonWidget> createState() =>
-      _CustomNavigationButtonWidgetState();
-}
-
-class _CustomNavigationButtonWidgetState
-    extends State<CustomNavigationButtonWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: widget.isActive
-          ? Column(
-              children: [
-                SvgPicture.asset(
-                  widget.svgPath,
-                  color: AppColors.allPrimaryColor,
-                ),
-                UIHelper.verticalSpace(4.h),
-                Text(
-                  widget.title,
-                  style: TextFontStyle.headline16c333333tyleMontserratW500
-                      .copyWith(
-                          color: AppColors.allPrimaryColor, fontSize: 10.sp),
-                )
-              ],
-            )
-          : SvgPicture.asset(
-              widget.svgPath,
-              color: AppColors.cCBCBCB,
-            ),
+  Widget _navImage(String path, bool active) {
+    return Image.asset(
+      path,
+      height: 24,
+      width: 24,
+      color: active ? Color(0xFFFFFFFF) : Colors.grey, // optional tint
     );
   }
-}
-
-class CenterButtonWidget extends StatelessWidget {
-  final String svgPath;
-  const CenterButtonWidget(
-      {super.key, required this.onTap, required this.svgPath});
-  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 85.h,
-        width: 85.h,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.cFFFFFF,
-        ),
-        padding: EdgeInsets.all(6.sp),
+    return Scaffold(
+      body: IndexedStack(index: _selectedIndex, children: _pages),
+
+      // BOTTOM NAV
+      bottomNavigationBar: SafeArea(
+        top: false,
         child: Container(
-          decoration: const BoxDecoration(
-              color: AppColors.cFAD0E6, shape: BoxShape.circle),
-          padding: EdgeInsets.all(6.sp),
-          child: Container(
-            decoration: const BoxDecoration(
-                color: AppColors.allPrimaryColor, shape: BoxShape.circle),
-            padding: EdgeInsets.all(15.sp),
-            child: SvgPicture.asset(svgPath),
+          padding: EdgeInsets.only(bottom: 8.h),
+          color: Colors.white,
+          child: GNav(
+            textStyle: TextFontStyle.headLine16c2D8D7CInterW700,
+            selectedIndex: _selectedIndex,
+            onTabChange: (index) {
+              setState(() => _selectedIndex = index);
+            },
+
+            iconSize: 0, // hide default icon
+            gap: 8,
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
+            duration: const Duration(milliseconds: 350),
+            tabBorderRadius: 16,
+
+            color: Colors.grey,
+
+            tabBackgroundColor: Color(0xFF2D8D7C),
+
+            tabs: [
+              GButton(
+                icon: Icons.home,
+                leading: _navImage(
+                  Assets.images.overview.path,
+                  _selectedIndex == 0,
+                ),
+                text: 'Overview',
+              ),
+              GButton(
+                icon: Icons.favorite,
+                leading: _navImage(
+                  Assets.images.jobs.path,
+                  _selectedIndex == 1,
+                ),
+                text: 'Jobs',
+              ),
+              GButton(
+                icon: Icons.search,
+                leading: _navImage(
+                  Assets.images.inspection.path,
+                  _selectedIndex == 2,
+                ),
+                text: 'Inspection',
+              ),
+              GButton(
+                icon: Icons.person,
+                leading: _navImage(
+                  Assets.images.label.path,
+                  _selectedIndex == 3,
+                ),
+                text: 'Labels',
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 }
- */

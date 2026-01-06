@@ -25,12 +25,27 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/inspection.png
+  AssetGenImage get inspection =>
+      const AssetGenImage('assets/images/inspection.png');
+
+  /// File path: assets/images/jobs.png
+  AssetGenImage get jobs => const AssetGenImage('assets/images/jobs.png');
+
+  /// File path: assets/images/label.png
+  AssetGenImage get label => const AssetGenImage('assets/images/label.png');
+
   /// File path: assets/images/no_image_available.png
   AssetGenImage get noImageAvailable =>
       const AssetGenImage('assets/images/no_image_available.png');
 
+  /// File path: assets/images/overview.png
+  AssetGenImage get overview =>
+      const AssetGenImage('assets/images/overview.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [noImageAvailable];
+  List<AssetGenImage> get values =>
+      [inspection, jobs, label, noImageAvailable, overview];
 }
 
 class $AssetsLottieGen {
