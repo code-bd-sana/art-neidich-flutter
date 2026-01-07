@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common_widget/header_widget.dart';
 import '../../../constants/text_font_style.dart';
 import '../../../gen/assets.gen.dart';
+import '../tab/email_log.dart';
 import '../tab/summary_widget.dart';
 
 class JobDetailsScreen extends StatefulWidget {
@@ -17,13 +18,19 @@ class JobDetailsScreen extends StatefulWidget {
 }
 
 class _JobDetailsScreenState extends State<JobDetailsScreen> {
-  final List<String> _tabList = ["Summary", "Photos", "Report"];
+  final List<Map<String, dynamic>> _tabList = [
+    {"icon": Assets.images.summary.path, "title": "Summary"},
+    {"icon": Assets.images.photos.path, "title": "Photos"},
+    {"icon": Assets.images.report.path, "title": "Report"},
+    {"icon": Assets.images.email.path, "title": "Email Log"},
+  ];
 
   int selectedTabIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -37,12 +44,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
             // Custom Tabbar
             SizedBox(
-              height: 40.h,
-              child: Row(
-                children: List.generate(_tabList.length, (index) {
-                  final bool isSelected = selectedTabIndex == index;
-                  return Expanded(
-                    child: InkWell(
+              height: 48.h,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(_tabList.length, (index) {
+                    final bool isSelected = selectedTabIndex == index;
+                    return InkWell(
                       onTap: () {
                         setState(() {
                           selectedTabIndex = index;
@@ -65,8 +74,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                 ),
                                 border: Border(
                                   bottom: BorderSide(
-                                    color: Color(0xFF38B7FF),
-                                    width: 1.w,
+                                    color: Color(0xFF2D8D7C),
+                                    width: 1.5.w,
                                   ),
                                 ),
                               )
@@ -78,19 +87,35 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                   ),
                                 ),
                               ),
-                        child: Text(
-                          _tabList[index],
-                          style: TextFontStyle.headLine16c141414InterW400
-                              .copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
+
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Row(
+                            spacing: 4.w,
+                            children: [
+                              Image.asset(
+                                _tabList[index]["icon"],
+                                width: 16.w,
+                                height: 16.h,
+                                fit: BoxFit.cover,
                               ),
+
+                              Text(
+                                _tabList[index]["title"],
+                                style: TextFontStyle.headLine16c141414InterW400
+                                    .copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14.sp,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+                ),
               ),
             ),
 
@@ -100,7 +125,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ? SummaryWidget()
                 : selectedTabIndex == 1
                 ? PhotosWidget()
-                : ReportWidget(),
+                : selectedTabIndex == 2
+                ? ReportWidget()
+                : EmailLog(),
+
+            UIHelper.verticalSpaceExtraLarge,
           ],
         ),
       ),

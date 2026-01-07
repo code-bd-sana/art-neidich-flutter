@@ -6,6 +6,7 @@ class CreateJob extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
+      heroTag: "overview_fab",
         backgroundColor: const Color(0xFF2D8D7C),
         onPressed: () {},
         icon: const Icon(Icons.add, color: Colors.white),

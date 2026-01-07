@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:artneidich_app/features/authentication/forget_password/forget_password_screen.dart';
 import 'package:artneidich_app/features/authentication/otp_verified/otp_verified_screen.dart';
 import 'package:artneidich_app/features/authentication/sign_up/sign_up_screen.dart';
+import 'package:artneidich_app/navigation_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../features/authentication/reset_password/reset_password_screen.dart';
 import '../features/authentication/sign_in/sign_in_screen.dart';
+import '../features/job_details/presentation/job_details_screen.dart';
 
 final class Routes {
   static final Routes _routes = Routes._internal();
@@ -19,8 +21,12 @@ final class Routes {
   static const String forgetPasswordScreen = '/forgetPasswordScreen';
   static const String otpVerifiedScreen = '/otpVerifiedScreen';
   static const String resetPasswordScreen = '/resetPasswordScreen';
+  static const String jobDetailsScreen = '/jobDetailsScreen';
+
+  static const String navigationScreen = '/navigationScreen';
 }
 
+//
 final class RouteGenerator {
   static final RouteGenerator _routeGenerator = RouteGenerator._internal();
   RouteGenerator._internal();
@@ -28,6 +34,22 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.navigationScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: NavigationScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => NavigationScreen());
+
+      case Routes.jobDetailsScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: JobDetailsScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => JobDetailsScreen());
+
       case Routes.resetPasswordScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(

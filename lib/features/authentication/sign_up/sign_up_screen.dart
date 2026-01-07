@@ -103,6 +103,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextFontStyle.headLine16c141414InterW400,
               ),
               UIHelper.verticalSpace(4.h),
+
+              
               DropdownButtonFormField2<int>(
                 isExpanded: true,
                 hint: Text(

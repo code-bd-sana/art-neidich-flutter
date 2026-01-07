@@ -12,6 +12,9 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/Frame.svg
+  String get frame => 'assets/icons/Frame.svg';
+
   /// File path: assets/icons/download.png
   AssetGenImage get download =>
       const AssetGenImage('assets/icons/download.png');
@@ -29,7 +32,7 @@ class $AssetsIconsGen {
   AssetGenImage get search => const AssetGenImage('assets/icons/search.png');
 
   /// List of all assets
-  List<dynamic> get values => [download, eyeOff, eyeOn, filter, search];
+  List<dynamic> get values => [frame, download, eyeOff, eyeOn, filter, search];
 }
 
 class $AssetsImagesGen {
@@ -45,6 +48,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/Vector.png
   AssetGenImage get vector => const AssetGenImage('assets/images/Vector.png');
+
+  /// File path: assets/images/email.png
+  AssetGenImage get email => const AssetGenImage('assets/images/email.png');
 
   /// File path: assets/images/inspection.png
   AssetGenImage get inspection =>
@@ -68,17 +74,35 @@ class $AssetsImagesGen {
   AssetGenImage get overview =>
       const AssetGenImage('assets/images/overview.png');
 
+  /// File path: assets/images/photos.png
+  AssetGenImage get photos => const AssetGenImage('assets/images/photos.png');
+
+  /// File path: assets/images/report.png
+  AssetGenImage get report => const AssetGenImage('assets/images/report.png');
+
+  /// File path: assets/images/search_icon.png
+  AssetGenImage get searchIcon =>
+      const AssetGenImage('assets/images/search_icon.png');
+
+  /// File path: assets/images/summary.png
+  AssetGenImage get summary => const AssetGenImage('assets/images/summary.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         frame4,
         frame5,
         vector,
+        email,
         inspection,
         jobs,
         jobsIcon,
         label,
         noImageAvailable,
-        overview
+        overview,
+        photos,
+        report,
+        searchIcon,
+        summary
       ];
 }
 

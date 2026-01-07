@@ -42,62 +42,51 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
       // BOTTOM NAV
       bottomNavigationBar: SafeArea(
-        top: false,
-        child: Container(
-          padding: EdgeInsets.only(bottom: 8.h),
-          color: Colors.white,
-          child: GNav(
-            textStyle: TextFontStyle.headLine16c2D8D7CInterW700,
-            selectedIndex: _selectedIndex,
-            onTabChange: (index) {
-              setState(() => _selectedIndex = index);
-            },
-
-            iconSize: 0, // hide default icon
-            gap: 8,
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
-            duration: const Duration(milliseconds: 350),
-            tabBorderRadius: 16,
-
-            color: Colors.grey,
-
-            tabBackgroundColor: Color(0xFF2D8D7C),
-
-            tabs: [
-              GButton(
-                icon: Icons.home,
-                leading: _navImage(
-                  Assets.images.overview.path,
-                  _selectedIndex == 0,
-                ),
-                text: 'Overview',
+        child: GNav(
+          textStyle: TextFontStyle.headLine16c2D8D7CInterW700,
+          selectedIndex: _selectedIndex,
+          onTabChange: (index) {
+            setState(() => _selectedIndex = index);
+          },
+        
+          iconSize: 0, // hide default icon
+          gap: 8,
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
+          duration: const Duration(milliseconds: 350),
+          tabBorderRadius: 16,
+        
+          color: Colors.grey,
+        
+          tabBackgroundColor: Color(0xFF2D8D7C),
+        
+          tabs: [
+            GButton(
+              icon: Icons.home,
+              leading: _navImage(
+                Assets.images.overview.path,
+                _selectedIndex == 0,
               ),
-              GButton(
-                icon: Icons.favorite,
-                leading: _navImage(
-                  Assets.images.jobs.path,
-                  _selectedIndex == 1,
-                ),
-                text: 'Jobs',
+              text: 'Overview',
+            ),
+            GButton(
+              icon: Icons.favorite,
+              leading: _navImage(Assets.images.jobs.path, _selectedIndex == 1),
+              text: 'Jobs',
+            ),
+            GButton(
+              icon: Icons.search,
+              leading: _navImage(
+                Assets.images.inspection.path,
+                _selectedIndex == 2,
               ),
-              GButton(
-                icon: Icons.search,
-                leading: _navImage(
-                  Assets.images.inspection.path,
-                  _selectedIndex == 2,
-                ),
-                text: 'Inspection',
-              ),
-              GButton(
-                icon: Icons.person,
-                leading: _navImage(
-                  Assets.images.label.path,
-                  _selectedIndex == 3,
-                ),
-                text: 'Labels',
-              ),
-            ],
-          ),
+              text: 'Inspection',
+            ),
+            GButton(
+              icon: Icons.person,
+              leading: _navImage(Assets.images.label.path, _selectedIndex == 3),
+              text: 'Labels',
+            ),
+          ],
         ),
       ),
     );

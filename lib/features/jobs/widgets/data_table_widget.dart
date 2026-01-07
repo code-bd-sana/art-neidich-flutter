@@ -1,4 +1,6 @@
 import 'package:artneidich_app/constants/text_font_style.dart';
+import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -84,7 +86,8 @@ class _DataTableWidgetState extends State<DataTableWidget> {
               DataCell(
                 InkWell(
                   onTap: () {
-                    debugPrint("Tapped on ${item.orderId}");
+                    NavigationService.navigateTo(Routes.jobDetailsScreen);
+                    //  debugPrint("Tapped on ${item.orderId}");
                     // Navigator / BottomSheet / Dialog / API call
                   },
                   borderRadius: BorderRadius.circular(6.r),

@@ -116,7 +116,9 @@ class _SigninScreenState extends State<SigninScreen> {
               UIHelper.verticalSpace(24.h),
               CustomButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {}
+                  // if (_formKey.currentState!.validate()) {}
+
+                  NavigationService.navigateTo(Routes.navigationScreen);
                 },
                 text: "Sign In",
               ),
