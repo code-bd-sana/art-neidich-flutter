@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../features/authentication/reset_password/reset_password_screen.dart';
 import '../features/authentication/sign_in/sign_in_screen.dart';
+import '../features/create_job/presentation/create_job_screen.dart';
 import '../features/job_details/presentation/job_details_screen.dart';
 
 final class Routes {
@@ -24,6 +25,7 @@ final class Routes {
   static const String jobDetailsScreen = '/jobDetailsScreen';
 
   static const String navigationScreen = '/navigationScreen';
+  static const String createJobScreen = '/createJobScreen';
 }
 
 //
@@ -34,6 +36,13 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.createJobScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: CreateJobScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => CreateJobScreen());
       case Routes.navigationScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(

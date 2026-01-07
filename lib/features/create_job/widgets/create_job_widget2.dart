@@ -10,7 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../constants/text_font_style.dart';
 
 class CreateJobWidget2 extends StatefulWidget {
-  const CreateJobWidget2({super.key});
+  final Function() nextScreen;
+  const CreateJobWidget2({super.key, required this.nextScreen});
 
   @override
   State<CreateJobWidget2> createState() => _CreateJobWidget2State();
@@ -160,9 +161,7 @@ class _CreateJobWidget2State extends State<CreateJobWidget2> {
               UIHelper.verticalSpace(10.h),
               CustomTextField(
                 textInputAction: TextInputAction.next,
-                inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                ],
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 controller: _phoneController,
                 style: TextFontStyle.headLine14c323539InterW400.copyWith(
                   color: Color(0xFF71717A),
@@ -194,7 +193,9 @@ class _CreateJobWidget2State extends State<CreateJobWidget2> {
                 alignment: Alignment.topRight,
                 child: CustomButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      widget.nextScreen();
+                    }
                   },
                   borderRadius: 30.r,
                   padding: EdgeInsets.symmetric(

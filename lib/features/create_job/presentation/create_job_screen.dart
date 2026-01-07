@@ -69,7 +69,7 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
               },
               children: [
                 CreateJobWidget1(nextScreen: nextPage),
-                CreateJobWidget2(),
+                CreateJobWidget2(nextScreen: nextPage),
                 CreateJobWidget3(),
               ],
             ),

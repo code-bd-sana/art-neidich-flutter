@@ -298,7 +298,7 @@ class _JobsScreenState extends State<JobsScreen> {
             Spacer(),
 
             // RIGHT FAB
-            const CreateJob(),
+             CreateJob(heroTag: "job_screen_tag",),
           ],
         ),
       ),

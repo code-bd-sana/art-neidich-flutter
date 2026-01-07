@@ -4,6 +4,7 @@ import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../common_widget/create_job.dart';
 import '../widgets/job_section_widget.dart';
 import '../widgets/overview_app_bar_widget.dart';
 
@@ -19,18 +20,8 @@ class _OverviewScreenState extends State<OverviewScreen> {
   Widget build(BuildContext context) {
     String name = "Arti";
     return Scaffold(
-      // backgroundColor: Color(0xFFF7F7F5),
       backgroundColor: Colors.white,
 
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   elevation: 0,
-      //   title: OverviewAppBarWidget(
-      //     email: 'admin@admin.com',
-      //     fName: name,
-      //     name: 'ArtNeidich',
-      //   ),
-      // ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         physics: BouncingScrollPhysics(),
@@ -115,7 +106,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
           ),
         ),
       ),
-      //floatingActionButton: CreateJob(),
+      floatingActionButton: CreateJob(heroTag: "overview_screen_tag",),
     );
   }
 }

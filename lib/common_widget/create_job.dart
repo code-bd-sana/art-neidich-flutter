@@ -1,19 +1,24 @@
+import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 
 class CreateJob extends StatelessWidget {
-  const CreateJob({super.key});
+  final String heroTag;
+  const CreateJob({super.key, required this.heroTag});
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-      heroTag: "overview_fab",
-        backgroundColor: const Color(0xFF2D8D7C),
-        onPressed: () {},
-        icon: const Icon(Icons.add, color: Colors.white),
-        label: const Text(
-          "Create new Job",
-          style: TextStyle(color: Colors.white),
-        ),
-      );
+      heroTag: heroTag,
+      backgroundColor: const Color(0xFF2D8D7C),
+      onPressed: () {
+        NavigationService.navigateTo(Routes.createJobScreen);
+      },
+      icon: const Icon(Icons.add, color: Colors.white),
+      label: const Text(
+        "Create new Job",
+        style: TextStyle(color: Colors.white),
+      ),
+    );
   }
 }

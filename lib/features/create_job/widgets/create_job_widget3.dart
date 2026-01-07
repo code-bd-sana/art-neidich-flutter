@@ -1,6 +1,8 @@
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,6 +54,28 @@ class _CreateJobWidget3State extends State<CreateJobWidget3> {
                     initialDate: DateTime.now(),
                     firstDate: DateTime(2000),
                     lastDate: DateTime.now(),
+
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: Color(
+                              0xFF2D8D7C,
+                            ), // header background color (top bar)
+                            onPrimary: Colors.white, // header text color
+                            onSurface: Colors.black, // body text color
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor: Color(
+                                0xFF2D8D7C,
+                              ), // "CANCEL"/"OK" button color
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
                   );
 
                   if (pickedDate != null) {
@@ -62,7 +86,10 @@ class _CreateJobWidget3State extends State<CreateJobWidget3> {
                     });
                   }
                 },
-                suffixIcon: Icon(Icons.date_range_outlined),
+                suffixIcon: Icon(
+                  Icons.date_range_outlined,
+                  color: Color(0xFF2D8D7C),
+                ),
                 controller: _dateController,
                 style: TextFontStyle.headLine14c323539InterW400.copyWith(
                   color: Color(0xFF71717A),
@@ -112,7 +139,11 @@ class _CreateJobWidget3State extends State<CreateJobWidget3> {
                 alignment: Alignment.topRight,
                 child: CustomButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      NavigationService.navigateToReplacement(
+                        Routes.navigationScreen,
+                      );
+                    }
                   },
                   borderRadius: 30.r,
                   padding: EdgeInsets.symmetric(
