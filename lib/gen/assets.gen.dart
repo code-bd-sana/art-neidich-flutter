@@ -12,6 +12,10 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/download.png
+  AssetGenImage get download =>
+      const AssetGenImage('assets/icons/download.png');
+
   /// File path: assets/icons/eye_off.svg
   String get eyeOff => 'assets/icons/eye_off.svg';
 
@@ -25,7 +29,7 @@ class $AssetsIconsGen {
   AssetGenImage get search => const AssetGenImage('assets/icons/search.png');
 
   /// List of all assets
-  List<dynamic> get values => [eyeOff, eyeOn, filter, search];
+  List<dynamic> get values => [download, eyeOff, eyeOn, filter, search];
 }
 
 class $AssetsImagesGen {

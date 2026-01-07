@@ -1,11 +1,13 @@
+import 'package:artneidich_app/features/job_details/tab/photos_widget.dart';
+import 'package:artneidich_app/features/job_details/tab/report_widget.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../common_widget/header_widget.dart';
-import '../../constants/text_font_style.dart';
-import '../../gen/assets.gen.dart';
-import 'widgets/job_details_widget.dart';
+import '../../../common_widget/header_widget.dart';
+import '../../../constants/text_font_style.dart';
+import '../../../gen/assets.gen.dart';
+import '../tab/summary_widget.dart';
 
 class JobDetailsScreen extends StatefulWidget {
   const JobDetailsScreen({super.key});
@@ -92,22 +94,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               ),
             ),
 
-            UIHelper.verticalSpace(20.h),
+            UIHelper.verticalSpace(10.h),
 
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Text(
-                "Job Summary",
-                style: TextFontStyle.headLine16c141414InterW400.copyWith(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 18.sp,
-                ),
-              ),
-            ),
-
-            UIHelper.verticalSpace(20.h),
-
-            JobDetailsWidget(title: 'Inspector :', value: ''),
+            selectedTabIndex == 0
+                ? SummaryWidget()
+                : selectedTabIndex == 1
+                ? PhotosWidget()
+                : ReportWidget(),
           ],
         ),
       ),
