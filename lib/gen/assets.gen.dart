@@ -15,6 +15,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Frame.svg
   String get frame => 'assets/icons/Frame.svg';
 
+  /// File path: assets/icons/arrow_right.png
+  AssetGenImage get arrowRight =>
+      const AssetGenImage('assets/icons/arrow_right.png');
+
   /// File path: assets/icons/download.png
   AssetGenImage get download =>
       const AssetGenImage('assets/icons/download.png');
@@ -32,7 +36,8 @@ class $AssetsIconsGen {
   AssetGenImage get search => const AssetGenImage('assets/icons/search.png');
 
   /// List of all assets
-  List<dynamic> get values => [frame, download, eyeOff, eyeOn, filter, search];
+  List<dynamic> get values =>
+      [frame, arrowRight, download, eyeOff, eyeOn, filter, search];
 }
 
 class $AssetsImagesGen {
@@ -48,6 +53,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/Vector.png
   AssetGenImage get vector => const AssetGenImage('assets/images/Vector.png');
+
+  /// File path: assets/images/create_job.png
+  AssetGenImage get createJob =>
+      const AssetGenImage('assets/images/create_job.png');
 
   /// File path: assets/images/email.png
   AssetGenImage get email => const AssetGenImage('assets/images/email.png');
@@ -92,6 +101,7 @@ class $AssetsImagesGen {
         frame4,
         frame5,
         vector,
+        createJob,
         email,
         inspection,
         jobs,

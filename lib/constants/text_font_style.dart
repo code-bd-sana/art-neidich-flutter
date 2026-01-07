@@ -39,6 +39,14 @@ class TextFontStyle {
     fontWeight: FontWeight.bold,
   );
 
+   static final headLine14c323539InterW400 = GoogleFonts.inter(
+    color: Color(0xFF323539),
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+  );
+
+
+
 
 
   ///////////////
