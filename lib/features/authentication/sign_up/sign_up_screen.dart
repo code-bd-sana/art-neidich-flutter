@@ -104,7 +104,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               UIHelper.verticalSpace(4.h),
 
-              
               DropdownButtonFormField2<int>(
                 isExpanded: true,
                 hint: Text(
@@ -211,7 +210,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               CustomButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    NavigationService.navigateToReplacement(
+                      Routes.navigationScreen,
+                    );
+                  }
                 },
                 text: "Sign up",
               ),
