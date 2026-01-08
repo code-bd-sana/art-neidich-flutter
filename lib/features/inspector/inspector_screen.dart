@@ -34,7 +34,7 @@ class _InspectorScreenState extends State<InspectorScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Text(
-                "Settings",
+                "Permission Levels",
                 style: TextFontStyle.headLine14c323539InterW400.copyWith(
                   color: const Color(0xFF8E8E93),
                   fontSize: 13.sp,
@@ -57,7 +57,7 @@ class _InspectorScreenState extends State<InspectorScreen> {
                 title: 'Inspector List',
                 icon: Assets.icons.frame1.path,
                 onPressed: () {
-                  NavigationService.navigateTo(Routes.profileScreen);
+                  NavigationService.navigateTo(Routes.inspectorListScreen);
                 },
               ),
             ),
@@ -72,7 +72,9 @@ class _InspectorScreenState extends State<InspectorScreen> {
               child: SettingsTitleWidget(
                 title: 'Approval List',
                 icon: Assets.icons.frame6.path,
-                onPressed: () {},
+                onPressed: () {
+                  NavigationService.navigateTo(Routes.approvalListScreen);
+                },
               ),
             ),
 

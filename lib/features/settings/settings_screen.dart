@@ -63,7 +63,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SettingsTitleWidget(
                 title: 'Security & Permissions',
                 icon: Assets.icons.frame2.path,
-                onPressed: () {},
+                onPressed: () {
+
+                   NavigationService.navigateTo(Routes.securityScreen);
+
+                  
+                },
               ),
             ],
           ),

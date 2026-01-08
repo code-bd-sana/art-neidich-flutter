@@ -1,5 +1,6 @@
 import 'package:artneidich_app/common_widget/header_widget.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/provider/signin_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,7 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: CustomButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
+                        if (_formKey.currentState!.validate()) {
+                          NavigationService.goBack;
+                        }
                       },
                       borderRadius: 30.r,
                       padding: EdgeInsets.symmetric(

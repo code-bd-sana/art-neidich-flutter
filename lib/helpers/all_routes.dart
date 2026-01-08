@@ -6,11 +6,16 @@ import 'package:artneidich_app/features/authentication/sign_up/sign_up_screen.da
 import 'package:artneidich_app/navigation_screen.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../features/admin/admin_screen.dart';
+import '../features/approval_list/presentation/approval_list_screen.dart';
 import '../features/authentication/reset_password/reset_password_screen.dart';
 import '../features/authentication/sign_in/sign_in_screen.dart';
 import '../features/create_job/presentation/create_job_screen.dart';
+import '../features/inspector/inspector_screen.dart';
+import '../features/inspector_list/presentation/inspector_list_screen.dart';
 import '../features/job_details/presentation/job_details_screen.dart';
 import '../features/profile/profile_screen.dart';
+import '../features/security/security_screen.dart';
 import '../features/settings/settings_screen.dart';
 
 final class Routes {
@@ -30,9 +35,17 @@ final class Routes {
   static const String createJobScreen = '/createJobScreen';
   static const String settingsScreen = '/settingsScreen';
   static const String profileScreen = '/profileScreen';
+  static const String securityScreen = '/securityScreen';
+
+  static const String adminScreen = '/adminScreen';
+  static const String inspectorScreen = '/inspectorScreen';
+  static const String inspectorListScreen = '/inspectorListScreen';
+  static const String approvalListScreen = '/approvalListScreen';
 }
 
-// SettingsScreen
+
+
+
 final class RouteGenerator {
   static final RouteGenerator _routeGenerator = RouteGenerator._internal();
   RouteGenerator._internal();
@@ -40,22 +53,52 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-            case Routes.profileScreen:
+
+       case Routes.approvalListScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: ProfileScreen(),
+                widget: ApprovalListScreen(),
                 settings: settings,
               )
+            : CupertinoPageRoute(builder: (context) => ApprovalListScreen());
+       case Routes.inspectorListScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: InspectorListScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => InspectorListScreen());
+
+         case Routes.inspectorScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(widget: InspectorScreen(), settings: settings)
+            : CupertinoPageRoute(builder: (context) => InspectorScreen());
+
+
+      case Routes.adminScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(widget: AdminScreen(), settings: settings)
+            : CupertinoPageRoute(builder: (context) => AdminScreen());
+
+      case Routes.securityScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SecurityScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => SecurityScreen());
+
+      case Routes.profileScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(widget: ProfileScreen(), settings: settings)
             : CupertinoPageRoute(builder: (context) => ProfileScreen());
-            case Routes.settingsScreen:
+      case Routes.settingsScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
                 widget: SettingsScreen(),
                 settings: settings,
               )
             : CupertinoPageRoute(builder: (context) => SettingsScreen());
-
-
 
       case Routes.createJobScreen:
         return Platform.isAndroid

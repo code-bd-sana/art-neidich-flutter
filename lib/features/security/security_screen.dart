@@ -46,8 +46,6 @@ class _SecurityScreenState extends State<SecurityScreen> {
 
             UIHelper.verticalSpace(20.h),
 
-            UIHelper.verticalSpace(20.h),
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
@@ -59,7 +57,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                 title: 'Admin',
                 icon: Assets.icons.frame1.path,
                 onPressed: () {
-                  NavigationService.navigateTo(Routes.profileScreen);
+                  NavigationService.navigateTo(Routes.adminScreen);
                 },
               ),
             ),
@@ -74,8 +72,15 @@ class _SecurityScreenState extends State<SecurityScreen> {
               child: SettingsTitleWidget(
                 title: 'Inspector',
                 icon: Assets.icons.frame5.path,
-                onPressed: () {},
+                onPressed: () {
+                  NavigationService.navigateTo(Routes.inspectorScreen);
+                },
               ),
+            ),
+            UIHelper.verticalSpace(10.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
             ),
 
             UIHelper.verticalSpaceExtraLarge,
