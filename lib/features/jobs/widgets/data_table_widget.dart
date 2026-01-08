@@ -50,6 +50,8 @@ class _DataTableWidgetState extends State<DataTableWidget> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: DataTable(
+        border: TableBorder.all(color: Color(0xFFEFEFF1)),
+
         columnSpacing: 20.w,
         headingRowHeight: 44,
         dataRowMinHeight: 36,

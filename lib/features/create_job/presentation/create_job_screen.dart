@@ -1,4 +1,5 @@
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,14 +48,13 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           JobCreateHeaderWidget(
             title: "Jobs",
             icon: Assets.images.createJob.path,
             subtitle: "Create New Job",
             onPressed: () {
-              previousPage();
+              NavigationService.goBack;
             },
           ),
 
