@@ -10,6 +10,8 @@ import '../features/authentication/reset_password/reset_password_screen.dart';
 import '../features/authentication/sign_in/sign_in_screen.dart';
 import '../features/create_job/presentation/create_job_screen.dart';
 import '../features/job_details/presentation/job_details_screen.dart';
+import '../features/profile/profile_screen.dart';
+import '../features/settings/settings_screen.dart';
 
 final class Routes {
   static final Routes _routes = Routes._internal();
@@ -26,9 +28,11 @@ final class Routes {
 
   static const String navigationScreen = '/navigationScreen';
   static const String createJobScreen = '/createJobScreen';
+  static const String settingsScreen = '/settingsScreen';
+  static const String profileScreen = '/profileScreen';
 }
 
-//
+// SettingsScreen
 final class RouteGenerator {
   static final RouteGenerator _routeGenerator = RouteGenerator._internal();
   RouteGenerator._internal();
@@ -36,6 +40,23 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+            case Routes.profileScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: ProfileScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => ProfileScreen());
+            case Routes.settingsScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: SettingsScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => SettingsScreen());
+
+
+
       case Routes.createJobScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(

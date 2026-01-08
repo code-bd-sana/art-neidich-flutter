@@ -1,15 +1,14 @@
-import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/text_font_style.dart';
 
-class OverviewAppBarWidget extends StatelessWidget {
+class SettingAppBarWidget extends StatelessWidget {
   final String fName;
   final String name;
   final String email;
-  const OverviewAppBarWidget({
+  const SettingAppBarWidget({
     super.key,
     required this.fName,
     required this.name,
@@ -22,6 +21,12 @@ class OverviewAppBarWidget extends StatelessWidget {
       spacing: 16.w,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        BackButton(
+          color: Colors.black,
+          onPressed: () {
+            NavigationService.goBack;
+          },
+        ),
         //
         Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
@@ -50,21 +55,6 @@ class OverviewAppBarWidget extends StatelessWidget {
                 fontSize: 13.sp,
               ),
             ),
-          ],
-        ),
-
-        Spacer(),
-        PopupMenuButton<String>(
-          icon: Icon(Icons.more_vert, color: Colors.black),
-          onSelected: (value) {
-            if (value == 'notification') {
-            } else if (value == 'settings') {
-              NavigationService.navigateTo(Routes.settingsScreen);
-            }
-          },
-          itemBuilder: (context) => [
-            PopupMenuItem(value: 'notification', child: Text('Notification')),
-            PopupMenuItem(value: 'settings', child: Text('Settings')),
           ],
         ),
       ],

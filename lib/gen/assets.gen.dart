@@ -12,6 +12,15 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/Frame (1).png
+  AssetGenImage get frame1 => const AssetGenImage('assets/icons/Frame (1).png');
+
+  /// File path: assets/icons/Frame (2).png
+  AssetGenImage get frame2 => const AssetGenImage('assets/icons/Frame (2).png');
+
+  /// File path: assets/icons/Frame (4).png
+  AssetGenImage get frame4 => const AssetGenImage('assets/icons/Frame (4).png');
+
   /// File path: assets/icons/Frame.svg
   String get frame => 'assets/icons/Frame.svg';
 
@@ -32,12 +41,31 @@ class $AssetsIconsGen {
   /// File path: assets/icons/filter.png
   AssetGenImage get filter => const AssetGenImage('assets/icons/filter.png');
 
+  /// File path: assets/icons/profile.png
+  AssetGenImage get profile => const AssetGenImage('assets/icons/profile.png');
+
+  /// File path: assets/icons/right_arrow.png
+  AssetGenImage get rightArrow =>
+      const AssetGenImage('assets/icons/right_arrow.png');
+
   /// File path: assets/icons/search.png
   AssetGenImage get search => const AssetGenImage('assets/icons/search.png');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [frame, arrowRight, download, eyeOff, eyeOn, filter, search];
+  List<dynamic> get values => [
+        frame1,
+        frame2,
+        frame4,
+        frame,
+        arrowRight,
+        download,
+        eyeOff,
+        eyeOn,
+        filter,
+        profile,
+        rightArrow,
+        search
+      ];
 }
 
 class $AssetsImagesGen {
