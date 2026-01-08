@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common_widget/create_job.dart';
+import '../../../helpers/all_routes.dart';
+import '../../../helpers/navigation_service.dart';
 import '../widgets/job_section_widget.dart';
 import '../widgets/overview_app_bar_widget.dart';
 
@@ -106,7 +108,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
           ),
         ),
       ),
-      floatingActionButton: CreateJob(heroTag: "overview_screen_tag",),
+      floatingActionButton: CreateJob(
+        heroTag: "overview_screen_tag",
+        title: 'Create New Job',
+        onpressed: () {
+          NavigationService.navigateTo(Routes.createJobScreen);
+        },
+      ),
     );
   }
 }

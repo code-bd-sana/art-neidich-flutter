@@ -1,4 +1,5 @@
 import 'package:artneidich_app/constants/text_font_style.dart';
+import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
@@ -51,16 +52,10 @@ class _DataTableWidgetState extends State<DataTableWidget> {
       scrollDirection: Axis.horizontal,
       child: DataTable(
         border: TableBorder.all(color: Color(0xFFEFEFF1)),
-
-        columnSpacing: 20.w,
-        headingRowHeight: 44,
-        dataRowMinHeight: 36,
-        dataRowMaxHeight: 42,
         headingRowColor: WidgetStateColor.resolveWith((_) {
           return Color(0xFFFAF7F8);
         }),
         headingTextStyle: TextFontStyle.headLine16c141414InterW400,
-        //dataTextStyle: TextFontStyle.headLine16c141414InterW400.copyWith(Colo),
         columns: setTableName
             .map((element) => DataColumn(label: Text(element)))
             .toList(),
@@ -89,8 +84,6 @@ class _DataTableWidgetState extends State<DataTableWidget> {
                 InkWell(
                   onTap: () {
                     NavigationService.navigateTo(Routes.jobDetailsScreen);
-                    //  debugPrint("Tapped on ${item.orderId}");
-                    // Navigator / BottomSheet / Dialog / API call
                   },
                   borderRadius: BorderRadius.circular(6.r),
                   child: Container(
@@ -102,12 +95,25 @@ class _DataTableWidgetState extends State<DataTableWidget> {
                       color: Colors.blue.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6.r),
                     ),
-                    child: const Text(
-                      "View Details",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Row(
+                      spacing: 4.w,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "View Details",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+
+                        Image.asset(
+                          Assets.icons.arrowRightIcon.path,
+                          width: 16.w,
+                          height: 16.h,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
                     ),
                   ),
                 ),

@@ -36,6 +36,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Frame.svg
   String get frame => 'assets/icons/Frame.svg';
 
+  /// File path: assets/icons/arrow-right_icon.png
+  AssetGenImage get arrowRightIcon =>
+      const AssetGenImage('assets/icons/arrow-right_icon.png');
+
   /// File path: assets/icons/arrow_right.png
   AssetGenImage get arrowRight =>
       const AssetGenImage('assets/icons/arrow_right.png');
@@ -52,6 +56,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/filter.png
   AssetGenImage get filter => const AssetGenImage('assets/icons/filter.png');
+
+  /// File path: assets/icons/label.png
+  AssetGenImage get label => const AssetGenImage('assets/icons/label.png');
 
   /// File path: assets/icons/profile.png
   AssetGenImage get profile => const AssetGenImage('assets/icons/profile.png');
@@ -73,11 +80,13 @@ class $AssetsIconsGen {
         frame7,
         frame8,
         frame,
+        arrowRightIcon,
         arrowRight,
         download,
         eyeOff,
         eyeOn,
         filter,
+        label,
         profile,
         rightArrow,
         search
