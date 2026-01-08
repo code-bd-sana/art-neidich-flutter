@@ -21,6 +21,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Frame (4).png
   AssetGenImage get frame4 => const AssetGenImage('assets/icons/Frame (4).png');
 
+  /// File path: assets/icons/Frame (5).png
+  AssetGenImage get frame5 => const AssetGenImage('assets/icons/Frame (5).png');
+
+  /// File path: assets/icons/Frame (6).png
+  AssetGenImage get frame6 => const AssetGenImage('assets/icons/Frame (6).png');
+
   /// File path: assets/icons/Frame.svg
   String get frame => 'assets/icons/Frame.svg';
 
@@ -56,6 +62,8 @@ class $AssetsIconsGen {
         frame1,
         frame2,
         frame4,
+        frame5,
+        frame6,
         frame,
         arrowRight,
         download,

@@ -59,30 +59,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
             UIHelper.verticalSpace(20.h),
 
             Consumer<SigninProvider>(
-             
               builder: (context, provider, child) {
                 return Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 16.w),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: CustomButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                
-                          
-                        }
+                        if (_formKey.currentState!.validate()) {}
                       },
                       borderRadius: 30.r,
-                      padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 12.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 32.w,
+                        vertical: 12.h,
+                      ),
                       minWidth: 0,
                       child: Row(
                         spacing: 10.w,
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
-                    
+
                         children: [
                           Text(
-                            "Next",
+                            "Save",
                             style: TextFontStyle.headLine16c2D8D7CInterW700,
                           ),
                           Image.asset(
@@ -96,15 +95,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 );
-              }
+              },
             ),
-
-
-
-
-
-
-             
 
             UIHelper.verticalSpaceExtraLarge,
           ],
