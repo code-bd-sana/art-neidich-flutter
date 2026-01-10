@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
+import 'package:artneidich_app/provider/role_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +31,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _lastName = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
-
-  int selectedRole = -1;
 
   @override
   void dispose() {
@@ -104,58 +105,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               UIHelper.verticalSpace(4.h),
 
-              DropdownButtonFormField2<int>(
-                isExpanded: true,
-                hint: Text(
-                  "Select Role",
-                  style: TextFontStyle.headLine16c888888InterBold.copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                items: List.generate(
-                  roleList.length,
-                  (index) => DropdownMenuItem<int>(
-                    value: index,
-                    child: Text(
-                      roleList[index],
-                      style: TextFontStyle.headLine16c888888InterBold,
+              Consumer<RoleProvider>(
+                builder: (context, roleProvider, child) {
+                  return DropdownButtonFormField2<int>(
+                    isExpanded: true,
+                    hint: Text(
+                      "Select Role",
+                      style: TextFontStyle.headLine16c888888InterBold.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                ),
-                value: selectedRole == -1 ? null : selectedRole,
-                validator: (value) {
-                  if (value == null) {
-                    return "Role is required";
-                  }
-                  return null;
+                    items: List.generate(
+                      roleList.length,
+                      (index) => DropdownMenuItem<int>(
+                        value: index,
+                        child: Text(
+                          roleList[index],
+                          style: TextFontStyle.headLine16c888888InterBold,
+                        ),
+                      ),
+                    ),
+                    value: roleProvider.selectedRoleIndex == -1
+                        ? null
+                        : roleProvider.selectedRoleIndex,
+                    //selectedRole == -1 ? null : selectedRole,
+                    validator: (value) {
+                      if (value == null) {
+                        return "Role is required";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      roleProvider.setRole(value!, roleList[value]);
+
+                      log("Role==========> ${roleProvider.role}");
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFEFEFF1),
+
+                      // normal border
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                        borderSide: BorderSide.none,
+                      ),
+
+                      // error border
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                        borderSide: BorderSide(color: Colors.red, width: 1.5.w),
+                      ),
+
+                      // focused error border
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                        borderSide: BorderSide(color: Colors.red, width: 1.5),
+                      ),
+                    ),
+                  );
                 },
-                onChanged: (value) {
-                  setState(() {
-                    selectedRole = value!;
-                  });
-                },
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: const Color(0xFFEFEFF1),
-
-                  // normal border
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                    borderSide: BorderSide.none,
-                  ),
-
-                  // error border
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                    borderSide: BorderSide(color: Colors.red, width: 1.5.w),
-                  ),
-
-                  // focused error border
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                    borderSide: BorderSide(color: Colors.red, width: 1.5),
-                  ),
-                ),
               ),
 
               UIHelper.verticalSpace(16.h),
@@ -211,9 +219,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               CustomButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    NavigationService.navigateToReplacement(
-                      Routes.navigationScreen,
-                    );
+                    // NavigationService.navigateToReplacement(
+                    //   Routes.navigationScreen,
+                    // );
                   }
                 },
                 text: "Sign up",
