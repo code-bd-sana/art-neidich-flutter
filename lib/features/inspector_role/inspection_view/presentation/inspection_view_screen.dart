@@ -32,7 +32,7 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
         child: Column(
           children: [
             // Header AppBar Widget
-            InspectionHeaderWidget(title: '"Assigned Inspections"'),
+            InspectionHeaderWidget(title: "Assigned Inspections"),
 
             // Data Table Widget is here
             InspectionViewDataTableWidget(),
