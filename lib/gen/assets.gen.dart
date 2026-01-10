@@ -56,6 +56,9 @@ class $AssetsIconsGen {
   AssetGenImage get arrowRight =>
       const AssetGenImage('assets/icons/arrow_right.png');
 
+  /// File path: assets/icons/camera.png
+  AssetGenImage get camera => const AssetGenImage('assets/icons/camera.png');
+
   /// File path: assets/icons/download.png
   AssetGenImage get download =>
       const AssetGenImage('assets/icons/download.png');
@@ -74,6 +77,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/profile.png
   AssetGenImage get profile => const AssetGenImage('assets/icons/profile.png');
+
+  /// File path: assets/icons/push.png
+  AssetGenImage get push => const AssetGenImage('assets/icons/push.png');
 
   /// File path: assets/icons/right_arrow.png
   AssetGenImage get rightArrow =>
@@ -97,12 +103,14 @@ class $AssetsIconsGen {
         frame,
         arrowRightIcon,
         arrowRight,
+        camera,
         download,
         eyeOff,
         eyeOn,
         filter,
         label,
         profile,
+        push,
         rightArrow,
         search
       ];
