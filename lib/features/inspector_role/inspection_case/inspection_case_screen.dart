@@ -54,7 +54,9 @@ class _InspectionCaseScreenState extends State<InspectionCaseScreen> {
                 child: CustomDropDownWidget(
                   hintText: "Select Case ID",
                   items: inspectorCaseList,
-                  value: selectedInspectorCase == -1 ? null : selectedInspectorCase,
+                  value: selectedInspectorCase == -1
+                      ? null
+                      : selectedInspectorCase,
 
                   validator: (value) {
                     if (value == null) return "Case ID is required";

@@ -142,6 +142,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/report.png
   AssetGenImage get report => const AssetGenImage('assets/images/report.png');
 
+  /// File path: assets/images/retake.png
+  AssetGenImage get retake => const AssetGenImage('assets/images/retake.png');
+
   /// File path: assets/images/search_icon.png
   AssetGenImage get searchIcon =>
       const AssetGenImage('assets/images/search_icon.png');
@@ -151,6 +154,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/summary.png
   AssetGenImage get summary => const AssetGenImage('assets/images/summary.png');
+
+  /// File path: assets/images/take_another.png
+  AssetGenImage get takeAnother =>
+      const AssetGenImage('assets/images/take_another.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [
@@ -167,9 +174,11 @@ class $AssetsImagesGen {
         overview,
         photos,
         report,
+        retake,
         searchIcon,
         setting,
-        summary
+        summary,
+        takeAnother
       ];
 }
 
