@@ -7,10 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
-
 import 'features/inspection/presentation/inspection_screen.dart';
 import 'features/inspector_role/inspection_setting/inspection_setting_screen.dart';
-import 'features/inspector_role/inspection_view/inspection_view.dart';
+import 'features/inspector_role/inspection_view/presentation/inspection_view_screen.dart';
 import 'features/overview/presentation/overview_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -45,7 +44,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     // Inspector Roel
     List<Widget> inspectorPages = const [
       InspectorOverviewScreen(),
-      InspectionView(),
+      InspectionViewScreen(),
       InspectionSettingScreen(),
     ];
 
