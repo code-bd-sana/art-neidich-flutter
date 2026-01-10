@@ -8,7 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 import '/helpers/all_routes.dart';
-import 'features/inspector_role/inspector_overview/inspector_overview_screen.dart';
+import 'features/authentication/sign_up/sign_up_screen.dart';
 import 'gen/colors.gen.dart';
 import 'helpers/di.dart';
 import 'helpers/helper_methods.dart';
@@ -81,7 +81,7 @@ class UtillScreenMobile extends StatelessWidget {
             },
             navigatorKey: NavigationService.navigatorKey,
             onGenerateRoute: RouteGenerator.generateRoute,
-            home: InspectorOverviewScreen(),
+            home: SignUpScreen(),
           ),
         );
       },

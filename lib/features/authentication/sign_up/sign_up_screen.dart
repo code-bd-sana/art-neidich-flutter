@@ -219,9 +219,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               CustomButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // NavigationService.navigateToReplacement(
-                    //   Routes.navigationScreen,
-                    // );
+                    NavigationService.navigateToReplacement(
+                      Routes.navigationScreen,
+                    );
                   }
                 },
                 text: "Sign up",

@@ -1,11 +1,16 @@
 import 'package:artneidich_app/constants/text_font_style.dart';
+import 'package:artneidich_app/features/inspector_role/inspector_overview/inspector_overview_screen.dart';
 import 'package:artneidich_app/features/labels/presentation/labels_screen.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/provider/role_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 import 'features/inspection/presentation/inspection_screen.dart';
+import 'features/inspector_role/inspection_setting/inspection_setting_screen.dart';
+import 'features/inspector_role/inspection_view/inspection_view.dart';
 import 'features/overview/presentation/overview_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -18,12 +23,6 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = const [
-    OverviewScreen(),
-    InspectionScreen(),
-    LabelsScreen(),
-  ];
-
   Widget _navImage(String path, bool active) {
     return Image.asset(
       path,
@@ -35,8 +34,27 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final role = context.watch<RoleProvider>().role;
+
+    // Admin Role
+    List<Widget> adminPages = const [
+      OverviewScreen(),
+      InspectionScreen(),
+      LabelsScreen(),
+    ];
+    // Inspector Roel
+    List<Widget> inspectorPages = const [
+      InspectorOverviewScreen(),
+      InspectionView(),
+      InspectionSettingScreen(),
+    ];
+
+    // choose based on a role
+
+    /// choose based on role
+    final pages = role == "Admin" ? adminPages : inspectorPages;
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: _pages),
+      body: IndexedStack(index: _selectedIndex, children: pages),
 
       // BOTTOM NAV
       bottomNavigationBar: SafeArea(
@@ -57,32 +75,63 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
           tabBackgroundColor: Color(0xFF2D8D7C),
 
-          tabs: [
-            GButton(
-              icon: Icons.home,
-              leading: _navImage(
-                Assets.images.overview.path,
-                _selectedIndex == 0,
-              ),
-              text: 'Overview',
-            ),
+          tabs: role == "Admin"
+              ? [
+                  GButton(
+                    icon: Icons.home,
+                    leading: _navImage(
+                      Assets.images.overview.path,
+                      _selectedIndex == 0,
+                    ),
+                    text: 'Overview',
+                  ),
 
-          
-            GButton(
-              icon: Icons.search,
-              leading: _navImage(
-                Assets.images.inspection.path,
-                _selectedIndex == 1,
-              ),
-              text: 'Inspection',
-            ),
+                  GButton(
+                    icon: Icons.search,
+                    leading: _navImage(
+                      Assets.images.inspection.path,
+                      _selectedIndex == 1,
+                    ),
+                    text: 'Inspection',
+                  ),
 
-            GButton(
-              icon: Icons.person,
-              leading: _navImage(Assets.images.label.path, _selectedIndex == 2),
-              text: 'Labels',
-            ),
-          ],
+                  GButton(
+                    icon: Icons.person,
+                    leading: _navImage(
+                      Assets.images.label.path,
+                      _selectedIndex == 2,
+                    ),
+                    text: 'Labels',
+                  ),
+                ]
+              : [
+                  GButton(
+                    icon: Icons.home,
+                    leading: _navImage(
+                      Assets.images.overview.path,
+                      _selectedIndex == 0,
+                    ),
+                    text: 'Overview',
+                  ),
+
+                  GButton(
+                    icon: Icons.search,
+                    leading: _navImage(
+                      Assets.images.inspection.path,
+                      _selectedIndex == 1,
+                    ),
+                    text: 'Inspection',
+                  ),
+
+                  GButton(
+                    icon: Icons.person,
+                    leading: _navImage(
+                      Assets.images.setting.path,
+                      _selectedIndex == 2,
+                    ),
+                    text: 'Settings',
+                  ),
+                ],
         ),
       ),
     );

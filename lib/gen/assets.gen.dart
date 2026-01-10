@@ -146,6 +146,9 @@ class $AssetsImagesGen {
   AssetGenImage get searchIcon =>
       const AssetGenImage('assets/images/search_icon.png');
 
+  /// File path: assets/images/setting.png
+  AssetGenImage get setting => const AssetGenImage('assets/images/setting.png');
+
   /// File path: assets/images/summary.png
   AssetGenImage get summary => const AssetGenImage('assets/images/summary.png');
 
@@ -165,6 +168,7 @@ class $AssetsImagesGen {
         photos,
         report,
         searchIcon,
+        setting,
         summary
       ];
 }
