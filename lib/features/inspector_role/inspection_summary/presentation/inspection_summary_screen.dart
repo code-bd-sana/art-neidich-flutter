@@ -180,6 +180,8 @@ class _InspectionSummaryScreenState extends State<InspectionSummaryScreen> {
               formInspector:
                   'Looked for the damages caused by thunder, and found prove of damages in rooftop',
             ),
+
+            UIHelper.verticalSpaceExtraLarge,
           ],
         ),
       ),

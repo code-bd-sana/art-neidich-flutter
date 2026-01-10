@@ -43,9 +43,10 @@ class InspectorOverviewAppBarWidget extends StatelessWidget {
             ),
             Text(
               email,
-              style: TextFontStyle.headLine16c2D8D7CInterW700.copyWith(
-                color: Color(0xFFB3B3B3),
+              style: TextFontStyle.headLine16c141414InterW400.copyWith(
+                color: Color(0xFF8E8E93),
                 fontSize: 13.sp,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],

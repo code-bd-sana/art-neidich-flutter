@@ -15,6 +15,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Frame (1).png
   AssetGenImage get frame1 => const AssetGenImage('assets/icons/Frame (1).png');
 
+  /// File path: assets/icons/Frame (12).png
+  AssetGenImage get frame12 =>
+      const AssetGenImage('assets/icons/Frame (12).png');
+
+  /// File path: assets/icons/Frame (13).png
+  AssetGenImage get frame13 =>
+      const AssetGenImage('assets/icons/Frame (13).png');
+
+  /// File path: assets/icons/Frame (14).png
+  AssetGenImage get frame14 =>
+      const AssetGenImage('assets/icons/Frame (14).png');
+
   /// File path: assets/icons/Frame (2).png
   AssetGenImage get frame2 => const AssetGenImage('assets/icons/Frame (2).png');
 
@@ -73,6 +85,9 @@ class $AssetsIconsGen {
   /// List of all assets
   List<dynamic> get values => [
         frame1,
+        frame12,
+        frame13,
+        frame14,
         frame2,
         frame4,
         frame5,
