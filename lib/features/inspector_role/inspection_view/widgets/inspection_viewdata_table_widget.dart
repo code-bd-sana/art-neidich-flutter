@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../gen/assets.gen.dart';
+import '../../../../helpers/all_routes.dart';
+import '../../../../helpers/navigation_service.dart';
 import '../models/inspection_viewdata_model.dart';
 
 class InspectionViewDataTableWidget extends StatefulWidget {
@@ -73,7 +75,7 @@ class _InspectionViewDataTableWidgetState
               DataCell(
                 InkWell(
                   onTap: () {
-                    //NavigationService.navigateTo(Routes.jobDetailsScreen);
+                    NavigationService.navigateTo(Routes.inspectionIdScreen);
                   },
                   borderRadius: BorderRadius.circular(6.r),
                   child: Row(
@@ -103,7 +105,9 @@ class _InspectionViewDataTableWidgetState
               DataCell(
                 InkWell(
                   onTap: () {
-                    //NavigationService.navigateTo(Routes.jobDetailsScreen);
+                    NavigationService.navigateTo(
+                      Routes.inspectionSummaryScreen,
+                    );
                   },
                   borderRadius: BorderRadius.circular(6.r),
                   child: Container(

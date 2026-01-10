@@ -1,3 +1,5 @@
+import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -77,7 +79,11 @@ class _InspectionCaseScreenState extends State<InspectionCaseScreen> {
                   alignment: Alignment.topRight,
                   child: CustomButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        NavigationService.navigateTo(
+                          Routes.inspectionProgressScreen,
+                        );
+                      }
                     },
                     borderRadius: 30.r,
                     padding: EdgeInsets.symmetric(

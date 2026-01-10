@@ -14,7 +14,10 @@ import '../features/create_job/presentation/create_job_screen.dart';
 import '../features/create_label/create_label_screen.dart';
 import '../features/inspector/inspector_screen.dart';
 import '../features/inspector_list/presentation/inspector_list_screen.dart';
+import '../features/inspector_role/inspection_case/inspection_case_screen.dart';
 import '../features/inspector_role/inspection_id/inspection_id_screen.dart';
+import '../features/inspector_role/inspection_progress/presentation/inspection_progress_screen.dart';
+import '../features/inspector_role/inspection_summary/presentation/inspection_summary_screen.dart';
 import '../features/job_details/presentation/job_details_screen.dart';
 import '../features/profile/profile_screen.dart';
 import '../features/security/security_screen.dart';
@@ -46,11 +49,14 @@ final class Routes {
 
   static const String createLabelScreen = '/createLabelScreen';
 
-    static const String inspectionIdScreen = '/inspectionIdScreen';
+  static const String inspectionSummaryScreen = '/inspectionSummaryScreen';
+
+  static const String inspectionIdScreen = '/inspectionIdScreen';
+
+  static const String inspectionCaseScreen = '/inspectionCaseScreen';
+
+  static const String inspectionProgressScreen = '/inspectionProgressScreen';
 }
-
-
-
 
 final class RouteGenerator {
   static final RouteGenerator _routeGenerator = RouteGenerator._internal();
@@ -59,10 +65,35 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.inspectionProgressScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: InspectionProgressScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => InspectionProgressScreen(),
+              );
 
+      case Routes.inspectionCaseScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: InspectionCaseScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => InspectionCaseScreen());
 
+      case Routes.inspectionSummaryScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: InspectionSummaryScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => InspectionSummaryScreen(),
+              );
 
-  case Routes.inspectionIdScreen:
+      case Routes.inspectionIdScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
                 widget: InspectionIdScreen(),
@@ -70,8 +101,7 @@ final class RouteGenerator {
               )
             : CupertinoPageRoute(builder: (context) => InspectionIdScreen());
 
-
-       case Routes.createLabelScreen:
+      case Routes.createLabelScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
                 widget: CreateLabelScreen(),
@@ -79,14 +109,14 @@ final class RouteGenerator {
               )
             : CupertinoPageRoute(builder: (context) => CreateLabelScreen());
 
-       case Routes.approvalListScreen:
+      case Routes.approvalListScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
                 widget: ApprovalListScreen(),
                 settings: settings,
               )
             : CupertinoPageRoute(builder: (context) => ApprovalListScreen());
-       case Routes.inspectorListScreen:
+      case Routes.inspectorListScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
                 widget: InspectorListScreen(),
@@ -94,11 +124,13 @@ final class RouteGenerator {
               )
             : CupertinoPageRoute(builder: (context) => InspectorListScreen());
 
-         case Routes.inspectorScreen:
+      case Routes.inspectorScreen:
         return Platform.isAndroid
-            ? _FadedTransitionRoute(widget: InspectorScreen(), settings: settings)
+            ? _FadedTransitionRoute(
+                widget: InspectorScreen(),
+                settings: settings,
+              )
             : CupertinoPageRoute(builder: (context) => InspectorScreen());
-
 
       case Routes.adminScreen:
         return Platform.isAndroid
