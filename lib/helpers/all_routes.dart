@@ -14,6 +14,7 @@ import '../features/create_job/presentation/create_job_screen.dart';
 import '../features/create_label/create_label_screen.dart';
 import '../features/inspector/inspector_screen.dart';
 import '../features/inspector_list/presentation/inspector_list_screen.dart';
+import '../features/inspector_role/inspection_id/inspection_id_screen.dart';
 import '../features/job_details/presentation/job_details_screen.dart';
 import '../features/profile/profile_screen.dart';
 import '../features/security/security_screen.dart';
@@ -44,6 +45,8 @@ final class Routes {
   static const String approvalListScreen = '/approvalListScreen';
 
   static const String createLabelScreen = '/createLabelScreen';
+
+    static const String inspectionIdScreen = '/inspectionIdScreen';
 }
 
 
@@ -56,6 +59,16 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+
+
+
+  case Routes.inspectionIdScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: InspectionIdScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => InspectionIdScreen());
 
 
        case Routes.createLabelScreen:

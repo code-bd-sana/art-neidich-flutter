@@ -3,6 +3,8 @@ import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../helpers/all_routes.dart';
+import '../../../../helpers/navigation_service.dart';
 import '../widgets/inspection_header_widget.dart';
 import '../widgets/inspection_viewdata_table_widget.dart';
 import '../widgets/inspecttion_viewsearch_bottom_widget.dart';
@@ -30,7 +32,7 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
         child: Column(
           children: [
             // Header AppBar Widget
-            InspectionHeaderWidget(),
+            InspectionHeaderWidget(title: '"Assigned Inspections"'),
 
             // Data Table Widget is here
             InspectionViewDataTableWidget(),
@@ -82,7 +84,7 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
               heroTag: "inpectionview_screen_tag",
               title: 'Start Inspection',
               onpressed: () {
-                //    NavigationService.navigateTo(Routes.createJobScreen);
+                NavigationService.navigateTo(Routes.inspectionIdScreen);
               },
             ),
           ],

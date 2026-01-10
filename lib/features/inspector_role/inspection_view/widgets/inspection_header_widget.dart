@@ -5,7 +5,8 @@ import '../../../../constants/text_font_style.dart';
 import '../../../../gen/assets.gen.dart';
 
 class InspectionHeaderWidget extends StatelessWidget {
-  const InspectionHeaderWidget({super.key});
+  final String title;
+  const InspectionHeaderWidget({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class InspectionHeaderWidget extends StatelessWidget {
                   ),
 
                   Text(
-                    "Assigned Inspections",
+                    title,
                     style: TextFontStyle.headLine28c3D3D3DInterW700.copyWith(
                       fontSize: 18.sp,
                       color: Colors.white,
