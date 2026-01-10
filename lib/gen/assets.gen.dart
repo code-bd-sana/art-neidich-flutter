@@ -27,8 +27,32 @@ class $AssetsIconsGen {
   AssetGenImage get frame14 =>
       const AssetGenImage('assets/icons/Frame (14).png');
 
+  /// File path: assets/icons/Frame (15).png
+  AssetGenImage get frame15 =>
+      const AssetGenImage('assets/icons/Frame (15).png');
+
+  /// File path: assets/icons/Frame (16).png
+  AssetGenImage get frame16 =>
+      const AssetGenImage('assets/icons/Frame (16).png');
+
+  /// File path: assets/icons/Frame (17).png
+  AssetGenImage get frame17 =>
+      const AssetGenImage('assets/icons/Frame (17).png');
+
+  /// File path: assets/icons/Frame (18).png
+  AssetGenImage get frame18 =>
+      const AssetGenImage('assets/icons/Frame (18).png');
+
+  /// File path: assets/icons/Frame (19).png
+  AssetGenImage get frame19 =>
+      const AssetGenImage('assets/icons/Frame (19).png');
+
   /// File path: assets/icons/Frame (2).png
   AssetGenImage get frame2 => const AssetGenImage('assets/icons/Frame (2).png');
+
+  /// File path: assets/icons/Frame (20).png
+  AssetGenImage get frame20 =>
+      const AssetGenImage('assets/icons/Frame (20).png');
 
   /// File path: assets/icons/Frame (4).png
   AssetGenImage get frame4 => const AssetGenImage('assets/icons/Frame (4).png');
@@ -47,6 +71,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/Frame.svg
   String get frame => 'assets/icons/Frame.svg';
+
+  /// File path: assets/icons/Vector.png
+  AssetGenImage get vector => const AssetGenImage('assets/icons/Vector.png');
 
   /// File path: assets/icons/arrow-right_icon.png
   AssetGenImage get arrowRightIcon =>
@@ -68,6 +95,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/eye_on.svg
   String get eyeOn => 'assets/icons/eye_on.svg';
+
+  /// File path: assets/icons/farem21.png
+  AssetGenImage get farem21 => const AssetGenImage('assets/icons/farem21.png');
 
   /// File path: assets/icons/filter.png
   AssetGenImage get filter => const AssetGenImage('assets/icons/filter.png');
@@ -94,19 +124,27 @@ class $AssetsIconsGen {
         frame12,
         frame13,
         frame14,
+        frame15,
+        frame16,
+        frame17,
+        frame18,
+        frame19,
         frame2,
+        frame20,
         frame4,
         frame5,
         frame6,
         frame7,
         frame8,
         frame,
+        vector,
         arrowRightIcon,
         arrowRight,
         camera,
         download,
         eyeOff,
         eyeOn,
+        farem21,
         filter,
         label,
         profile,
@@ -136,6 +174,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/email.png
   AssetGenImage get email => const AssetGenImage('assets/images/email.png');
+
+  /// File path: assets/images/help_support.png
+  AssetGenImage get helpSupport =>
+      const AssetGenImage('assets/images/help_support.png');
 
   /// File path: assets/images/inspection.png
   AssetGenImage get inspection =>
@@ -189,6 +231,7 @@ class $AssetsImagesGen {
         vector,
         createJob,
         email,
+        helpSupport,
         inspection,
         jobs,
         jobsIcon,

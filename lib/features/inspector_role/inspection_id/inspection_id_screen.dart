@@ -5,10 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common_widget/custom_button.dart';
 import '../../../common_widget/custom_drop_down_widget.dart';
+import '../../../common_widget/header_widget.dart';
 import '../../../constants/text_font_style.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../helpers/ui_helpers.dart';
-import '../inspection_view/widgets/inspection_header_widget.dart';
 
 class InspectionIdScreen extends StatefulWidget {
   const InspectionIdScreen({super.key});
@@ -39,7 +39,12 @@ class _InspectionIdScreenState extends State<InspectionIdScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header AppBar Widget
-              InspectionHeaderWidget(title: "Inspections"),
+              // InspectionHeaderWidget(title: "Inspections"),
+              HeaderWidget(
+                title: "Jobs",
+                icon: Assets.images.jobsIcon.path,
+                subtitle: 'Inspections',
+              ),
 
               UIHelper.verticalSpace(20.h),
 

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../../helpers/all_routes.dart';
+import '../../../helpers/navigation_service.dart';
 import '../../settings/widgets/settings_title_widget.dart';
 import '../widgets/inspector_overview_widget.dart';
 
@@ -53,7 +55,7 @@ class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
                 title: 'Camera Settings',
                 icon: Assets.icons.frame12.path,
                 onPressed: () {
-                  //  NavigationService.navigateTo(Routes.securityScreen);
+                  NavigationService.navigateTo(Routes.cameraSettingScreen);
                 },
               ),
 
@@ -64,7 +66,9 @@ class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
                 title: 'Notifications',
                 icon: Assets.icons.frame13.path,
                 onPressed: () {
-                  //    NavigationService.navigateTo(Routes.securityScreen);
+                  NavigationService.navigateTo(
+                    Routes.inspectNotificationScreen,
+                  );
                 },
               ),
 
@@ -75,7 +79,7 @@ class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
                 title: 'Help & Support',
                 icon: Assets.icons.frame14.path,
                 onPressed: () {
-                  //   NavigationService.navigateTo(Routes.securityScreen);
+                   NavigationService.navigateTo(Routes.helpSupportScreen);
                 },
               ),
             ],

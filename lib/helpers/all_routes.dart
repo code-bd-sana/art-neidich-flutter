@@ -14,6 +14,10 @@ import '../features/create_job/presentation/create_job_screen.dart';
 import '../features/create_label/create_label_screen.dart';
 import '../features/inspector/inspector_screen.dart';
 import '../features/inspector_list/presentation/inspector_list_screen.dart';
+import '../features/inspector_role/camera_setting/camera_setting_screen.dart';
+import '../features/inspector_role/email_support/email_support_screen.dart';
+import '../features/inspector_role/help_support/presentation/help_support_screen.dart';
+import '../features/inspector_role/inspect_notification/inspec_notification_screen.dart';
 import '../features/inspector_role/inspection_case/inspection_case_screen.dart';
 import '../features/inspector_role/inspection_id/inspection_id_screen.dart';
 import '../features/inspector_role/inspection_progress/presentation/inspection_progress_screen.dart';
@@ -56,8 +60,17 @@ final class Routes {
   static const String inspectionCaseScreen = '/inspectionCaseScreen';
 
   static const String inspectionProgressScreen = '/inspectionProgressScreen';
+
+  static const String emailSupportScreen = '/emailSupportScreen';
+
+  static const String cameraSettingScreen = '/cameraSettingScreen';
+
+  static const String inspectNotificationScreen = '/inspectNotificationScreen';
+
+  static const String helpSupportScreen = '/helpSupportScreen';
 }
 
+//
 final class RouteGenerator {
   static final RouteGenerator _routeGenerator = RouteGenerator._internal();
   RouteGenerator._internal();
@@ -65,6 +78,40 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.helpSupportScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: HelpSupportScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => HelpSupportScreen());
+
+      case Routes.inspectNotificationScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: InspectNotificationScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => InspectNotificationScreen(),
+              );
+
+      case Routes.cameraSettingScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: CameraSettingScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => CameraSettingScreen());
+
+      case Routes.emailSupportScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: EmailSupportScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => EmailSupportScreen());
+
       case Routes.inspectionProgressScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(

@@ -51,6 +51,7 @@ class _CameraSettingScreenState extends State<CameraSettingScreen> {
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: AdvancedSwitch(
+                          activeColor: Color(0xFF2D8D7C),
                           controller: cameraSettingProvider.controller,
                           onChanged: (value) {
                             cameraSettingProvider.toggleUpdateCamera(value);

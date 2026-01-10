@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../../helpers/ui_helpers.dart';
-import '../../inspection_view/widgets/inspection_header_widget.dart';
 import '../widgets/inspection_contact_widget.dart';
 import '../widgets/inspection_details_widget.dart';
 import '../widgets/inspection_internal_widget.dart';
@@ -25,7 +26,11 @@ class _InspectionSummaryScreenState extends State<InspectionSummaryScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InspectionHeaderWidget(title: "Job Details"),
+            HeaderWidget(
+              title: "Jobs",
+              icon: Assets.images.jobsIcon.path,
+              subtitle: 'Inspections',
+            ),
 
             UIHelper.verticalSpace(20.h),
             Padding(

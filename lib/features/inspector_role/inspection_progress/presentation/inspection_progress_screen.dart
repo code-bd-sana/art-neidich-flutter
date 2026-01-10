@@ -5,10 +5,10 @@ import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../helpers/ui_helpers.dart';
 import '../../../job_details/widgets/job_details_widget.dart';
-import '../../inspection_view/widgets/inspection_header_widget.dart';
 import '../widgets/photos_widget.dart';
 
 class InspectionProgressScreen extends StatefulWidget {
@@ -41,7 +41,11 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header AppBar Widget
-            InspectionHeaderWidget(title: "Inspection Progress"),
+            HeaderWidget(
+              title: "Jobs",
+              icon: Assets.images.jobsIcon.path,
+              subtitle: 'Inspections',
+            ),
 
             UIHelper.verticalSpace(20.h),
 
