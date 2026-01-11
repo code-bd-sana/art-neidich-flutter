@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
@@ -21,6 +23,8 @@ class InspectionProgressScreen extends StatefulWidget {
 
 class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
   List<Map<String, dynamic>> dataList = [
+    {"label": "Label 1", "image": Assets.images.inspection.path},
+    {"label": "Label 1", "image": Assets.images.inspection.path},
     {"label": "Label 1", "image": Assets.images.inspection.path},
   ];
 
@@ -75,6 +79,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
             JobDetailsWidget(title: 'Total Labels', value: '10'),
             UIHelper.verticalSpace(20.h),
 
+            // Dynamic Data
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -93,6 +98,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // Label
                           Expanded(
                             flex: 2,
                             child: Text(
@@ -117,7 +123,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
 
                           UIHelper.horizontalSpace(20.w),
 
-                          // value comes just after colon
+                          // value
                           Expanded(
                             flex: 2,
                             child: Container(
@@ -177,48 +183,51 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                           Expanded(flex: 2, child: LabelPhotosWidget()),
                         ],
                       ),
-
-                      UIHelper.verticalSpace(20.h),
-
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: CustomButton(
-                          minWidth: 0,
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                          onPressed: () {},
-                          borderRadius: 12.r,
-                          padding: EdgeInsets.symmetric(
-                            vertical: 12.h,
-                            horizontal: 12.w,
-                          ),
-
-                          color: Colors.white,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            spacing: 8.w,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: 16.sp,
-                                color: Color(0xFF2D8D7C),
-                              ),
-                              Text(
-                                "Create Label",
-                                style: TextFontStyle.headLine16c141414InterW400
-                                    .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xFF2D8D7C),
-                                      fontSize: 14.sp,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 );
               },
+            ),
+
+            UIHelper.verticalSpace(20.h),
+
+            // Create Label button
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: CustomButton(
+                  minWidth: 0,
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                  onPressed: () {
+                    log("Create button");
+                  },
+                  borderRadius: 12.r,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 12.h,
+                    horizontal: 12.w,
+                  ),
+
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 8.w,
+                    children: [
+                      Icon(Icons.add, size: 16.sp, color: Color(0xFF2D8D7C)),
+
+                      Text(
+                        "Create Label",
+                        style: TextFontStyle.headLine16c141414InterW400
+                            .copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF2D8D7C),
+                              fontSize: 14.sp,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
 
             UIHelper.verticalSpace(20.h),

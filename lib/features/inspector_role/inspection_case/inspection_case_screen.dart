@@ -85,7 +85,7 @@ class _InspectionCaseScreenState extends State<InspectionCaseScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         NavigationService.navigateTo(
-                          Routes.inspectionProgressScreen,
+                          Routes.inspectionLabelScreen,
                         );
                       }
                     },

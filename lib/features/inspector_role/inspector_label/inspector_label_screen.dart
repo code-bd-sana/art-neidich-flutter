@@ -1,12 +1,14 @@
+import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common_widget/custom_button.dart';
 import '../../../common_widget/custom_drop_down_widget.dart';
+import '../../../common_widget/header_widget.dart';
 import '../../../constants/text_font_style.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../helpers/navigation_service.dart';
 import '../../../helpers/ui_helpers.dart';
-import '../inspection_view/widgets/inspection_header_widget.dart';
 
 class InspectionLabelScreen extends StatefulWidget {
   const InspectionLabelScreen({super.key});
@@ -19,12 +21,7 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
   //Inspector List
   int selectedInspectorLabel = -1;
 
-  List<String> inspectorLabelList = [
-    "BedRoom 1",
-   "BedRoom 2",
-   "BedRoom 3",
-   
-  ];
+  List<String> inspectorLabelList = ["BedRoom 1", "BedRoom 2", "BedRoom 3"];
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -37,14 +34,18 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header AppBar Widget
-              InspectionHeaderWidget(title: "Labels"),
+              HeaderWidget(
+                title: "Jobs",
+                icon: Assets.images.jobsIcon.path,
+                subtitle: 'Select Label',
+              ),
 
               UIHelper.verticalSpace(20.h),
 
               Padding(
                 padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                 child: Text(
-                  "Inspection ID",
+                  "Label",
                   style: TextFontStyle.headLine14c323539InterW400,
                 ),
               ),
@@ -54,7 +55,9 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
                 child: CustomDropDownWidget(
                   hintText: "Select Label",
                   items: inspectorLabelList,
-                  value: selectedInspectorLabel == -1 ? null : selectedInspectorLabel,
+                  value: selectedInspectorLabel == -1
+                      ? null
+                      : selectedInspectorLabel,
 
                   validator: (value) {
                     if (value == null) return "Label is required";
@@ -75,7 +78,11 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
                   alignment: Alignment.topRight,
                   child: CustomButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        NavigationService.navigateTo(
+                          Routes.inspectionProgressScreen,
+                        );
+                      }
                     },
                     borderRadius: 30.r,
                     padding: EdgeInsets.symmetric(

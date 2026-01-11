@@ -8,12 +8,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 import '/helpers/all_routes.dart';
-import 'features/inspector_role/inspection_setting/inspection_setting_screen.dart';
 import 'gen/colors.gen.dart';
 import 'helpers/di.dart';
 import 'helpers/helper_methods.dart';
 import 'helpers/navigation_service.dart';
 import 'helpers/register_provider.dart';
+import 'navigation_screen.dart';
 import 'networks/dio/dio.dart';
 
 //Future<void> backgroundHandler(RemoteMessage message) async {}
@@ -81,7 +81,7 @@ class UtillScreenMobile extends StatelessWidget {
             },
             navigatorKey: NavigationService.navigatorKey,
             onGenerateRoute: RouteGenerator.generateRoute,
-            home: InspectionSettingScreen(),
+            home: NavigationScreen(),
           ),
         );
       },
