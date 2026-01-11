@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LabelProvider extends ChangeNotifier {
-  final List<String> _labelList = [];
+  final List<String> _labelList = [
+    "exterior Front elevation",
+    "family room",
+    "kitchen",
+  ];
 
   List<String> get labelList => _labelList;
 

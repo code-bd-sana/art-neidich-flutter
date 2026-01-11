@@ -69,10 +69,50 @@ class _InspectionScreenState extends State<InspectionScreen> {
                             ),
                             borderRadius: BorderRadius.circular(10.r),
                             icon: Icon(Icons.more_vert, color: Colors.white),
-                            onSelected: (value) {
+                            onSelected: (value) async {
                               if (value == 'this_month') {
                               } else if (value == 'previous_month') {
-                              } else {}
+                              } else {
+                                final DateTime?
+                                pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime.now(),
+
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: Color(
+                                            0xFF2D8D7C,
+                                          ), // header background color (top bar)
+                                          onPrimary:
+                                              Colors.white, // header text color
+                                          onSurface:
+                                              Colors.black, // body text color
+                                        ),
+                                        textButtonTheme: TextButtonThemeData(
+                                          style: TextButton.styleFrom(
+                                            foregroundColor: Color(
+                                              0xFF2D8D7C,
+                                            ), // "CANCEL"/"OK" button color
+                                          ),
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  },
+                                );
+
+                                if (pickedDate != null) {
+                                  setState(() {
+                                    // _dateController.text = DateFormat(
+                                    //   'dd-MM-yyyy',
+                                    // ).format(pickedDate);
+                                  });
+                                }
+                              }
                             },
                             itemBuilder: (context) => [
                               PopupMenuItem(
