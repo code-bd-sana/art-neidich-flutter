@@ -14,7 +14,6 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  bool _isExpanded = false;
   @override
   Widget build(BuildContext context) {
     String name = "Arti";

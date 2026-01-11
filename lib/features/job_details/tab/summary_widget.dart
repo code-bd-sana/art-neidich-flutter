@@ -29,7 +29,7 @@ class SummaryWidget extends StatelessWidget {
         UIHelper.verticalSpace(20.h),
         JobDetailsWidget(title: 'Inspector', value: 'John Doe'),
         UIHelper.verticalSpace(20.h),
-        JobDetailsWidget(title: 'FHA Case Details', value: 'John Doe'),
+        JobDetailsWidget(title: 'FHA Case Details', value: 'Case-001'),
         UIHelper.verticalSpace(20.h),
         JobDetailsWidget(title: 'OrderID', value: '8813218R'),
         UIHelper.verticalSpace(20.h),

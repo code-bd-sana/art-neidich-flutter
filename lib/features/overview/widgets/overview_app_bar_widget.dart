@@ -58,6 +58,7 @@ class OverviewAppBarWidget extends StatelessWidget {
           icon: Icon(Icons.more_vert, color: Colors.black),
           onSelected: (value) {
             if (value == 'notification') {
+               NavigationService.navigateTo(Routes.notificationScreen);
             } else if (value == 'settings') {
               NavigationService.navigateTo(Routes.settingsScreen);
             }

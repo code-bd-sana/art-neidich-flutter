@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../constants/text_font_style.dart';
 import '../../../../gen/assets.gen.dart';
@@ -51,8 +52,14 @@ class HelpSupportWidget extends StatelessWidget {
           title: 'Call Office',
           icon: Assets.icons.vector.path,
           icon2: Assets.icons.frame16.path,
-          onPressed: () {
-            //  NavigationService.navigateTo(Routes.securityScreen);
+          onPressed: () async {
+            final Uri uri = Uri(scheme: 'tel', path: "123456789");
+
+            if (await canLaunchUrl(uri)) {
+              await launchUrl(uri);
+            } else {
+              throw 'Could not open dial pad';
+            }
           },
         ),
         UIHelper.verticalSpace(10.h),

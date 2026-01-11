@@ -49,7 +49,7 @@ class _InspectionSummaryScreenState extends State<InspectionSummaryScreen> {
             UIHelper.verticalSpace(20.h),
             InspectionDetailsWidget(
               title: 'FHA Case Details',
-              value: 'John Doe',
+              value: 'Case-001',
             ),
             UIHelper.verticalSpace(20.h),
             InspectionDetailsWidget(title: 'OrderID', value: '8813218R'),

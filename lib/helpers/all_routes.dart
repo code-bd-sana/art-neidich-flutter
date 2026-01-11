@@ -23,6 +23,7 @@ import '../features/inspector_role/inspection_id/inspection_id_screen.dart';
 import '../features/inspector_role/inspection_progress/presentation/inspection_progress_screen.dart';
 import '../features/inspector_role/inspection_summary/presentation/inspection_summary_screen.dart';
 import '../features/job_details/presentation/job_details_screen.dart';
+import '../features/notification/notification_screen.dart';
 import '../features/profile/profile_screen.dart';
 import '../features/security/security_screen.dart';
 import '../features/settings/settings_screen.dart';
@@ -68,6 +69,8 @@ final class Routes {
   static const String inspectNotificationScreen = '/inspectNotificationScreen';
 
   static const String helpSupportScreen = '/helpSupportScreen';
+
+  static const String notificationScreen = '/notificationScreen';
 }
 
 //
@@ -78,6 +81,14 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.notificationScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: NotificationScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(builder: (context) => NotificationScreen());
+
       case Routes.helpSupportScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
