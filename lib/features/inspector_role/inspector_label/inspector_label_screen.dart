@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +24,8 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
   int selectedInspectorLabel = -1;
 
   List<String> inspectorLabelList = ["BedRoom 1", "BedRoom 2", "BedRoom 3"];
+
+  String labelName = "";
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -67,6 +71,8 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
                   onChanged: (value) {
                     setState(() {
                       selectedInspectorLabel = value!;
+
+                      labelName = inspectorLabelList[selectedInspectorLabel];
                     });
                   },
                 ),
@@ -79,9 +85,11 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
                   child: CustomButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        NavigationService.navigateTo(
+                        NavigationService.navigateToWithArgs(
                           Routes.inspectionProgressScreen,
+                          {"labelName": labelName},
                         );
+                        log(labelName);
                       }
                     },
                     borderRadius: 30.r,

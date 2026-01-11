@@ -149,13 +149,15 @@ final class RouteGenerator {
             : CupertinoPageRoute(builder: (context) => EmailSupportScreen());
 
       case Routes.inspectionProgressScreen:
+        final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: InspectionProgressScreen(),
+                widget: InspectionProgressScreen(labelName: args["labelName"]),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) => InspectionProgressScreen(),
+                builder: (context) =>
+                    InspectionProgressScreen(labelName: args["labelName"]),
               );
 
       case Routes.inspectionCaseScreen:

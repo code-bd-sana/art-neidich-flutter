@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,15 +16,17 @@ class RepeatInspectionLabelScreen extends StatefulWidget {
   const RepeatInspectionLabelScreen({super.key});
 
   @override
-  State<RepeatInspectionLabelScreen> createState() => _RepeatInspectionLabelScreenState();
+  State<RepeatInspectionLabelScreen> createState() =>
+      _RepeatInspectionLabelScreenState();
 }
 
-class _RepeatInspectionLabelScreenState extends State<RepeatInspectionLabelScreen> {
+class _RepeatInspectionLabelScreenState
+    extends State<RepeatInspectionLabelScreen> {
   //Inspector List
   int selectedInspectorLabel = -1;
 
   List<String> inspectorLabelList = ["BedRoom 1", "BedRoom 2", "BedRoom 3"];
-
+  String labelName = "";
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -67,6 +71,7 @@ class _RepeatInspectionLabelScreenState extends State<RepeatInspectionLabelScree
                   onChanged: (value) {
                     setState(() {
                       selectedInspectorLabel = value!;
+                      labelName = inspectorLabelList[selectedInspectorLabel];
                     });
                   },
                 ),
@@ -79,10 +84,12 @@ class _RepeatInspectionLabelScreenState extends State<RepeatInspectionLabelScree
                   child: CustomButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        NavigationService.navigateTo(
+                        NavigationService.navigateToWithArgs(
                           Routes.inspectionProgressScreen,
+                          {"labelName": labelName},
                         );
                       }
+                      log(labelName);
                     },
                     borderRadius: 30.r,
                     padding: EdgeInsets.symmetric(

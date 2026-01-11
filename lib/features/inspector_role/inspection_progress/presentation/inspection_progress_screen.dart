@@ -15,7 +15,8 @@ import '../../../job_details/widgets/job_details_widget.dart';
 import '../widgets/photos_widget.dart';
 
 class InspectionProgressScreen extends StatefulWidget {
-  const InspectionProgressScreen({super.key});
+  final String labelName;
+  const InspectionProgressScreen({super.key, required this.labelName});
 
   @override
   State<InspectionProgressScreen> createState() =>
