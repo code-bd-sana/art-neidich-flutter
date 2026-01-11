@@ -23,6 +23,7 @@ import '../features/inspector_role/inspection_id/inspection_id_screen.dart';
 import '../features/inspector_role/inspection_progress/presentation/inspection_progress_screen.dart';
 import '../features/inspector_role/inspection_summary/presentation/inspection_summary_screen.dart';
 import '../features/inspector_role/inspector_label/inspector_label_screen.dart';
+import '../features/inspector_role/repeat_inpection_label/repeat_inspection_label_screen.dart';
 import '../features/job_details/presentation/job_details_screen.dart';
 import '../features/notification/notification_screen.dart';
 import '../features/profile/profile_screen.dart';
@@ -74,6 +75,9 @@ final class Routes {
   static const String notificationScreen = '/notificationScreen';
 
   static const String inspectionLabelScreen = '/inspectionLabelScreen';
+
+  static const String repeatInspectionLabelScreen =
+      '/repeatInspectionLabelScreen';
 }
 
 //
@@ -84,6 +88,16 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.repeatInspectionLabelScreen:
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: RepeatInspectionLabelScreen(),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => RepeatInspectionLabelScreen(),
+              );
+
       case Routes.inspectionLabelScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(

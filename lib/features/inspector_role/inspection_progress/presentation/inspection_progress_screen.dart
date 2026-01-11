@@ -1,15 +1,16 @@
-import 'dart:developer';
-
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../helpers/ui_helpers.dart';
+import '../../../../provider/inspector_progress_provider.dart';
 import '../../../job_details/widgets/job_details_widget.dart';
 import '../widgets/photos_widget.dart';
 
@@ -22,12 +23,6 @@ class InspectionProgressScreen extends StatefulWidget {
 }
 
 class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
-  List<Map<String, dynamic>> dataList = [
-    {"label": "Label 1", "image": Assets.images.inspection.path},
-    {"label": "Label 1", "image": Assets.images.inspection.path},
-    {"label": "Label 1", "image": Assets.images.inspection.path},
-  ];
-
   final _noteController = TextEditingController();
 
   @override
@@ -80,111 +75,120 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
             UIHelper.verticalSpace(20.h),
 
             // Dynamic Data
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              itemCount: dataList.length,
+            Consumer<InspectorProgressProvider>(
+              builder: (context, inspectorProgressProvider, child) {
+                return ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemCount:
+                      inspectorProgressProvider.inspectorLabelList.length,
 
-              itemBuilder: (_, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 10.h,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                  itemBuilder: (_, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 10.h,
+                      ),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Label
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              "Label",
-                              style: TextFontStyle.headLine16c141414InterW400
-                                  .copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                  ),
-                            ),
-                          ),
-
-                          // colon fixed – no Expanded
-                          Text(
-                            ": ",
-                            style: TextFontStyle.headLine16c141414InterW400
-                                .copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Label
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "Label",
+                                  style: TextFontStyle
+                                      .headLine16c141414InterW400
+                                      .copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14.sp,
+                                      ),
                                 ),
-                          ),
-
-                          UIHelper.horizontalSpace(20.w),
-
-                          // value
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFEFEFF1),
-                                borderRadius: BorderRadius.circular(4.r),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.w,
-                                vertical: 6.h,
-                              ),
-                              child: Text(
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                dataList[index]["label"],
+
+                              // colon fixed – no Expanded
+                              Text(
+                                ": ",
                                 style: TextFontStyle.headLine16c141414InterW400
                                     .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
                                       fontSize: 14.sp,
                                     ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
 
-                      UIHelper.verticalSpace(10.h),
+                              UIHelper.horizontalSpace(20.w),
 
-                      // Image.
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              "Captured Image",
-                              style: TextFontStyle.headLine16c141414InterW400
-                                  .copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
+                              // value
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFEFEFF1),
+                                    borderRadius: BorderRadius.circular(4.r),
                                   ),
-                            ),
-                          ),
-
-                          // colon fixed – no Expanded
-                          Text(
-                            ": ",
-                            style: TextFontStyle.headLine16c141414InterW400
-                                .copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8.w,
+                                    vertical: 6.h,
+                                  ),
+                                  child: Text(
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    inspectorProgressProvider
+                                        .inspectorLabelList[index]["label"],
+                                    style: TextFontStyle
+                                        .headLine16c141414InterW400
+                                        .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black,
+                                          fontSize: 14.sp,
+                                        ),
+                                  ),
                                 ),
+                              ),
+                            ],
                           ),
 
-                          // value comes just after colon
-                          Expanded(flex: 2, child: LabelPhotosWidget()),
+                          UIHelper.verticalSpace(10.h),
+
+                          // Image.
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  "Captured Image",
+                                  style: TextFontStyle
+                                      .headLine16c141414InterW400
+                                      .copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14.sp,
+                                      ),
+                                ),
+                              ),
+
+                              // colon fixed – no Expanded
+                              Text(
+                                ": ",
+                                style: TextFontStyle.headLine16c141414InterW400
+                                    .copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14.sp,
+                                    ),
+                              ),
+
+                              // value comes just after colon
+                              Expanded(flex: 2, child: LabelPhotosWidget()),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 );
               },
             ),
@@ -200,7 +204,9 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                   minWidth: 0,
                   borderSide: BorderSide(color: Colors.grey.shade300),
                   onPressed: () {
-                    log("Create button");
+                    NavigationService.navigateTo(
+                      Routes.repeatInspectionLabelScreen,
+                    );
                   },
                   borderRadius: 12.r,
                   padding: EdgeInsets.symmetric(

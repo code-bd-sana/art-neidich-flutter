@@ -2,6 +2,7 @@ import 'package:artneidich_app/provider/reset_password_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/camera_setting_provider.dart';
+import '../provider/inspector_progress_provider.dart';
 import '../provider/label_provider.dart';
 import '../provider/otp_provider.dart';
 import '../provider/push_notification_provider.dart';
@@ -33,6 +34,10 @@ var providers = [
   ),
 
   ChangeNotifierProvider<LabelProvider>(create: ((context) => LabelProvider())),
+
+  ChangeNotifierProvider<InspectorProgressProvider>(
+    create: ((context) => InspectorProgressProvider()),
+  ),
 ];
 
 //
