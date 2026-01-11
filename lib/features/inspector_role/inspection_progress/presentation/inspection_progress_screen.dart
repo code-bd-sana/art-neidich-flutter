@@ -183,7 +183,16 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                               ),
 
                               // value comes just after colon
-                              Expanded(flex: 2, child: LabelPhotosWidget()),
+                              Expanded(
+                                flex: 2,
+                                child: LabelPhotosWidget(
+                                  labelIndex: index,
+                                  provider: inspectorProgressProvider,
+
+                                  imageList: inspectorProgressProvider
+                                      .inspectorLabelList[index]["images"],
+                                ),
+                              ),
                             ],
                           ),
                         ],
