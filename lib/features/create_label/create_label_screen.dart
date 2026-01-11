@@ -4,8 +4,10 @@ import 'package:artneidich_app/common_widget/header_widget.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
+import 'package:artneidich_app/provider/label_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/text_font_style.dart';
 
@@ -57,6 +59,7 @@ class _CreateLabelScreenState extends State<CreateLabelScreen> {
               Padding(
                 padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                 child: CustomTextField(
+                  maxLines: 10,
                   controller: labelnameController,
                   style: TextFontStyle.headLine14c323539InterW400.copyWith(
                     color: Color(0xFF71717A),
@@ -79,6 +82,11 @@ class _CreateLabelScreenState extends State<CreateLabelScreen> {
                   child: CustomButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        Provider.of<LabelProvider>(
+                          context,
+                          listen: false,
+                        ).addLabel(labelnameController.text);
+
                         NavigationService.goBack;
                       }
                     },
