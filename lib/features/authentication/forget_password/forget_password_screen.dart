@@ -1,7 +1,9 @@
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common_widget/auth_custom_app_bar.dart';
 import '../../../common_widget/custom_button.dart';
 import '../../../constants/validation.dart';
+import '../../../networks/api_acess.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -72,9 +75,20 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         child: CustomButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              NavigationService.navigateToWithArgs(Routes.otpVerifiedScreen, {
-                "email": _email.text,
-              });
+              forgetPasswordRxObj
+                  .forgetPasswordRx(email: _email.text)
+                  .waitingForFuture()
+                  .then((success) {
+                    if (success) {
+                      ToastUtil.showShortToast(
+                        "Otp sent successfully. Please check your email.",
+                      );
+                      NavigationService.navigateToWithArgs(
+                        Routes.otpVerifiedScreen,
+                        {"email": _email.text},
+                      );
+                    }
+                  });
             }
           },
           text: "Contine",

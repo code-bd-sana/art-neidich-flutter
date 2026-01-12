@@ -28,6 +28,9 @@ final class Endpoints {
   //New
   static String signUp() => "/auth/register";
   static String signin() => "/auth/login";
+  static String forgetPassword() => "/auth/forgot-password";
+   static String otpVerify() => "/auth/forgot-password";
+     static String resetPassword() => "/auth/forgot-password";
 
   ////
   static String logIn() => "/api/login";

@@ -10,19 +10,19 @@ import '../../../../helpers/navigation_service.dart';
 import '../../../../networks/stream_cleaner.dart';
 import 'api.dart';
 
-final class SigninRx extends RxResponseInt<Map> {
-  final api = SigninApi.instance;
+final class ResetPasswordRx extends RxResponseInt<Map> {
+  final api = ResetPasswordApi.instance;
 
-  SigninRx({required super.empty, required super.dataFetcher});
+  ResetPasswordRx({required super.empty, required super.dataFetcher});
 
-  ValueStream<Map> get signinApiStream => dataFetcher.stream;
+  ValueStream<Map> get resetPasswordApiStream => dataFetcher.stream;
 
-  Future<bool> signinRx({
+  Future<bool> resetPasswordRx({
     required String email,
     required String password,
   }) async {
     try {
-      final data = await api.signupApi(email: email, password: password);
+      final data = await api.resetPasswordApi(email: email, password: password);
       handleSuccessWithReturn(data);
       return true;
     } catch (error) {

@@ -1,4 +1,5 @@
 import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,7 @@ import '../../../constants/text_font_style.dart';
 import '../../../constants/validation.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../helpers/ui_helpers.dart';
+import '../../../networks/api_acess.dart';
 import '../../../provider/reset_password_provider.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -129,7 +131,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         child: CustomButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              NavigationService.navigateToReplacement(Routes.signinScreen);
+              resetPasswordRxObj
+                  .resetPasswordRx(
+                    email: "",
+                    password: _passwordController.text,
+                  )
+                  .waitingForFuture()
+                  .then((success) {
+                    if (success) {
+                      NavigationService.navigateToReplacement(
+                        Routes.signinScreen,
+                      );
+                    }
+                  });
             }
           },
           text: "Reset Password",

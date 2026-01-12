@@ -10,7 +10,10 @@ import 'package:timer_button/timer_button.dart';
 import '../../../common_widget/auth_custom_app_bar.dart';
 import '../../../common_widget/custom_button.dart';
 import '../../../constants/text_font_style.dart';
+import '../../../helpers/loading_helper.dart';
+import '../../../helpers/toast.dart';
 import '../../../helpers/ui_helpers.dart';
+import '../../../networks/api_acess.dart';
 import '../../../provider/otp_provider.dart';
 import '../widgets/pinput_theme.dart';
 
@@ -144,9 +147,16 @@ class _OtpVerifiedScreenState extends State<OtpVerifiedScreen> {
                     );
                   },
                   onPressed: () {
-                    // signupResendOtpRxObj
-                    //     .signupResendOtpRx(email: widget.email)
-                    //     .waitingForFuture();
+                    forgetPasswordRxObj
+                        .forgetPasswordRx(email: widget.email)
+                        .waitingForFuture()
+                        .then((success) {
+                          if (success) {
+                            ToastUtil.showShortToast(
+                              "Otp sent successfully. Please check your email.",
+                            );
+                          }
+                        });
                   },
                   timeOutInSeconds: 30,
                 ),
@@ -163,7 +173,17 @@ class _OtpVerifiedScreenState extends State<OtpVerifiedScreen> {
         child: CustomButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              NavigationService.navigateTo(Routes.resetPasswordScreen);
+              otpVerifyRxObj
+                  .otpVerifyApi(
+                    email: widget.email,
+                    otp: context.read<OtpProvider>().enteredOtp,
+                  )
+                  .waitingForFuture()
+                  .then((success) {
+                    if (success) {
+                      NavigationService.navigateTo(Routes.resetPasswordScreen);
+                    }
+                  });
             }
           },
           text: "Verify",
