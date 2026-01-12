@@ -5,6 +5,7 @@ import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:artneidich_app/networks/api_acess.dart';
 import 'package:artneidich_app/provider/role_provider.dart';
@@ -37,7 +38,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void dispose() {
     super.dispose();
-
     _firstName.dispose();
     _lastName.dispose();
     _email.dispose();
@@ -72,6 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               UIHelper.verticalSpace(4.h),
               CustomTextField(
+                // prefixIcon: "",
                 controller: _firstName,
                 filled: true,
                 validator: (value) {
@@ -236,9 +237,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         .waitingForFuture()
                         .then((success) {
                           if (success) {
-                            NavigationService.navigateToReplacement(
-                              Routes.navigationScreen,
-                            );
+                            if (signupRxObj.isAccountPending == true) {
+                              ToastUtil.showLongToast(
+                                signupRxObj.message ?? "",
+                              );
+                            }
                           }
                         });
                   }

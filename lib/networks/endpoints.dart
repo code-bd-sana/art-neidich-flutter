@@ -27,6 +27,7 @@ final class Endpoints {
   //backend_url
   //New
   static String signUp() => "/auth/register";
+  static String signin() => "/auth/login";
 
   ////
   static String logIn() => "/api/login";

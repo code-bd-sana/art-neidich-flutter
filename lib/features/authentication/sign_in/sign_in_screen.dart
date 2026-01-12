@@ -1,5 +1,6 @@
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
+import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import '../../../constants/validation.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../helpers/all_routes.dart';
 import '../../../helpers/navigation_service.dart';
+import '../../../networks/api_acess.dart';
 import '../../../provider/signup_provider.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -114,11 +116,20 @@ class _SigninScreenState extends State<SigninScreen> {
               ),
 
               UIHelper.verticalSpace(24.h),
-              CustomButton(
+              CustomButton( /// email: aa@gmail.com, password: raBBi@220£
                 onPressed: () {
-                  // if (_formKey.currentState!.validate()) {}
-
-                  NavigationService.navigateTo(Routes.navigationScreen);
+                  if (_formKey.currentState!.validate()) {
+                    signinRxObj
+                        .signinRx(email: _email.text, password: _password.text)
+                        .waitingForFuture()
+                        .then((success) {
+                          if (success) {
+                            NavigationService.navigateToReplacement(
+                              Routes.navigationScreen,
+                            );
+                          }
+                        });
+                  }
                 },
                 text: "Sign In",
               ),

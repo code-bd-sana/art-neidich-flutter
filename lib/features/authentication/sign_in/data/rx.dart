@@ -10,30 +10,19 @@ import '../../../../helpers/navigation_service.dart';
 import '../../../../networks/stream_cleaner.dart';
 import 'api.dart';
 
-final class SignupRx extends RxResponseInt<Map> {
-  bool? isAccountPending;
-  String? message;
-  final api = SignupApi.instance;
+final class SigninRx extends RxResponseInt<Map> {
+  final api = SigninApi.instance;
 
-  SignupRx({required super.empty, required super.dataFetcher});
+  SigninRx({required super.empty, required super.dataFetcher});
 
-  ValueStream<Map> get signupRxStream => dataFetcher.stream;
+  ValueStream<Map> get signinApiStream => dataFetcher.stream;
 
-  Future<bool> signupRx({
-    required String firstName,
-    required String lastName,
+  Future<bool> signinRx({
     required String email,
     required String password,
-    required int role,
   }) async {
     try {
-      final data = await api.signupApi(
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        password: password,
-        role: role,
-      );
+      final data = await api.signupApi(email: email, password: password);
       handleSuccessWithReturn(data);
       return true;
     } catch (error) {
@@ -43,8 +32,6 @@ final class SignupRx extends RxResponseInt<Map> {
 
   @override
   handleSuccessWithReturn(Map data) {
-    isAccountPending = data["isAccountPending"];
-    message = data["message"];
     dataFetcher.sink.add(data);
     return true;
   }

@@ -1,14 +1,15 @@
- import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 final class ToastUtil {
   ToastUtil._();
 
   static void showShortToast(String message) {
-    Fluttertoast.showToast(
-      msg: message.tr,
-      toastLength: Toast.LENGTH_SHORT,
-    );
+    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
+  }
+
+  static void showLongToast(String message) {
+    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_LONG);
   }
 
   static void showNoInternetToast() {
