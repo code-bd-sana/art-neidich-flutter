@@ -1,8 +1,6 @@
+import 'package:rxdart/subjects.dart';
 
-/*import 'package:rxdart/subjects.dart';
+import '../features/authentication/sign_up/data/rx.dart';
 
-
- GetSignupResponseRX getSignupResponseRXObj = GetSignupResponseRX(
-    empty: SignUpResponseModel(),
-    dataFetcher: BehaviorSubject<SignUpResponseModel>()); */
-
+// Authenticate
+SignupRx signupRxObj = SignupRx(empty: {}, dataFetcher: BehaviorSubject<Map>());

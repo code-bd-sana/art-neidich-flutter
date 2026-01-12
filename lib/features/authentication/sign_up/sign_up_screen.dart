@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
+import 'package:artneidich_app/networks/api_acess.dart';
 import 'package:artneidich_app/provider/role_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
@@ -44,6 +46,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   List<String> roleList = ["Admin", "Inspector"];
   final _formKey = GlobalKey<FormState>();
+
+  int isRoleId = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     items: List.generate(
                       roleList.length,
                       (index) => DropdownMenuItem<int>(
-                        value: index,
+                        value: index + 1,
                         child: Text(
                           roleList[index],
                           style: TextFontStyle.headLine16c888888InterBold,
@@ -128,7 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     value: roleProvider.selectedRoleIndex == -1
                         ? null
                         : roleProvider.selectedRoleIndex,
-                    //selectedRole == -1 ? null : selectedRole,
+
                     validator: (value) {
                       if (value == null) {
                         return "Role is required";
@@ -136,9 +140,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                     onChanged: (value) {
-                      roleProvider.setRole(value!, roleList[value]);
+                      roleProvider.setRole(value!, roleList[value - 1]);
 
                       log("Role==========> ${roleProvider.role}");
+
+                      log("Role==========> ${roleProvider.selectedRoleIndex}");
                     },
                     decoration: InputDecoration(
                       filled: true,
@@ -219,9 +225,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
               CustomButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    NavigationService.navigateToReplacement(
-                      Routes.navigationScreen,
-                    );
+                    signupRxObj
+                        .signupRx(
+                          firstName: _firstName.text,
+                          lastName: _lastName.text,
+                          email: _email.text,
+                          password: _password.text,
+                          role: context.read<RoleProvider>().selectedRoleIndex,
+                        )
+                        .waitingForFuture()
+                        .then((success) {
+                          if (success) {
+                            NavigationService.navigateToReplacement(
+                              Routes.navigationScreen,
+                            );
+                          }
+                        });
                   }
                 },
                 text: "Sign up",
