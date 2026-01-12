@@ -2,6 +2,7 @@ import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
+import 'package:artneidich_app/provider/role_provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -95,7 +96,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     textInputAction: TextInputAction.done,
                     controller: _password,
                     filled: true,
-                    validator: passwordValidation,
+                    //validator: passwordValidation,
                   );
                 },
               ),
@@ -116,7 +117,7 @@ class _SigninScreenState extends State<SigninScreen> {
               ),
 
               UIHelper.verticalSpace(24.h),
-              CustomButton( /// email: aa@gmail.com, password: raBBi@220£
+              CustomButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     signinRxObj
@@ -124,6 +125,14 @@ class _SigninScreenState extends State<SigninScreen> {
                         .waitingForFuture()
                         .then((success) {
                           if (success) {
+                            final role = signinRxObj.role;
+
+                            // save role in provider
+                            // ignore: use_build_context_synchronously
+                            context.read<RoleProvider>().setUserRole(
+                              role ?? "",
+                            );
+
                             NavigationService.navigateToReplacement(
                               Routes.navigationScreen,
                             );

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
+
 import 'features/inspection/presentation/inspection_screen.dart';
 import 'features/inspector_role/inspection_setting/inspection_setting_screen.dart';
 import 'features/inspector_role/inspection_view/presentation/inspection_view_screen.dart';
@@ -33,7 +34,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final role = context.watch<RoleProvider>().role;
+    final role = context.watch<RoleProvider>().userRole;
 
     // Admin Role
     List<Widget> adminPages = const [
@@ -48,10 +49,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
       InspectionSettingScreen(),
     ];
 
-    // choose based on a role
+    // admin group (super admin + admin)
+    final isAdminGroup = role == "Super Admin" || role == "Admin";
 
-    /// choose based on role
-    final pages = role == "Admin" ? adminPages : inspectorPages;
+    // choose based on role
+    final pages = isAdminGroup ? adminPages : inspectorPages;
+
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: pages),
 
@@ -68,13 +71,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
           gap: 8,
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
           duration: const Duration(milliseconds: 350),
-          tabBorderRadius: 16,
+          tabBorderRadius: 16.r,
 
           color: Colors.grey,
 
           tabBackgroundColor: Color(0xFF2D8D7C),
 
-          tabs: role == "Admin"
+          tabs: isAdminGroup
               ? [
                   GButton(
                     icon: Icons.home,

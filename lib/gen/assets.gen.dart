@@ -75,6 +75,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Vector.png
   AssetGenImage get vector => const AssetGenImage('assets/icons/Vector.png');
 
+  /// File path: assets/icons/app_icon.png
+  AssetGenImage get appIcon => const AssetGenImage('assets/icons/app_icon.png');
+
   /// File path: assets/icons/arrow-right_icon.png
   AssetGenImage get arrowRightIcon =>
       const AssetGenImage('assets/icons/arrow-right_icon.png');
@@ -104,6 +107,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/label.png
   AssetGenImage get label => const AssetGenImage('assets/icons/label.png');
+
+  /// File path: assets/icons/log-out.png
+  AssetGenImage get logOut => const AssetGenImage('assets/icons/log-out.png');
 
   /// File path: assets/icons/profile.png
   AssetGenImage get profile => const AssetGenImage('assets/icons/profile.png');
@@ -138,6 +144,7 @@ class $AssetsIconsGen {
         frame8,
         frame,
         vector,
+        appIcon,
         arrowRightIcon,
         arrowRight,
         camera,
@@ -147,6 +154,7 @@ class $AssetsIconsGen {
         farem21,
         filter,
         label,
+        logOut,
         profile,
         push,
         rightArrow,

@@ -8,11 +8,14 @@ class SettingsTitleWidget extends StatelessWidget {
   final String title;
   final String icon;
   final VoidCallback onPressed;
+
+  final bool? isIcon;
   const SettingsTitleWidget({
     super.key,
     required this.title,
     required this.icon,
     required this.onPressed,
+    this.isIcon = true,
   });
 
   @override
@@ -22,19 +25,20 @@ class SettingsTitleWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          
           Image.asset(icon, width: 20.w, height: 20.h, fit: BoxFit.cover),
           UIHelper.horizontalSpace(20.w),
           Text(title, style: TextFontStyle.headLine14c323539InterW400),
-      
+
           Spacer(),
-      
-         Image.asset(
-            Assets.icons.frame4.path,
-            width: 20.w,
-            height: 20.h,
-            fit: BoxFit.cover,
-          ),
+
+          (isIcon ?? true)
+              ? Image.asset(
+                  Assets.icons.frame4.path,
+                  width: 20.w,
+                  height: 20.h,
+                  fit: BoxFit.cover,
+                )
+              : SizedBox.shrink(),
         ],
       ),
     );

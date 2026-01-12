@@ -1,7 +1,10 @@
+import 'package:artneidich_app/constants/app_constants.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/all_routes.dart';
+import 'package:artneidich_app/helpers/di.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,10 +67,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 title: 'Security & Permissions',
                 icon: Assets.icons.frame2.path,
                 onPressed: () {
+                  NavigationService.navigateTo(Routes.securityScreen);
+                },
+              ),
 
-                   NavigationService.navigateTo(Routes.securityScreen);
-
-                  
+              UIHelper.verticalSpace(10.h),
+              Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
+              UIHelper.verticalSpace(10.h),
+              SettingsTitleWidget(
+                isIcon: false,
+                title: 'Logout',
+                icon: Assets.icons.logOut.path,
+                onPressed: () {
+                  appData.write(kKeyAccessToken, '');
+                  appData.write(kKeyIsLoggedIn, false);
+                  ToastUtil.showShortToast("Logout Successfully");
+                  NavigationService.navigateToReplacement(Routes.signinScreen);
                 },
               ),
             ],

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class RoleProvider extends ChangeNotifier {
-
- 
   int selectedRoleIndex = -1;
   String? _role;
 
@@ -14,5 +12,14 @@ class RoleProvider extends ChangeNotifier {
     notifyListeners();
   }
 
- 
+  // SignIn Role Here.....
+
+  String? _userRole;
+
+  String? get userRole => _userRole;
+
+  void setUserRole(String value) {
+    _userRole = value;
+    notifyListeners();
+  }
 }

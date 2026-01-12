@@ -1,13 +1,8 @@
-import 'dart:developer';
-
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/helpers/all_routes.dart';
-import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
-import 'package:artneidich_app/helpers/toast.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
-import 'package:artneidich_app/networks/api_acess.dart';
 import 'package:artneidich_app/provider/role_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
@@ -20,6 +15,9 @@ import '../../../common_widget/auth_custom_app_bar.dart';
 import '../../../common_widget/custom_button.dart';
 import '../../../constants/validation.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../helpers/loading_helper.dart';
+import '../../../helpers/toast.dart';
+import '../../../networks/api_acess.dart';
 import '../../../provider/signup_provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -142,10 +140,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     onChanged: (value) {
                       roleProvider.setRole(value!, roleList[value - 1]);
-
-                      log("Role==========> ${roleProvider.role}");
-
-                      log("Role==========> ${roleProvider.selectedRoleIndex}");
                     },
                     decoration: InputDecoration(
                       filled: true,
@@ -195,7 +189,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Consumer<SignupProvider>(
                 builder: (context, provider, child) {
                   return CustomTextField(
-                    //  prefixIcon: Assets.icons.vector3,
                     obscureText: !provider.passwordVisible,
                     keyboardType: TextInputType.visiblePassword,
                     suffixIcon: IconButton(

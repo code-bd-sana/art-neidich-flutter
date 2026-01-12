@@ -5,6 +5,8 @@ import '../features/authentication/otp_verified/data/rx.dart';
 import '../features/authentication/reset_password/data/rx.dart';
 import '../features/authentication/sign_in/data/rx.dart';
 import '../features/authentication/sign_up/data/rx.dart';
+import '../features/profile/data/model/profile_response_model.dart';
+import '../features/profile/data/rx.dart';
 
 // Authenticate
 SignupRx signupRxObj = SignupRx(empty: {}, dataFetcher: BehaviorSubject<Map>());
@@ -20,4 +22,9 @@ OtpVerifyRx otpVerifyRxObj = OtpVerifyRx(
 ResetPasswordRx resetPasswordRxObj = ResetPasswordRx(
   empty: {},
   dataFetcher: BehaviorSubject<Map>(),
+);
+
+ProfileRx profileRxObj = ProfileRx(
+  empty: ProfileResponse(),
+  dataFetcher: BehaviorSubject<ProfileResponse>(),
 );

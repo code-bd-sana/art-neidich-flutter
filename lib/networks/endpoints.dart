@@ -29,10 +29,14 @@ final class Endpoints {
   static String signUp() => "/auth/register";
   static String signin() => "/auth/login";
   static String forgetPassword() => "/auth/forgot-password";
-   static String otpVerify() => "/auth/forgot-password";
-     static String resetPassword() => "/auth/forgot-password";
+  static String otpVerify() => "/auth/forgot-password"; // endpoint change
+  static String resetPassword() => "/auth/forgot-password"; // endpoint change
 
   ////
+  ///
+  static String getProfiles() => "/user/profile";
+
+  ///
   static String logIn() => "/api/login";
   static String logout() => "/api/logout";
   static String getBabyProfile() => "/api/baby/profile/show";
