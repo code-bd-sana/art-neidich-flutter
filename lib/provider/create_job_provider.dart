@@ -4,39 +4,65 @@ import '../features/create_job/data/rx_get_all_user/model/all_user_response.dart
 import '../networks/api_acess.dart';
 
 class CreateJobProvider extends ChangeNotifier {
-  //int _currentPage = 1;
-  // int _totalPage = 1;
+  final List<Datum> _users = [];
+  List<Datum> get users => _users;
 
-  Datum? _selectInspectorName;
-  List<Datum> _inspectorList = [];
+  final ScrollController scrollController = ScrollController();
 
-  // int get currentPage => _currentPage;
-  // int get totalPage => _totalPage;
-  List<Datum> get inspectorList => _inspectorList;
+  int _page = 1;
+  final int _limit = 10;
+  int _totalPages = 1;
+  bool _isLoading = false;
 
-  Datum? get selectInspectorName => _selectInspectorName;
+  bool get isLoading => _isLoading;
+
+  CreateJobProvider() {
+    // initial fetch
+    fetchUsers();
+
+    // listen scroll for pagination
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent &&
+          !_isLoading &&
+          _page < _totalPages) {
+        _page++;
+        fetchUsers();
+      }
+    });
+  }
 
   Future<void> fetchUsers() async {
-    final response = await allUserRxObj.allUserRx(
-      page: 2,
-      role: 2,
-      isApproved: true,
-      isSuspended: false,
-    );
+    _isLoading = true;
+    notifyListeners();
 
-    //_currentPage = response.metaData?.page ?? 1;
-    //_totalPage = response.metaData?.totalPage ?? 1;
-    _inspectorList = response.data ?? [];
+    try {
+      final response = await allUserRxObj.allUserRx(
+        isApproved: true,
+        role: 2,
+        page: _page,
+        isSuspended: false,
+        limit: _limit,
+      );
 
+      // Append new users
+      _users.addAll(response.data ?? []);
+
+      // Update total pages
+      _totalPages = response.metaData?.totalPage ?? 0;
+    } catch (e) {
+      debugPrint("Error fetching users: $e");
+    }
+
+    _isLoading = false;
     notifyListeners();
   }
 
-  /// Update selected user
-  void setSelectedUser(Datum user) {
-    _selectInspectorName = user;
+  void reset() {
+    _users.clear();
+    _page = 1;
+    _totalPages = 1;
     notifyListeners();
+    fetchUsers();
   }
-
-  /// Get selected user id for backend
-  String? get selectedUserId => _selectInspectorName?.id;
 }

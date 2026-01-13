@@ -1,18 +1,14 @@
-import 'dart:developer';
-
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_drop_down_widget.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/text_font_style.dart';
 import '../../../provider/create_job_provider.dart';
-import '../data/rx_get_all_user/model/all_user_response.dart';
 
 class CreateJobWidget1 extends StatefulWidget {
   final Function() nextScreen;
@@ -23,12 +19,6 @@ class CreateJobWidget1 extends StatefulWidget {
 }
 
 class _CreateJobWidget1State extends State<CreateJobWidget1> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<CreateJobProvider>(context, listen: false).fetchUsers();
-  }
-
   // Form Type
   int selectedFormType = -1;
 
@@ -72,7 +62,15 @@ class _CreateJobWidget1State extends State<CreateJobWidget1> {
 
   //
 
-  Datum? selectValue;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<CreateJobProvider>(context, listen: false).fetchUsers();
+    });
+  }
+
+  final _inspectorController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -95,26 +93,134 @@ class _CreateJobWidget1State extends State<CreateJobWidget1> {
 
               Consumer<CreateJobProvider>(
                 builder: (context, provider, child) {
-                  return DropdownButton2<Datum>(
-                    value: provider.selectInspectorName,
-                    hint: Text("Select an item"),
-                    items: provider.inspectorList.map((element) {
-                      return DropdownMenuItem<Datum>(
-                        value: element,
-                        child: Text(element.firstName ?? ""),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      provider.setSelectedUser(value!);
+                  return CustomTextField(
+                    controller: _inspectorController,
+                    readOnly: true,
+                    style: TextFontStyle.headLine14c323539InterW400.copyWith(
+                      color: Color(0xFF71717A),
+                    ),
+                    onTap: () async {
+                      await showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        context: context,
+                        builder: (_) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 16,
+                            ),
+                            width: double.infinity,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  child: ListView.builder(
+                                    controller: provider.scrollController,
+                                   itemCount: provider.isLoading ? provider.users.length + 1 : provider.users.length,
 
-                      // Access id if needed immediately
-                      log("Selected id: ${provider.selectedUserId}");
+                                    itemBuilder: (_, index) {
+                                      if (index < provider.users.length) {
+                                        final user = provider.users[index];
+                                        return InkWell(
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                            _inspectorController.text =
+                                                user.firstName ?? ""; // or ID
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 16,
+                                              vertical: 16,
+                                            ),
+                                            child: Text(user.firstName ?? ""),
+                                          ),
+                                        );
+                                      } else {
+                                        // show loader at the bottom
+                                        return provider.isLoading
+                                            ? Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 16,
+                                                ),
+                                                child: Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                ),
+                                              )
+                                            : SizedBox.shrink();
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
                     },
-                    dropdownStyleData: DropdownStyleData(maxHeight: 300),
                   );
                 },
               ),
 
+              // Consumer<CreateJobProvider>(
+              //   builder: (context, provider, child) {
+              //     return CustomTextField(
+              //       controller: _inspectorController,
+              //       readOnly: true,
+              //       style: TextFontStyle.headLine14c323539InterW400.copyWith(
+              //         color: Color(0xFF71717A),
+              //       ),
+
+              //       onTap: () async {
+              //         await showModalBottomSheet(
+              //           shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadiusGeometry.circular(10.r),
+              //           ),
+              //           context: context,
+              //           builder: (_) {
+              //             return Container(
+              //               decoration: BoxDecoration(
+              //                 border: Border.symmetric(),
+              //               ),
+              //               padding: EdgeInsets.symmetric(
+              //                 horizontal: 16.w,
+              //                 vertical: 16.h,
+              //               ),
+              //               width: 1.sw,
+              //               child: ListView.builder(
+              //                 controller: provider.scrollController,
+              //                 padding: EdgeInsets.zero,
+              //                 itemCount: 10,
+              //                 shrinkWrap: true,
+              //                 itemBuilder: (_, index) {
+              //                   return InkWell(
+              //                     onTap: () {
+              //                       NavigationService.goBack;
+
+              //                       setState(() {
+              //                         _inspectorController.text = index
+              //                             .toString();
+              //                       });
+              //                     },
+              //                     child: Padding(
+              //                       padding: EdgeInsets.symmetric(
+              //                         horizontal: 16.w,
+              //                         vertical: 16.h,
+              //                       ),
+              //                       child: Text("Item $index"),
+              //                     ),
+              //                   );
+              //                 },
+              //               ),
+              //             );
+              //           },
+              //         );
+              //       },
+              //     );
+              //   },
+              // ),
               UIHelper.verticalSpace(12.h),
 
               Text(

@@ -40,6 +40,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_advanced_switch: ^3.1.0
+  flutter_infinite_dropdown: ^1.0.2+3
   flutter_screenutil: ^5.9.3
   flutter_staggered_animations: ^1.1.1
   flutter_svg: ^2.2.0
