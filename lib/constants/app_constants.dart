@@ -1,3 +1,13 @@
+const String kKeyIsLoggedIn = 'is_logged_in';
+const String kKeyAccessToken = 'access_token';
+const String kKeyUserID = 'user_id';
+const String kKeyFirstName = 'first_name';
+const String kKeyLastName = 'lst_name';
+const String kKeyEMail = 'lst_name';
+const String kKeyRole = 'role';
+
+
+///
 const String kImageUrl = 'imageUrl';
 // Keys
 const String kKeyStatus = 'status';
@@ -8,8 +18,7 @@ const String kKeyStringData = 'string_data';
 const String kKeyMessage = 'message';
 const String kKeyData = 'data';
 const String kKeyCode = 'code';
-const String kKeyIsLoggedIn = 'is_logged_in';
-const String kKeyAccessToken = 'access_token';
+
 const String kPhone = 'phone_number';
 const String kKeySelectedLocation = 'selected_location';
 const String kKeySelectedLat = 'selected_lot';
@@ -40,10 +49,9 @@ const String kKeyFrench = 'fr';
 const String kKeyGerman = 'de';
 const String kKeySpanish = 'es';
 const String kKeyRussian = 'ru';
-const String kKeyFirstName = 'first_name';
-const String kKeyLastName = 'lst_name';
+
 const String kKeyDeviceID = 'device_id';
-const String kKeyUserID = 'user_id';
+
 const String kKeyShopID = 'shop_id';
 const String kKeycategoriesID = 'categoriesId';
 const String kKeyproductID = 'productId';
@@ -51,36 +59,3 @@ const String kKeyShopSlug = 'shop_slug';
 const String kKeyRestaurantID = 'productId';
 const String kKeyIsExploring = 'exploring';
 const String kKeyIsFirst = 'is_first_time';
-//order statuses
-
-const List<String> kLanguagesKey = [
-  kKeyEnglish,
-  kKeyPortuguese,
-  kKeyFrench,
-  kKeyGerman,
-  kKeySpanish,
-  kKeyRussian,
-];
-const Map languages = <String, String>{
-  kKeyEnglish: "English",
-  kKeyPortuguese: "Portuguese",
-  kKeyFrench: "French",
-  kKeyGerman: "Dutch",
-  kKeySpanish: "Spanish",
-  kKeyRussian: "Russian",
-};
-const Map countriesCode = <String, String>{
-  kKeyEnglish: "US",
-  kKeyPortuguese: "PT",
-  kKeyFrench: "FR",
-  kKeyGerman: "DE",
-  kKeySpanish: "ES",
-  kKeyRussian: "RU",
-};
-
-class DefaultValue {
-  static const bool kDefaultBoolean = false;
-  static const int kDefaultInt = 0;
-  static const double kDefaultDouble = 0.0;
-  static const String kDefaultString = '';
-}

@@ -32,9 +32,9 @@ final class Endpoints {
   static String otpVerify() => "/auth/forgot-password"; // endpoint change
   static String resetPassword() => "/auth/forgot-password"; // endpoint change
 
-  ////
-  ///
+  //
   static String getProfiles() => "/user/profile";
+  static String updateProfiles() => "/user/profile";
 
   ///
   static String logIn() => "/api/login";

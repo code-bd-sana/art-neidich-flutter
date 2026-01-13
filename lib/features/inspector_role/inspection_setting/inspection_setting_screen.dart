@@ -3,9 +3,12 @@ import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../constants/app_constants.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../helpers/all_routes.dart';
+import '../../../helpers/di.dart';
 import '../../../helpers/navigation_service.dart';
+import '../../../helpers/toast.dart';
 import '../../settings/widgets/settings_title_widget.dart';
 import '../widgets/inspector_overview_widget.dart';
 
@@ -79,7 +82,22 @@ class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
                 title: 'Help & Support',
                 icon: Assets.icons.frame14.path,
                 onPressed: () {
-                   NavigationService.navigateTo(Routes.helpSupportScreen);
+                  NavigationService.navigateTo(Routes.helpSupportScreen);
+                },
+              ),
+
+              UIHelper.verticalSpace(10.h),
+              Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
+              UIHelper.verticalSpace(10.h),
+              SettingsTitleWidget(
+                isIcon: false,
+                title: 'Logout',
+                icon: Assets.icons.logOut.path,
+                onPressed: () {
+                  appData.write(kKeyAccessToken, '');
+                  appData.write(kKeyIsLoggedIn, false);
+                  ToastUtil.showShortToast("Logout Successfully");
+                  NavigationService.navigateToReplacement(Routes.signinScreen);
                 },
               ),
             ],

@@ -1,10 +1,9 @@
 import 'package:artneidich_app/common_widget/header_widget.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
-import 'package:artneidich_app/helpers/navigation_service.dart';
-import 'package:artneidich_app/provider/signin_provider.dart';
+import 'package:artneidich_app/helpers/loading_helper.dart';
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 import '../../common_widget/custom_button.dart';
 import '../../constants/text_font_style.dart';
@@ -75,46 +74,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             UIHelper.verticalSpace(20.h),
 
-            Consumer<SigninProvider>(
-              builder: (context, provider, child) {
-                return Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: CustomButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          NavigationService.goBack;
-                        }
-                      },
-                      borderRadius: 30.r,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 32.w,
-                        vertical: 12.h,
-                      ),
-                      minWidth: 0,
-                      child: Row(
-                        spacing: 10.w,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-
-                        children: [
-                          Text(
-                            "Save",
-                            style: TextFontStyle.headLine16c2D8D7CInterW700,
-                          ),
-                          Image.asset(
-                            Assets.icons.arrowRight.path,
-                            width: 20.w,
-                            height: 20.h,
-                            fit: BoxFit.contain,
-                          ),
-                        ],
-                      ),
-                    ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      updateProfileRxObj
+                          .updateProfileRx(
+                            firstName: _firstNameController.text,
+                            lastName: _lastNameController.text,
+                          )
+                          .waitingForFuture()
+                          .then((success) {
+                            if (success) {
+                              profileRxObj.profileRx().waitingForFuture();
+                              ToastUtil.showShortToast(
+                                "Profile updated successfully",
+                              );
+                            }
+                          });
+                    }
+                  },
+                  borderRadius: 30.r,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 32.w,
+                    vertical: 12.h,
                   ),
-                );
-              },
+                  minWidth: 0,
+                  child: Row(
+                    spacing: 10.w,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+
+                    children: [
+                      Text(
+                        "Save",
+                        style: TextFontStyle.headLine16c2D8D7CInterW700,
+                      ),
+                      Image.asset(
+                        Assets.icons.arrowRight.path,
+                        width: 20.w,
+                        height: 20.h,
+                        fit: BoxFit.contain,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
 
             UIHelper.verticalSpaceExtraLarge,

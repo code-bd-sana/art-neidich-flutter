@@ -1,12 +1,14 @@
+import 'dart:developer';
+
+import 'package:artneidich_app/constants/app_constants.dart';
 import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/features/inspector_role/inspector_overview/inspector_overview_screen.dart';
 import 'package:artneidich_app/features/labels/presentation/labels_screen.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
-import 'package:artneidich_app/provider/role_provider.dart';
+import 'package:artneidich_app/helpers/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:provider/provider.dart';
 
 import 'features/inspection/presentation/inspection_screen.dart';
 import 'features/inspector_role/inspection_setting/inspection_setting_screen.dart';
@@ -34,7 +36,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final role = context.watch<RoleProvider>().userRole;
+    // final role = context.watch<RoleProvider>().userRole;
+
+    final role = appData.read(kKeyRole);
+
+    log(
+      "Navigation Role ================================================================>>>>>>>>: $role",
+    );
 
     // Admin Role
     List<Widget> adminPages = const [
