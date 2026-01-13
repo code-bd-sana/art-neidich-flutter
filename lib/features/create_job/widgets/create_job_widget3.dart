@@ -1,8 +1,6 @@
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
-import 'package:artneidich_app/helpers/all_routes.dart';
-import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -139,11 +137,34 @@ class _CreateJobWidget3State extends State<CreateJobWidget3> {
                 alignment: Alignment.topRight,
                 child: CustomButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      NavigationService.navigateToReplacement(
-                        Routes.navigationScreen,
-                      );
-                    }
+                    // if (_formKey.currentState!.validate()) {
+                    //   createJobRxObj
+                    //       .createJobRx(
+                    //         inspector: inspector,
+                    //         formType: formType,
+                    //         feeStatus: feeStatus,
+                    //         agreedFee: agreedFee,
+                    //         fhaCaseDetailsNo: fhaCaseDetailsNo,
+                    //         orderId: orderId,
+                    //         streetAddress: streetAddress,
+                    //         developmentName: developmentName,
+                    //         siteContactName: siteContactName,
+                    //         siteContactPhone: siteContactPhone,
+                    //         siteContactEmail: siteContactEmail,
+                    //         dueDate: dueDate,
+                    //         specialNotesForInspector: specialNotesForInspector,
+                    //       )
+                    //       .waitingForFuture()
+                    //       .then((success) {
+                    //         if(success) {
+                    //           ///
+                    //               NavigationService.navigateToReplacement(
+                    //             Routes.navigationScreen,
+                    //           );
+                    //         }
+                    //       });
+
+                    // }
                   },
                   borderRadius: 30.r,
                   padding: EdgeInsets.symmetric(

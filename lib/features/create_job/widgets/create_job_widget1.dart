@@ -1,12 +1,18 @@
+import 'dart:developer';
+
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_drop_down_widget.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/text_font_style.dart';
+import '../../../provider/create_job_provider.dart';
+import '../data/rx_get_all_user/model/all_user_response.dart';
 
 class CreateJobWidget1 extends StatefulWidget {
   final Function() nextScreen;
@@ -17,15 +23,11 @@ class CreateJobWidget1 extends StatefulWidget {
 }
 
 class _CreateJobWidget1State extends State<CreateJobWidget1> {
-  //Inspector List
-  int selectedInspector = -1;
-
-  List<String> inspectorList = [
-    "Inspector 1",
-    "Inspector 2",
-    "Inspector 3",
-    "Inspector 4",
-  ];
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<CreateJobProvider>(context, listen: false).fetchUsers();
+  }
 
   // Form Type
   int selectedFormType = -1;
@@ -58,7 +60,19 @@ class _CreateJobWidget1State extends State<CreateJobWidget1> {
     super.dispose();
 
     _agreeController.dispose();
+    _scrollController.dispose();
   }
+
+  //String? selectedValue;
+  List<String> items = ["A", "B", "C"];
+
+  int currentPage = 1;
+  bool isLoading = false;
+  final ScrollController _scrollController = ScrollController();
+
+  //
+
+  Datum? selectValue;
 
   @override
   Widget build(BuildContext context) {
@@ -78,20 +92,26 @@ class _CreateJobWidget1State extends State<CreateJobWidget1> {
               ),
 
               UIHelper.verticalSpace(10.h),
-              CustomDropDownWidget(
-                hintText: "Select Inspector",
-                items: inspectorList,
-                value: selectedInspector == -1 ? null : selectedInspector,
 
-                validator: (value) {
-                  if (value == null) return "Inspector is required";
-                  return null;
-                },
+              Consumer<CreateJobProvider>(
+                builder: (context, provider, child) {
+                  return DropdownButton2<Datum>(
+                    value: provider.selectInspectorName,
+                    hint: Text("Select an item"),
+                    items: provider.inspectorList.map((element) {
+                      return DropdownMenuItem<Datum>(
+                        value: element,
+                        child: Text(element.firstName ?? ""),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      provider.setSelectedUser(value!);
 
-                onChanged: (value) {
-                  setState(() {
-                    selectedInspector = value!;
-                  });
+                      // Access id if needed immediately
+                      log("Selected id: ${provider.selectedUserId}");
+                    },
+                    dropdownStyleData: DropdownStyleData(maxHeight: 300),
+                  );
                 },
               ),
 

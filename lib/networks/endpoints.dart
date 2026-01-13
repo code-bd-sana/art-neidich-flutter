@@ -32,9 +32,42 @@ final class Endpoints {
   static String otpVerify() => "/auth/forgot-password"; // endpoint change
   static String resetPassword() => "/auth/forgot-password"; // endpoint change
 
-  //
+  // profile Update and Get
   static String getProfiles() => "/user/profile";
   static String updateProfiles() => "/user/profile";
+
+  // Create job from admin
+  static String createJob() => "/job";
+
+  // all user
+static String getAllUser({
+    int? page,
+    int? limit,
+    String? search,
+    int? role,
+    bool? isSuspended,
+    bool? isApproved,
+  }) {
+    final Map<String, String> queryParams = {};
+
+    if (page != null) queryParams["page"] = page.toString();
+    if (limit != null) queryParams["limit"] = limit.toString();
+    if (search != null && search.trim().isNotEmpty) {
+      queryParams["search"] = search;
+    }
+    if (role != null) queryParams["role"] = role.toString();
+    if (isSuspended != null) {
+      queryParams["isSuspended"] = isSuspended.toString();
+    }
+    if (isApproved != null) queryParams["isApproved"] = isApproved.toString();
+
+    final uri = Uri.parse(
+      "$url/user",
+    ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
+
+    return uri.toString();
+  }
+
 
   ///
   static String logIn() => "/api/login";
