@@ -10,7 +10,8 @@ import '../features/admin/admin_screen.dart';
 import '../features/approval_list/presentation/approval_list_screen.dart';
 import '../features/authentication/reset_password/reset_password_screen.dart';
 import '../features/authentication/sign_in/sign_in_screen.dart';
-import '../features/create_job/presentation/create_job_screen.dart';
+import '../features/create_job/presentation/create_job_screen_1.dart';
+import '../features/create_job/presentation/create_job_screen_2.dart';
 import '../features/create_label/create_label_screen.dart';
 import '../features/inspector/inspector_screen.dart';
 import '../features/inspector_list/presentation/inspector_list_screen.dart';
@@ -78,6 +79,8 @@ final class Routes {
 
   static const String repeatInspectionLabelScreen =
       '/repeatInspectionLabelScreen';
+
+  static const String createJobScreen2 = '/createJobScreen2';
 }
 
 //
@@ -88,6 +91,26 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.createJobScreen2:
+        final args = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: CreateJobScreen2(
+                  inspectorID: args["inspectorID"],
+                  formType: args["formType"],
+                  feeStatus: args["feeStatus"],
+                  agreedStatus: args["agreedStatus"],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => CreateJobScreen2(
+                  inspectorID: args["inspectorID"],
+                  formType: args["formType"],
+                  feeStatus: args["feeStatus"],
+                  agreedStatus: args["agreedStatus"],
+                ),
+              );
       case Routes.repeatInspectionLabelScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
@@ -245,10 +268,10 @@ final class RouteGenerator {
       case Routes.createJobScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: CreateJobScreen(),
+                widget: CreateJobScreen1(),
                 settings: settings,
               )
-            : CupertinoPageRoute(builder: (context) => CreateJobScreen());
+            : CupertinoPageRoute(builder: (context) => CreateJobScreen1());
       case Routes.navigationScreen:
         return Platform.isAndroid
             ? _FadedTransitionRoute(

@@ -1,25 +1,35 @@
-import 'package:artneidich_app/common_widget/custom_button.dart';
-import 'package:artneidich_app/common_widget/custom_text_field.dart';
-import 'package:artneidich_app/constants/validation.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../common_widget/custom_button.dart';
+import '../../../common_widget/custom_text_field.dart';
+import '../../../common_widget/job_create_header.dart';
 import '../../../constants/text_font_style.dart';
+import '../../../constants/validation.dart';
 
-class CreateJobWidget2 extends StatefulWidget {
-  final Function() nextScreen;
-  const CreateJobWidget2({super.key, required this.nextScreen});
+class CreateJobScreen2 extends StatefulWidget {
+  final String inspectorID;
+  final String formType;
+  final String feeStatus;
+  final int agreedStatus;
+  const CreateJobScreen2({
+    super.key,
+    required this.inspectorID,
+    required this.formType,
+    required this.feeStatus,
+    required this.agreedStatus,
+  });
 
   @override
-  State<CreateJobWidget2> createState() => _CreateJobWidget2State();
+  State<CreateJobScreen2> createState() => _CreateJobScreen2State();
 }
 
-class _CreateJobWidget2State extends State<CreateJobWidget2> {
+class _CreateJobScreen2State extends State<CreateJobScreen2> {
   // Agreed controller
-
   final _fhaCaseDetailsController = TextEditingController();
   final _orderIdController = TextEditingController();
   final _adressController = TextEditingController();
@@ -45,16 +55,24 @@ class _CreateJobWidget2State extends State<CreateJobWidget2> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUnfocus,
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUnfocus,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              JobCreateHeaderWidget(
+                title: "Jobs",
+                icon: Assets.images.createJob.path,
+                subtitle: "Create New Job",
+                onPressed: () {
+                  NavigationService.goBack;
+                },
+              ),
+
+              UIHelper.verticalSpace(20.h),
+
               Text(
                 "FHA Case Details",
                 style: TextFontStyle.headLine14c323539InterW400,
@@ -193,9 +211,7 @@ class _CreateJobWidget2State extends State<CreateJobWidget2> {
                 alignment: Alignment.topRight,
                 child: CustomButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      widget.nextScreen();
-                    }
+                    if (_formKey.currentState!.validate()) {}
                   },
                   borderRadius: 30.r,
                   padding: EdgeInsets.symmetric(

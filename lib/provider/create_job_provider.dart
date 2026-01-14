@@ -12,25 +12,33 @@ class CreateJobProvider extends ChangeNotifier {
   int _page = 1;
   final int _limit = 10;
   int _totalPages = 1;
-  bool _isLoading = false;
+
+  String? _selectedUserId;
+  String? get selectedUserId => _selectedUserId;
+
+  void setSelectedUser(String? id) {
+    _selectedUserId = id;
+    notifyListeners();
+  }
+
+  bool _isLoading = false; // first load
+  bool _isLoadMore = false; // bottom pagination load
 
   bool get isLoading => _isLoading;
+  bool get isLoadMore => _isLoadMore;
 
   CreateJobProvider() {
-    // initial fetch
     fetchUsers();
 
-    // listen scroll for pagination
     scrollController.addListener(() {
-      if (scrollController.position.pixels >=
-              scrollController.position.maxScrollExtent &&
-          !_isLoading &&
-          _page < _totalPages) {
-        _page++;
-        fetchUsers();
+      if (scrollController.position.pixels >
+          scrollController.position.maxScrollExtent - 100) {
+        loadMore();
       }
     });
   }
+
+  bool get hasMore => _page < _totalPages;
 
   Future<void> fetchUsers() async {
     _isLoading = true;
@@ -45,11 +53,13 @@ class CreateJobProvider extends ChangeNotifier {
         limit: _limit,
       );
 
-      // Append new users
-      _users.addAll(response.data ?? []);
+      _totalPages = response.metaData?.totalPage ?? 1;
 
-      // Update total pages
-      _totalPages = response.metaData?.totalPage ?? 0;
+      final newList = (response.data ?? []).where(
+        (item) => !_users.any((old) => old.id == item.id),
+      );
+
+      _users.addAll(newList);
     } catch (e) {
       debugPrint("Error fetching users: $e");
     }
@@ -58,11 +68,40 @@ class CreateJobProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> loadMore() async {
+    if (_isLoadMore) return;
+    if (!hasMore) return;
+
+    _isLoadMore = true;
+    _page++;
+    notifyListeners();
+
+    try {
+      final response = await allUserRxObj.allUserRx(
+        isApproved: true,
+        role: 2,
+        page: _page,
+        isSuspended: false,
+        limit: _limit,
+      );
+
+      final newList = (response.data ?? []).where(
+        (item) => !_users.any((old) => old.id == item.id),
+      );
+
+      _users.addAll(newList);
+    } catch (e) {
+      debugPrint("Error loading more users: $e");
+    }
+
+    _isLoadMore = false;
+    notifyListeners();
+  }
+
   void reset() {
     _users.clear();
     _page = 1;
     _totalPages = 1;
-    notifyListeners();
     fetchUsers();
   }
 }

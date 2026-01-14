@@ -1,23 +1,23 @@
-import 'package:artneidich_app/common_widget/custom_button.dart';
-import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import '../../../common_widget/custom_button.dart';
+import '../../../common_widget/custom_text_field.dart';
+import '../../../common_widget/job_create_header.dart';
 import '../../../constants/text_font_style.dart';
 
-class CreateJobWidget3 extends StatefulWidget {
-  const CreateJobWidget3({super.key});
+class CreateJobScreen3 extends StatefulWidget {
+  const CreateJobScreen3({super.key});
 
   @override
-  State<CreateJobWidget3> createState() => _CreateJobWidget3State();
+  State<CreateJobScreen3> createState() => _CreateJobScreen3State();
 }
 
-class _CreateJobWidget3State extends State<CreateJobWidget3> {
-  // Agreed controller
-
+class _CreateJobScreen3State extends State<CreateJobScreen3> {
   final _dateController = TextEditingController();
   final _noteInspector = TextEditingController();
 
@@ -32,16 +32,24 @@ class _CreateJobWidget3State extends State<CreateJobWidget3> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUnfocus,
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUnfocus,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              JobCreateHeaderWidget(
+                title: "Jobs",
+                icon: Assets.images.createJob.path,
+                subtitle: "Create New Job",
+                onPressed: () {
+                  NavigationService.goBack;
+                },
+              ),
+
+              UIHelper.verticalSpace(20.h),
+
               Text("Date", style: TextFontStyle.headLine14c323539InterW400),
               UIHelper.verticalSpace(10.h),
               CustomTextField(
