@@ -40,7 +40,7 @@ final class Endpoints {
   static String createJob() => "/job";
 
   // all user
-static String getAllUser({
+  static String getAllUser({
     int? page,
     int? limit,
     String? search,
@@ -68,6 +68,28 @@ static String getAllUser({
     return uri.toString();
   }
 
+  // All Job
+  static String getAllJob({
+    int? page,
+    int? limit,
+    String? search,
+    String? status,
+  }) {
+    final Map<String, String> queryParams = {};
+
+    if (page != null) queryParams["page"] = page.toString();
+    if (limit != null) queryParams["limit"] = limit.toString();
+    if (search != null && search.trim().isNotEmpty) {
+      queryParams["search"] = search;
+    }
+    if (status != null) queryParams["status"] = status.toString();
+
+    final uri = Uri.parse(
+      "/job",
+    ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
+
+    return uri.toString();
+  }
 
   ///
   static String logIn() => "/api/login";

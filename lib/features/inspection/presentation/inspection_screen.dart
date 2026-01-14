@@ -30,10 +30,10 @@ class _InspectionScreenState extends State<InspectionScreen> {
   }
 
   final List<String> filterList = [
-    "Assigned",
     "In Progress",
     "Submitted",
-    "Overdue",
+    "Completed",
+    "Rejected",
   ];
 
   int selectedFilter = -1;

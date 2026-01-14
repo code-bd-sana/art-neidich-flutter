@@ -8,6 +8,8 @@ import '../features/authentication/sign_up/data/rx.dart';
 import '../features/create_job/data/rx_get_all_user/model/all_user_response.dart';
 import '../features/create_job/data/rx_get_all_user/rx.dart';
 import '../features/create_job/data/rx_post_create/rx.dart';
+import '../features/inspection/data/model/all_job_response.dart';
+import '../features/inspection/data/rx_get/rx.dart';
 import '../features/profile/data/rx_get_profile/model/profile_response_model.dart';
 import '../features/profile/data/rx_get_profile/rx.dart';
 import '../features/profile/data/rx_post_profile/rx.dart';
@@ -43,4 +45,8 @@ AllUserRx allUserRxObj = AllUserRx(
 CreateJobRx createJobRxObj = CreateJobRx(
   empty: {},
   dataFetcher: BehaviorSubject<Map>(),
+);
+AllJobRx allJobRxObj = AllJobRx(
+  empty: AllJobResponse(),
+  dataFetcher: BehaviorSubject<AllJobResponse>(),
 );
