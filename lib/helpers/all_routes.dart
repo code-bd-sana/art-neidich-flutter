@@ -12,6 +12,7 @@ import '../features/authentication/reset_password/reset_password_screen.dart';
 import '../features/authentication/sign_in/sign_in_screen.dart';
 import '../features/create_job/presentation/create_job_screen_1.dart';
 import '../features/create_job/presentation/create_job_screen_2.dart';
+import '../features/create_job/presentation/create_job_screen_3.dart';
 import '../features/create_label/create_label_screen.dart';
 import '../features/inspector/inspector_screen.dart';
 import '../features/inspector_list/presentation/inspector_list_screen.dart';
@@ -81,6 +82,8 @@ final class Routes {
       '/repeatInspectionLabelScreen';
 
   static const String createJobScreen2 = '/createJobScreen2';
+
+  static const String createJobScreen3 = '/createJobScreen3';
 }
 
 //
@@ -91,6 +94,45 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.createJobScreen3:
+        final args = settings.arguments as Map;
+        return Platform.isAndroid
+            ? _FadedTransitionRoute(
+                widget: CreateJobScreen3(
+                  inspectorID: args["inspectorID"],
+                  formType: args["formType"],
+                  feeStatus: args["feeStatus"],
+                  agreedStatus: args["agreedStatus"],
+
+                  // second
+                  fhaCaseDetails: args["fhaCaseDetails"],
+                  orderID: args["orderID"],
+                  streetAddress: args["streetAddress"],
+                  developmentName: args["developmentName"],
+                  contactName: args["contactName"],
+                  phone: args["phone"],
+                  email: args["email"],
+                ),
+                settings: settings,
+              )
+            : CupertinoPageRoute(
+                builder: (context) => CreateJobScreen3(
+                  inspectorID: args["inspectorID"],
+                  formType: args["formType"],
+                  feeStatus: args["feeStatus"],
+                  agreedStatus: args["agreedStatus"],
+
+                  // second
+                  fhaCaseDetails: args["fhaCaseDetails"],
+                  orderID: args["orderID"],
+                  streetAddress: args["streetAddress"],
+                  developmentName: args["developmentName"],
+                  contactName: args["contactName"],
+                  phone: args["phone"],
+                  email: args["email"],
+                ),
+              );
+
       case Routes.createJobScreen2:
         final args = settings.arguments as Map;
         return Platform.isAndroid

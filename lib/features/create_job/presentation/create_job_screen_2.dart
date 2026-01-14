@@ -10,6 +10,7 @@ import '../../../common_widget/custom_text_field.dart';
 import '../../../common_widget/job_create_header.dart';
 import '../../../constants/text_font_style.dart';
 import '../../../constants/validation.dart';
+import '../../../helpers/all_routes.dart';
 
 class CreateJobScreen2 extends StatefulWidget {
   final String inspectorID;
@@ -57,10 +58,12 @@ class _CreateJobScreen2State extends State<CreateJobScreen2> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUnfocus,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               JobCreateHeaderWidget(
                 title: "Jobs",
@@ -73,169 +76,242 @@ class _CreateJobScreen2State extends State<CreateJobScreen2> {
 
               UIHelper.verticalSpace(20.h),
 
-              Text(
-                "FHA Case Details",
-                style: TextFontStyle.headLine14c323539InterW400,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Text(
+                  "FHA Case Details",
+                  style: TextFontStyle.headLine14c323539InterW400,
+                ),
               ),
               UIHelper.verticalSpace(10.h),
-              CustomTextField(
-                controller: _fhaCaseDetailsController,
-                style: TextFontStyle.headLine14c323539InterW400.copyWith(
-                  color: Color(0xFF71717A),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomTextField(
+                  controller: _fhaCaseDetailsController,
+                  style: TextFontStyle.headLine14c323539InterW400.copyWith(
+                    color: Color(0xFF71717A),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "FHA case is required";
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "FHA case is required";
-                  }
-                  return null;
-                },
               ),
 
               UIHelper.verticalSpace(12.h),
 
               // order id
-              Text("Order ID", style: TextFontStyle.headLine14c323539InterW400),
-              UIHelper.verticalSpace(10.h),
-              CustomTextField(
-                controller: _orderIdController,
-                style: TextFontStyle.headLine14c323539InterW400.copyWith(
-                  color: Color(0xFF71717A),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Text(
+                  "Order ID",
+                  style: TextFontStyle.headLine14c323539InterW400,
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Order Id is required";
-                  }
-                  return null;
-                },
+              ),
+              UIHelper.verticalSpace(10.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomTextField(
+                  controller: _orderIdController,
+                  style: TextFontStyle.headLine14c323539InterW400.copyWith(
+                    color: Color(0xFF71717A),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Order Id is required";
+                    }
+                    return null;
+                  },
+                ),
               ),
 
               // Stress Address
               UIHelper.verticalSpace(12.h),
 
-              Text(
-                "Street Address",
-                style: TextFontStyle.headLine14c323539InterW400,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Text(
+                  "Street Address",
+                  style: TextFontStyle.headLine14c323539InterW400,
+                ),
               ),
               UIHelper.verticalSpace(10.h),
-              CustomTextField(
-                controller: _adressController,
-                style: TextFontStyle.headLine14c323539InterW400.copyWith(
-                  color: Color(0xFF71717A),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomTextField(
+                  controller: _adressController,
+                  style: TextFontStyle.headLine14c323539InterW400.copyWith(
+                    color: Color(0xFF71717A),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Street address is required";
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Street address is required";
-                  }
-                  return null;
-                },
               ),
 
               UIHelper.verticalSpace(12.h),
 
               // Developemnt
-              Text(
-                "Development",
-                style: TextFontStyle.headLine14c323539InterW400,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Text(
+                  "Development Name",
+                  style: TextFontStyle.headLine14c323539InterW400,
+                ),
               ),
               UIHelper.verticalSpace(10.h),
-              CustomTextField(
-                controller: _developermentController,
-                style: TextFontStyle.headLine14c323539InterW400.copyWith(
-                  color: Color(0xFF71717A),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomTextField(
+                  controller: _developermentController,
+                  style: TextFontStyle.headLine14c323539InterW400.copyWith(
+                    color: Color(0xFF71717A),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Devlopment is required";
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Devlopment is required";
-                  }
-                  return null;
-                },
               ),
 
               UIHelper.verticalSpace(12.h),
 
               // Name
-              Text(
-                "Site Contact Name",
-                style: TextFontStyle.headLine14c323539InterW400,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Text(
+                  "Site Contact Name",
+                  style: TextFontStyle.headLine14c323539InterW400,
+                ),
               ),
               UIHelper.verticalSpace(10.h),
-              CustomTextField(
-                controller: _nameController,
-                style: TextFontStyle.headLine14c323539InterW400.copyWith(
-                  color: Color(0xFF71717A),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomTextField(
+                  controller: _nameController,
+                  style: TextFontStyle.headLine14c323539InterW400.copyWith(
+                    color: Color(0xFF71717A),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Name is required";
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Name is required";
-                  }
-                  return null;
-                },
               ),
 
               UIHelper.verticalSpace(12.h),
 
               // Phone
-              Text("Phone", style: TextFontStyle.headLine14c323539InterW400),
-              UIHelper.verticalSpace(10.h),
-              CustomTextField(
-                textInputAction: TextInputAction.next,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _phoneController,
-                style: TextFontStyle.headLine14c323539InterW400.copyWith(
-                  color: Color(0xFF71717A),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Text(
+                  "Phone",
+                  style: TextFontStyle.headLine14c323539InterW400,
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Phone is required";
-                  }
-                  return null;
-                },
+              ),
+              UIHelper.verticalSpace(10.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomTextField(
+                  textInputAction: TextInputAction.next,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  controller: _phoneController,
+                  style: TextFontStyle.headLine14c323539InterW400.copyWith(
+                    color: Color(0xFF71717A),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Phone is required";
+                    }
+                    return null;
+                  },
+                ),
               ),
 
               UIHelper.verticalSpace(12.h),
 
               // Email
-              Text("Email", style: TextFontStyle.headLine14c323539InterW400),
-              UIHelper.verticalSpace(10.h),
-              CustomTextField(
-                controller: _emailontroller,
-                style: TextFontStyle.headLine14c323539InterW400.copyWith(
-                  color: Color(0xFF71717A),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Text(
+                  "Email",
+                  style: TextFontStyle.headLine14c323539InterW400,
                 ),
-                validator: emailValidation,
+              ),
+              UIHelper.verticalSpace(10.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomTextField(
+                  controller: _emailontroller,
+                  style: TextFontStyle.headLine14c323539InterW400.copyWith(
+                    color: Color(0xFF71717A),
+                  ),
+                  validator: emailValidation,
+                ),
               ),
 
               UIHelper.verticalSpace(20.h),
 
-              Align(
-                alignment: Alignment.topRight,
-                child: CustomButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
-                  },
-                  borderRadius: 30.r,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 32.w,
-                    vertical: 12.h,
-                  ),
-                  minWidth: 0,
-                  child: Row(
-                    spacing: 10.w,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: CustomButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        NavigationService.navigateToWithArgs(
+                          Routes.createJobScreen3,
+                          {
+                            "inspectorID": widget.inspectorID,
+                            "formType": widget.formType,
+                            "feeStatus": widget.feeStatus,
+                            "agreedStatus": widget.agreedStatus,
 
-                    children: [
-                      Text(
-                        "Next",
-                        style: TextFontStyle.headLine16c2D8D7CInterW700,
-                      ),
-                      Image.asset(
-                        Assets.icons.arrowRight.path,
-                        width: 20.w,
-                        height: 20.h,
-                        fit: BoxFit.contain,
-                      ),
-                    ],
+                            // second screen
+                            "fhaCaseDetails": _fhaCaseDetailsController.text,
+                            "orderID": _orderIdController.text,
+                            "streetAddress": _adressController.text,
+                            "developmentName": _developermentController.text,
+                            "contactName": _nameController.text,
+                            "phone": _phoneController.text,
+                            "email": _emailontroller.text,
+                          },
+                        );
+                      }
+                    },
+                    borderRadius: 30.r,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 32.w,
+                      vertical: 12.h,
+                    ),
+                    minWidth: 0,
+                    child: Row(
+                      spacing: 10.w,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+
+                      children: [
+                        Text(
+                          "Next",
+                          style: TextFontStyle.headLine16c2D8D7CInterW700,
+                        ),
+                        Image.asset(
+                          Assets.icons.arrowRight.path,
+                          width: 20.w,
+                          height: 20.h,
+                          fit: BoxFit.contain,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

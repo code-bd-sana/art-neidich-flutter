@@ -16,7 +16,7 @@ final class CreateJobApi {
     required String inspector,
     required String formType,
     required String feeStatus,
-    required String agreedFee,
+    required int agreedFee,
     required String fhaCaseDetailsNo,
     required String orderId,
     required String streetAddress,
