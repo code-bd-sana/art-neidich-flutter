@@ -14,6 +14,7 @@ class CreateJob extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
+      elevation: 0,
       heroTag: heroTag,
       backgroundColor: const Color(0xFF2D8D7C),
       onPressed: onpressed,

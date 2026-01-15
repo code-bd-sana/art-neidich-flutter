@@ -18,7 +18,7 @@ final class AllJobRx extends RxResponseInt<AllJobResponse> {
 
   ValueStream<AllJobResponse> get allJobRxStream => dataFetcher.stream;
 
-  Future<AllJobResponse> allUserRx({
+  Future<AllJobResponse> allJobRx({
     int? page,
     int? limit,
     String? search,

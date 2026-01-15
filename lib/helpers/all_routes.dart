@@ -334,12 +334,13 @@ final class RouteGenerator {
             : CupertinoPageRoute(builder: (context) => NavigationScreen());
 
       case Routes.jobDetailsScreen:
+        final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: JobDetailsScreen(),
+                widget: JobDetailsScreen(id: args["id"],),
                 settings: settings,
               )
-            : CupertinoPageRoute(builder: (context) => JobDetailsScreen());
+            : CupertinoPageRoute(builder: (context) => JobDetailsScreen(id: args["id"]));
 
       case Routes.resetPasswordScreen:
         return Platform.isAndroid

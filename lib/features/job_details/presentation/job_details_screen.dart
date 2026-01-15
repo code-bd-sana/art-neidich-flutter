@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:artneidich_app/features/job_details/tab/photos_widget.dart';
 import 'package:artneidich_app/features/job_details/tab/report_widget.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
@@ -11,7 +13,8 @@ import '../tab/email_log.dart';
 import '../tab/summary_widget.dart';
 
 class JobDetailsScreen extends StatefulWidget {
-  const JobDetailsScreen({super.key});
+  final String id;
+  const JobDetailsScreen({super.key, required this.id});
 
   @override
   State<JobDetailsScreen> createState() => _JobDetailsScreenState();
@@ -28,6 +31,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   int selectedTabIndex = 0;
   @override
   Widget build(BuildContext context) {
+    log("ID=========================== ${widget.id}");
     return Scaffold(
       body: SingleChildScrollView(
         physics: ClampingScrollPhysics(),

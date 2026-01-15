@@ -7,9 +7,18 @@ import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../helpers/toast.dart';
+import '../../../provider/inspection_provider.dart';
+
 class ShowSearchBottomWidget extends StatelessWidget {
   final TextEditingController search;
-  const ShowSearchBottomWidget({super.key, required this.search});
+
+  final InspectionProvider provider;
+  const ShowSearchBottomWidget({
+    super.key,
+    required this.search,
+    required this.provider,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +68,15 @@ class ShowSearchBottomWidget extends StatelessWidget {
 
             CustomButton(
               onPressed: () {
-                NavigationService.goBack;
+                if (search.text.isEmpty) {
+                  ToastUtil.showShortToast("Please type your job name");
+                } else {
+                  provider.searchJobUpdate(search.text);
+
+                  NavigationService.goBack;
+                  search.clear();
+                }
+                //       NavigationService.goBack;
               },
               text: "Apply",
             ),
