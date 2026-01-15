@@ -91,8 +91,17 @@ final class Endpoints {
     return uri.toString();
   }
 
-  ///
-  static String logIn() => "/api/login";
+
+    static String logIn() => "/api/login";
+
+  /// Job Details Summary
+  static String getJob({required String id}) => "/job/$id";
+    static String getReportJob({required String id}) => "/report/$id";
+
+
+
+
+
   static String logout() => "/api/logout";
   static String getBabyProfile() => "/api/baby/profile/show";
   static String getProfile() => "/api/user/data";
