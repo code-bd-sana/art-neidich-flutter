@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:artneidich_app/constants/app_constants.dart';
+import 'package:artneidich_app/helpers/di.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -18,7 +20,7 @@ final class SummaryRx extends RxResponseInt<SummaryResponse> {
 
   ValueStream<SummaryResponse> get summaryRxStream => dataFetcher.stream;
 
-  Future<SummaryResponse> allJobRx({required String id}) async {
+  Future<SummaryResponse> summaryRx({required String id}) async {
     try {
       SummaryResponse data = await api.summaryApi(id: id);
       return handleSuccessWithReturn(data);
@@ -29,6 +31,7 @@ final class SummaryRx extends RxResponseInt<SummaryResponse> {
 
   @override
   handleSuccessWithReturn(SummaryResponse data) {
+    appData.write(kKeyReportId, data.data?.reportId ?? "");
     dataFetcher.sink.add(data);
     return data;
   }

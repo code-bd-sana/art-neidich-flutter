@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:artneidich_app/features/job_details/tab/photos_widget.dart';
 import 'package:artneidich_app/features/job_details/tab/report_widget.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
+import 'package:artneidich_app/provider/job_details_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../common_widget/header_widget.dart';
 import '../../../constants/text_font_style.dart';
@@ -21,6 +23,14 @@ class JobDetailsScreen extends StatefulWidget {
 }
 
 class _JobDetailsScreenState extends State<JobDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<JobDetailsProvider>().fetchJobSummarry(id: widget.id);
+    });
+  }
+
   final List<Map<String, dynamic>> _tabList = [
     {"icon": Assets.images.summary.path, "title": "Summary"},
     {"icon": Assets.images.photos.path, "title": "Photos"},
@@ -126,7 +136,32 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             UIHelper.verticalSpace(10.h),
 
             selectedTabIndex == 0
-                ? SummaryWidget()
+                ? Consumer<JobDetailsProvider>(
+                    builder: (context, provider, child) {
+                      if (provider.isLoading) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFF2D8D7C),
+                          ),
+                        );
+                      }
+
+                      if (provider.error != null) {
+                        return Center(
+                          child: Text(
+                            provider.error!,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                        );
+                      }
+
+                      if (provider.data == null) {
+                        return Center(child: Text("No job summary available"));
+                      }
+
+                      return SummaryWidget(provider: provider);
+                    },
+                  )
                 : selectedTabIndex == 1
                 ? PhotosWidget()
                 : selectedTabIndex == 2

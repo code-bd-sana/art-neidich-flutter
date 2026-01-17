@@ -5,6 +5,7 @@ import '../provider/camera_setting_provider.dart';
 import '../provider/create_job_provider.dart';
 import '../provider/inspection_provider.dart';
 import '../provider/inspector_progress_provider.dart';
+import '../provider/job_details_provider.dart';
 import '../provider/label_provider.dart';
 import '../provider/otp_provider.dart';
 import '../provider/push_notification_provider.dart';
@@ -46,6 +47,9 @@ var providers = [
 
   ChangeNotifierProvider<InspectionProvider>(
     create: ((context) => InspectionProvider()),
+  ),
+  ChangeNotifierProvider<JobDetailsProvider>(
+    create: ((context) => JobDetailsProvider()),
   ),
 ];
 

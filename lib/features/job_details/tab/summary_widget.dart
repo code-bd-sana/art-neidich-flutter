@@ -3,12 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/text_font_style.dart';
 import '../../../helpers/ui_helpers.dart';
+import '../../../provider/job_details_provider.dart';
 import '../widgets/contact_card_widget.dart';
 import '../widgets/internal_note_widget.dart';
 import '../widgets/job_details_widget.dart';
 
 class SummaryWidget extends StatelessWidget {
-  const SummaryWidget({super.key});
+  final JobDetailsProvider provider;
+
+  const SummaryWidget({super.key, required this.provider});
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +30,44 @@ class SummaryWidget extends StatelessWidget {
         ),
 
         UIHelper.verticalSpace(20.h),
-        JobDetailsWidget(title: 'Inspector', value: 'John Doe'),
+        JobDetailsWidget(
+          title: 'Inspector',
+          value:
+              "${provider.data?.inspector?.firstName ?? ""} ${provider.data?.inspector?.lastName ?? ""}",
+        ),
         UIHelper.verticalSpace(20.h),
-        JobDetailsWidget(title: 'FHA Case Details', value: 'Case-001'),
+        JobDetailsWidget(
+          title: 'FHA Case Details',
+          value: provider.data?.fhaCaseDetailsNo ?? "",
+        ),
         UIHelper.verticalSpace(20.h),
-        JobDetailsWidget(title: 'OrderID', value: '8813218R'),
+        JobDetailsWidget(title: 'OrderID', value: provider.data?.orderId ?? ""),
         UIHelper.verticalSpace(20.h),
-        JobDetailsWidget(title: 'Fee Status', value: 'Standard Fee'),
+        JobDetailsWidget(
+          title: 'Fee Status',
+          value: provider.data?.feeStatus ?? "",
+        ),
+
         UIHelper.verticalSpace(20.h),
-        JobDetailsWidget(title: 'Agreed Feee', value: '\$150'),
+        JobDetailsWidget(
+          title: 'Agreed Feee',
+          value: provider.data?.agreedFee.toString() ?? "",
+        ),
         UIHelper.verticalSpace(20.h),
         JobDetailsWidget(
           title: 'Form Type',
-          value: 'RCI Residential Building Code Inspection',
+          value: provider.data?.formType ?? "",
         ),
         UIHelper.verticalSpace(20.h),
         JobDetailsWidget(
           title: 'Street Address',
-          value: '1184 Crestview Drive, San Jose, California 95132',
+          value: provider.data?.streetAddress ?? "",
         ),
         UIHelper.verticalSpace(20.h),
-        JobDetailsWidget(title: 'Development', value: 'Histrung Heights'),
+        JobDetailsWidget(
+          title: 'Development',
+          value: provider.data?.developmentName ?? "",
+        ),
 
         UIHelper.verticalSpace(30.h),
         Padding(
@@ -64,9 +84,9 @@ class SummaryWidget extends StatelessWidget {
         UIHelper.verticalSpace(20.h),
 
         ContactCardWidget(
-          name: 'John Doe',
-          phone: '+123456789',
-          email: 'jonh@gmail.com',
+          name: provider.data?.siteContactName ?? "",
+          phone: provider.data?.siteContactPhone ?? "",
+          email: provider.data?.siteContactEmail ?? "",
         ),
 
         UIHelper.verticalSpace(20.h),
@@ -83,10 +103,8 @@ class SummaryWidget extends StatelessWidget {
 
         UIHelper.verticalSpace(20.h),
         InternalNotesWidget(
-          noteInspector: 'Look for the damages caused by thunder',
-          noteAp: 'None',
-          formInspector:
-              'Looked for the damages caused by thunder, and found prove of damages in rooftop',
+          noteInspector: provider.data?.specialNotesForInspector ?? "",
+          noteAp: provider.data?.specialNoteForApOrAr ?? "",
         ),
       ],
     );

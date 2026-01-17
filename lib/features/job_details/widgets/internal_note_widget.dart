@@ -7,12 +7,12 @@ import '../../../helpers/ui_helpers.dart';
 class InternalNotesWidget extends StatelessWidget {
   final String noteInspector;
   final String noteAp;
-  final String formInspector;
+  //final String formInspector;
   const InternalNotesWidget({
     super.key,
     required this.noteInspector,
     required this.noteAp,
-    required this.formInspector,
+    //required this.formInspector,
   });
 
   @override
@@ -106,44 +106,44 @@ class InternalNotesWidget extends StatelessWidget {
             ],
           ),
 
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  "From Inspector",
-                  style: TextFontStyle.headLine16c141414InterW400.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.sp,
-                  ),
-                ),
-              ),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Expanded(
+          //       child: Text(
+          //         "From Inspector",
+          //         style: TextFontStyle.headLine16c141414InterW400.copyWith(
+          //           fontWeight: FontWeight.w500,
+          //           fontSize: 14.sp,
+          //         ),
+          //       ),
+          //     ),
 
-              UIHelper.horizontalSpace(20.w),
+          //     UIHelper.horizontalSpace(20.w),
 
-              Text(
-                ": ",
-                style: TextFontStyle.headLine16c141414InterW400.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14.sp,
-                ),
-              ),
+          //     Text(
+          //       ": ",
+          //       style: TextFontStyle.headLine16c141414InterW400.copyWith(
+          //         fontWeight: FontWeight.w500,
+          //         fontSize: 14.sp,
+          //       ),
+          //     ),
 
-              UIHelper.horizontalSpace(20.w),
+          //     UIHelper.horizontalSpace(20.w),
 
-              // value comes just after colon
-              Expanded(
-                child: Text(
-                  formInspector,
-                  style: TextFontStyle.headLine16c141414InterW400.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                    fontSize: 14.sp,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          //     // value comes just after colon
+          //     Expanded(
+          //       child: Text(
+          //         formInspector,
+          //         style: TextFontStyle.headLine16c141414InterW400.copyWith(
+          //           fontWeight: FontWeight.w400,
+          //           color: Colors.black,
+          //           fontSize: 14.sp,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );
