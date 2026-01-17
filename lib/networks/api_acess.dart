@@ -14,6 +14,7 @@ import '../features/job_details/data/rx_get_report/model/job_report_response.dar
 import '../features/job_details/data/rx_get_report/rx.dart';
 import '../features/job_details/data/rx_get_summary/model/summary_response.dart';
 import '../features/job_details/data/rx_get_summary/rx.dart';
+import '../features/create_label/data/rx_post/rx.dart';
 import '../features/profile/data/rx_get_profile/model/profile_response_model.dart';
 import '../features/profile/data/rx_get_profile/rx.dart';
 import '../features/profile/data/rx_post_profile/rx.dart';
@@ -63,4 +64,9 @@ SummaryRx summaryRxObj = SummaryRx(
 JobReportRx jobReportRxObj = JobReportRx(
   empty: ReportResponse(),
   dataFetcher: BehaviorSubject<ReportResponse>(),
+);
+
+CreateLabelRx createLabelRxObj = CreateLabelRx(
+  empty: {},
+  dataFetcher: BehaviorSubject<Map>(),
 );

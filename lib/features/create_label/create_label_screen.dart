@@ -2,14 +2,15 @@ import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/common_widget/header_widget.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
-import 'package:artneidich_app/provider/label_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 import '../../constants/text_font_style.dart';
+import '../../networks/api_acess.dart';
 
 class CreateLabelScreen extends StatefulWidget {
   const CreateLabelScreen({super.key});
@@ -82,12 +83,23 @@ class _CreateLabelScreenState extends State<CreateLabelScreen> {
                   child: CustomButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Provider.of<LabelProvider>(
-                          context,
-                          listen: false,
-                        ).addLabel(labelnameController.text);
+                        createLabelRxObj
+                            .createLabelRx(label: labelnameController.text)
+                            .waitingForFuture()
+                            .then((success) {
+                              if (success) {
+                                NavigationService.goBack;
 
-                        NavigationService.goBack;
+                                ToastUtil.showShortToast(
+                                  "Label Created Successfully",
+                                );
+                              }
+                            });
+
+                        // Provider.of<LabelProvider>(
+                        //   context,
+                        //   listen: false,
+                        // ).addLabel(labelnameController.text);
                       }
                     },
                     borderRadius: 30.r,
