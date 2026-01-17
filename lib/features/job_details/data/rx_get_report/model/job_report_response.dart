@@ -3,7 +3,7 @@ import 'dart:convert';
 class ReportResponse {
   bool? success;
   String? message;
-  Data? data;
+  ReportData? data;
   int? code;
 
   ReportResponse({this.success, this.message, this.data, this.code});
@@ -11,7 +11,7 @@ class ReportResponse {
   ReportResponse copyWith({
     bool? success,
     String? message,
-    Data? data,
+    ReportData? data,
     int? code,
   }) => ReportResponse(
     success: success ?? this.success,
@@ -28,7 +28,7 @@ class ReportResponse {
   factory ReportResponse.fromJson(Map<String, dynamic> json) => ReportResponse(
     success: json["success"],
     message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    data: json["data"] == null ? null : ReportData.fromJson(json["data"]),
     code: json["code"],
   );
 
@@ -40,7 +40,7 @@ class ReportResponse {
   };
 }
 
-class Data {
+class ReportData {
   String? id;
   Inspector? inspector;
   Job? job;
@@ -49,7 +49,7 @@ class Data {
   DateTime? updatedAt;
   List<DataImage>? images;
 
-  Data({
+  ReportData({
     this.id,
     this.inspector,
     this.job,
@@ -59,7 +59,7 @@ class Data {
     this.images,
   });
 
-  Data copyWith({
+  ReportData copyWith({
     String? id,
     Inspector? inspector,
     Job? job,
@@ -67,7 +67,7 @@ class Data {
     DateTime? createdAt,
     DateTime? updatedAt,
     List<DataImage>? images,
-  }) => Data(
+  }) => ReportData(
     id: id ?? this.id,
     inspector: inspector ?? this.inspector,
     job: job ?? this.job,
@@ -77,11 +77,11 @@ class Data {
     images: images ?? this.images,
   );
 
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+  factory ReportData.fromRawJson(String str) => ReportData.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory ReportData.fromJson(Map<String, dynamic> json) => ReportData(
     id: json["_id"],
     inspector: json["inspector"] == null
         ? null

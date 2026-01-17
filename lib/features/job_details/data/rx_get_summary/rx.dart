@@ -32,6 +32,7 @@ final class SummaryRx extends RxResponseInt<SummaryResponse> {
   @override
   handleSuccessWithReturn(SummaryResponse data) {
     appData.write(kKeyReportId, data.data?.reportId ?? "");
+    appData.write(kKeyHasReport, data.data?.hasReport ?? false);
     dataFetcher.sink.add(data);
     return data;
   }

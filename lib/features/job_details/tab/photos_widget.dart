@@ -1,44 +1,89 @@
-import 'package:artneidich_app/common_widget/custom_network_image.dart';
+import 'package:artneidich_app/constants/app_constants.dart';
+import 'package:artneidich_app/constants/text_font_style.dart';
+import 'package:artneidich_app/helpers/di.dart';
+import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import '../../../common_widget/custom_network_image.dart';
+import '../../../provider/job_details_provider.dart';
+
 class PhotosWidget extends StatelessWidget {
-  const PhotosWidget({super.key});
+  final JobDetailsProvider provider;
+  const PhotosWidget({super.key, required this.provider});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: AnimationLimiter(
-        child: GridView.builder(
-          itemCount: 10,
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
+      child: appData.read(kKeyHasReport)
+          ? AnimationLimiter(
+              child: ListView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                itemCount: provider.reportData?.images?.length,
+                itemBuilder: (_, index) {
+                  var data = provider.reportData?.images?[index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 10,
+                    children: [
+                      Text(
+                        data?.imageLabel ?? "",
+                        style: TextFontStyle.headLine14c323539InterW400,
+                      ),
 
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemBuilder: (context, index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: const Duration(milliseconds: 375),
-              columnCount: 3,
-              child: ScaleAnimation(
-                child: FadeInAnimation(
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(10.r),
-                    child: CustomCachedNetworkImage(imageUrl: ""),
-                  ),
+                      AnimationLimiter(
+                        child: GridView.builder(
+                          itemCount: data?.images?.length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                              ),
+                          itemBuilder: (context, index) {
+                            var datum= data?.images?[index];
+                            return AnimationConfiguration.staggeredGrid(
+                              position: index,
+                              duration: const Duration(milliseconds: 375),
+                              columnCount: 2,
+                              child: ScaleAnimation(
+                                child: FadeInAnimation(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadiusGeometry.circular(
+                                      10.r,
+                                    ),
+                                    child: CustomCachedNetworkImage(
+                                      imageUrl: datum?.url ?? "",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+
+                      UIHelper.verticalSpace(10.h),
+                    ],
+                  );
+                },
+              ),
+            )
+          : Center(
+              child: SizedBox(
+                height: 0.5.sh,
+                child: Text(
+                  "Photos not available",
+                  style: TextFontStyle.headLine14c323539InterW400,
                 ),
               ),
-            );
-          },
-        ),
-      ),
+            ),
     );
   }
 }

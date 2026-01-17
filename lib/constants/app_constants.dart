@@ -7,6 +7,7 @@ const String kKeyEMail = 'lst_name';
 const String kKeyRole = 'role';
 
 const String kKeyReportId = 'reportId';
+const String kKeyHasReport = 'hasReport';
 
 
 ///

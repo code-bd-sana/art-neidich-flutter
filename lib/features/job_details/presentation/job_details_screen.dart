@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:artneidich_app/constants/app_constants.dart';
 import 'package:artneidich_app/features/job_details/tab/photos_widget.dart';
 import 'package:artneidich_app/features/job_details/tab/report_widget.dart';
+import 'package:artneidich_app/helpers/di.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:artneidich_app/provider/job_details_provider.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<JobDetailsProvider>().fetchJobSummarry(id: widget.id);
+
+      if (appData.read(kKeyHasReport)) {
+        context.read<JobDetailsProvider>().fetchReport(
+          id: appData.read(kKeyReportId),
+        );
+      }
     });
   }
 
@@ -156,17 +164,52 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       }
 
                       if (provider.data == null) {
-                        return Center(child: Text("No job summary available"));
+                        return Center(
+                          child: Text(
+                            "No job summary available",
+                            style: TextFontStyle.headLine16c141414InterW400,
+                          ),
+                        );
                       }
 
                       return SummaryWidget(provider: provider);
                     },
                   )
-                : selectedTabIndex == 1
-                ? PhotosWidget()
-                : selectedTabIndex == 2
-                ? ReportWidget()
-                : EmailLog(),
+                : Consumer<JobDetailsProvider>(
+                    builder: (context, photoProvider, child) {
+                      if (photoProvider.isLoading) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFF2D8D7C),
+                          ),
+                        );
+                      }
+
+                      if (photoProvider.error != null) {
+                        return Center(
+                          child: Text(
+                            photoProvider.error!,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                        );
+                      }
+
+                      if (photoProvider.data == null) {
+                        return Center(
+                          child: Text(
+                            "Photos not Available ",
+                            style: TextFontStyle.headLine16c141414InterW400,
+                          ),
+                        );
+                      }
+
+                      return selectedTabIndex == 1
+                          ? PhotosWidget(provider: photoProvider)
+                          : selectedTabIndex == 2
+                          ? ReportWidget(provider: photoProvider)
+                          : EmailLog(provider: photoProvider);
+                    },
+                  ),
 
             UIHelper.verticalSpaceExtraLarge,
           ],
