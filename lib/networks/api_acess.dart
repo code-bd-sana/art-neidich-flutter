@@ -8,13 +8,17 @@ import '../features/authentication/sign_up/data/rx.dart';
 import '../features/create_job/data/rx_get_all_user/model/all_user_response.dart';
 import '../features/create_job/data/rx_get_all_user/rx.dart';
 import '../features/create_job/data/rx_post_create/rx.dart';
+import '../features/create_label/data/rx_post/rx.dart';
 import '../features/inspection/data/model/all_job_response.dart';
 import '../features/inspection/data/rx_get/rx.dart';
 import '../features/job_details/data/rx_get_report/model/job_report_response.dart';
 import '../features/job_details/data/rx_get_report/rx.dart';
 import '../features/job_details/data/rx_get_summary/model/summary_response.dart';
 import '../features/job_details/data/rx_get_summary/rx.dart';
-import '../features/create_label/data/rx_post/rx.dart';
+import '../features/labels/data/rx_delete/rx.dart';
+import '../features/labels/data/rx_get/model/label_response.dart';
+import '../features/labels/data/rx_get/rx.dart';
+import '../features/labels/data/rx_update/rx.dart';
 import '../features/profile/data/rx_get_profile/model/profile_response_model.dart';
 import '../features/profile/data/rx_get_profile/rx.dart';
 import '../features/profile/data/rx_post_profile/rx.dart';
@@ -67,6 +71,20 @@ JobReportRx jobReportRxObj = JobReportRx(
 );
 
 CreateLabelRx createLabelRxObj = CreateLabelRx(
+  empty: {},
+  dataFetcher: BehaviorSubject<Map>(),
+);
+
+AllLabelRx allLabelRxObj = AllLabelRx(
+  empty: GetLabelResponse(),
+  dataFetcher: BehaviorSubject<GetLabelResponse>(),
+);
+DeleteLabelRx deleteLabelRxObj = DeleteLabelRx(
+  empty: {},
+  dataFetcher: BehaviorSubject<Map>(),
+);
+
+UpdateLabelRx updateLabelRxObj = UpdateLabelRx(
   empty: {},
   dataFetcher: BehaviorSubject<Map>(),
 );

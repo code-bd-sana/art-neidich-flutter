@@ -1,31 +1,84 @@
 import 'package:flutter/material.dart';
 
+import '../features/labels/data/rx_get/model/label_response.dart';
+import '../networks/api_acess.dart';
+
 class LabelProvider extends ChangeNotifier {
-  final List<String> _labelList = [
-    "exterior Front elevation",
-    "family room",
-    "kitchen",
-  ];
+  final ScrollController scrollController = ScrollController();
 
-  List<String> get labelList => _labelList;
+  int _page = 1;
+  final int _limit = 30;
 
-  //Create new label
-  void addLabel(String label) {
-    _labelList.add(label);
-    notifyListeners();
+  bool _isLoading = false;
+  bool _hasMore = true;
+
+  final List<Datum> _data = [];
+  String? _errorMessage;
+
+  // getters
+  bool get isLoading => _isLoading;
+  bool get hasMore => _hasMore;
+  List<Datum> get data => _data;
+  String? get errorMessage => _errorMessage;
+
+  LabelProvider() {
+    fetchAllLabel();
+    scrollController.addListener(_scrollListener);
   }
 
-  //Edit label by index
-  void updateLabel(int index, String newLabel) {
-    if (index < 0 || index >= _labelList.length) return;
-    _labelList[index] = newLabel;
-    notifyListeners();
+  void _scrollListener() {
+    if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 200 &&
+        !_isLoading &&
+        _hasMore) {
+      fetchAllLabel();
+    }
   }
 
-  /// Delete label
-  void deleteLabel(int index) {
-    if (index < 0 || index >= _labelList.length) return;
-    _labelList.removeAt(index);
+  // 🔥 New refresh method - reset করে data load করবে
+  Future<void> refreshAllLabel() async {
+    _page = 1;
+    _data.clear();
+    _hasMore = true;
+    _errorMessage = null;
+    await fetchAllLabel();
+  }
+
+  Future<void> fetchAllLabel() async {
+    if (_isLoading || !_hasMore) return;
+
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final response = await allLabelRxObj.allLabelRx(
+        limit: _limit,
+        page: _page,
+      );
+
+      final List<Datum> newData = response.data ?? [];
+
+      // API returned no data
+      if (newData.isEmpty) {
+        _hasMore = false;
+        _isLoading = false;
+        notifyListeners();
+        return;
+      }
+
+      // append data
+      _data.addAll(newData);
+      _page++;
+
+      // last page detected
+      if (newData.length < _limit) {
+        _hasMore = false;
+      }
+    } catch (e) {
+      _errorMessage = e.toString();
+    }
+
+    _isLoading = false;
     notifyListeners();
   }
 }

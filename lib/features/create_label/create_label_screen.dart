@@ -8,9 +8,11 @@ import 'package:artneidich_app/helpers/toast.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/text_font_style.dart';
 import '../../networks/api_acess.dart';
+import '../../provider/label_provider.dart';
 
 class CreateLabelScreen extends StatefulWidget {
   const CreateLabelScreen({super.key});
@@ -88,6 +90,10 @@ class _CreateLabelScreenState extends State<CreateLabelScreen> {
                             .waitingForFuture()
                             .then((success) {
                               if (success) {
+
+                                // ignore: use_build_context_synchronously
+                                Provider.of<LabelProvider>(context, listen: false).refreshAllLabel();
+                                //  context.read<LabelProvider>().fetchAllLabel();
                                 NavigationService.goBack;
 
                                 ToastUtil.showShortToast(
@@ -96,10 +102,7 @@ class _CreateLabelScreenState extends State<CreateLabelScreen> {
                               }
                             });
 
-                        // Provider.of<LabelProvider>(
-                        //   context,
-                        //   listen: false,
-                        // ).addLabel(labelnameController.text);
+                   
                       }
                     },
                     borderRadius: 30.r,

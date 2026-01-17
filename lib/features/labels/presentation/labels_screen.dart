@@ -1,18 +1,19 @@
-import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/header_widget.dart';
-import 'package:artneidich_app/constants/text_font_style.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:artneidich_app/provider/label_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common_widget/create_job.dart';
-import '../../../common_widget/custom_text_field.dart';
+import '../../../constants/text_font_style.dart';
 import '../../../helpers/all_routes.dart';
+import '../../../helpers/loading_helper.dart';
 import '../../../helpers/navigation_service.dart';
+import '../../../helpers/toast.dart';
+import '../../../networks/api_acess.dart';
+import '../widgets/update_label.dart';
 
 class LabelsScreen extends StatefulWidget {
   const LabelsScreen({super.key});
@@ -22,10 +23,8 @@ class LabelsScreen extends StatefulWidget {
 }
 
 class _LabelsScreenState extends State<LabelsScreen> {
-  final _formKey = GlobalKey<FormState>();
-
   final labelnameController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     super.dispose();
@@ -37,229 +36,245 @@ class _LabelsScreenState extends State<LabelsScreen> {
     return Consumer<LabelProvider>(
       builder: (context, labelProvider, child) {
         return Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                HeaderWidget(
-                  title: "Labels",
-                  icon: Assets.icons.label.path,
-                  subtitle: "Total Labels",
-                ),
+          body: Column(
+            children: [
+              HeaderWidget(
+                title: "Labels",
+                icon: Assets.icons.label.path,
+                subtitle: "Total Labels",
+              ),
 
-                UIHelper.verticalSpace(20.h),
+              // UIHelper.verticalSpace(20.h),
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    // Check if content height < available height
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (labelProvider.data.isNotEmpty &&
+                          labelProvider
+                                  .scrollController
+                                  .position
+                                  .maxScrollExtent <=
+                              constraints.maxHeight &&
+                          labelProvider.hasMore &&
+                          !labelProvider.isLoading) {
+                        labelProvider.fetchAllLabel();
+                      }
+                    });
 
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: AnimationLimiter(
-                    child: Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: List.generate(labelProvider.labelList.length, (
-                        index,
-                      ) {
-                        var data = labelProvider.labelList[index];
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 375),
-                          child: ScaleAnimation(
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onLongPress: () {
-                                  // Delete Label
-                                  Provider.of<LabelProvider>(
-                                    context,
-                                    listen: false,
-                                  ).deleteLabel(index);
-                                },
-                                onTap: () async {
-                                  // set existing label text before opening dialog
-                                  labelnameController.text =
-                                      labelProvider.labelList[index];
+                    return SingleChildScrollView(
+                      controller: labelProvider.scrollController,
+                      child: Padding(
+                        padding: EdgeInsets.all(12.sp),
+                        child: Wrap(
+                          spacing: 8.w,
+                          runSpacing: 8.h,
+                          children: [
+                            ...labelProvider.data.map(
+                              (item) => Builder(
+                                builder: (BuildContext itemContext) {
+                                  return GestureDetector(
+                                    onTap: () async {
+                                      final RenderBox button =
+                                          itemContext.findRenderObject()
+                                              as RenderBox;
 
-                                  // old value
-                                  final oldValue =
-                                      labelProvider.labelList[index];
-                                  labelnameController.text = oldValue;
+                                      final RenderBox overlay =
+                                          Overlay.of(
+                                                context,
+                                              ).context.findRenderObject()
+                                              as RenderBox;
 
-                                  // Update Label
-                                  await showDialog(
-                                    context: context,
-                                    builder: (_) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadiusGeometry.circular(
-                                                10.r,
+                                      final RelativeRect position =
+                                          RelativeRect.fromRect(
+                                            Rect.fromPoints(
+                                              button.localToGlobal(
+                                                Offset.zero,
+                                                ancestor: overlay,
                                               ),
-                                        ),
-
-                                        content: Form(
-                                          key: _formKey,
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 8.w,
-                                              vertical: 8.h,
-                                            ),
-
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Edit Label Name",
-                                                  style: TextFontStyle
-                                                      .headLine14c323539InterW400
-                                                      .copyWith(
-                                                        color: const Color(
-                                                          0xFF09090B,
-                                                        ),
-                                                        fontSize: 18.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
+                                              button.localToGlobal(
+                                                button.size.bottomRight(
+                                                  Offset.zero,
                                                 ),
+                                                ancestor: overlay,
+                                              ),
+                                            ),
+                                            Offset.zero & overlay.size,
+                                          );
 
-                                                UIHelper.verticalSpace(8.h),
-
+                                      showMenu(
+                                        context: context,
+                                        position: position,
+                                        items: [
+                                          PopupMenuItem(
+                                            value: 'edit',
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.edit, size: 20.sp),
+                                                UIHelper.horizontalSpace(8.w),
                                                 Text(
-                                                  "Label Name",
+                                                  'Edit',
                                                   style: TextFontStyle
                                                       .headLine14c323539InterW400
                                                       .copyWith(
-                                                        color: const Color(
-                                                          0xFF323539,
-                                                        ),
-                                                        fontSize: 14.sp,
-
+                                                        color: Colors.black,
+                                                        fontSize: 12.sp,
                                                         fontWeight:
                                                             FontWeight.w400,
                                                       ),
                                                 ),
-
-                                                UIHelper.verticalSpace(8.h),
-
-                                                CustomTextField(
-                                                  maxLines: 5,
-                                                  controller:
-                                                      labelnameController,
+                                              ],
+                                            ),
+                                          ),
+                                          PopupMenuItem(
+                                            value: 'delete',
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.delete, size: 20.sp),
+                                                UIHelper.horizontalSpace(8.w),
+                                                Text(
+                                                  'Delete',
                                                   style: TextFontStyle
                                                       .headLine14c323539InterW400
                                                       .copyWith(
-                                                        color: Color(
-                                                          0xFF71717A,
-                                                        ),
+                                                        color: Colors.black,
+                                                        fontSize: 12.sp,
+                                                        fontWeight:
+                                                            FontWeight.w400,
                                                       ),
-                                                  validator: (value) {
-                                                    if (value == null ||
-                                                        value.isEmpty) {
-                                                      return "Label is required";
-                                                    } else if (value.trim() ==
-                                                        oldValue.trim()) {
-                                                      return "Please change the label name before saving";
-                                                    }
-                                                    return null;
-                                                  },
-                                                ),
-                                                UIHelper.verticalSpace(8.h),
-
-                                                Row(
-                                                  spacing: 20.w,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-
-                                                  children: [
-                                                    Expanded(
-                                                      child: CustomButton(
-                                                        style: TextFontStyle
-                                                            .headLine16c2D8D7CInterW700
-                                                            .copyWith(
-                                                              color: Color(
-                                                                0xFF000000,
-                                                              ),
-                                                            ),
-                                                        padding:
-                                                            EdgeInsets.symmetric(
-                                                              vertical: 6.h,
-                                                              horizontal: 10.w,
-                                                            ),
-                                                        color: Color(
-                                                          0xFFF4F4F5,
-                                                        ),
-                                                        onPressed: () {
-                                                          NavigationService
-                                                              .goBack;
-                                                        },
-                                                        text: "Cancel",
-                                                      ),
-                                                    ),
-
-                                                    Expanded(
-                                                      child: CustomButton(
-                                                        padding:
-                                                            EdgeInsets.symmetric(
-                                                              vertical: 6.h,
-                                                              horizontal: 10.w,
-                                                            ),
-                                                        onPressed: () {
-                                                          if (_formKey
-                                                              .currentState!
-                                                              .validate()) {
-                                                            Provider.of<
-                                                                  LabelProvider
-                                                                >(
-                                                                  context,
-                                                                  listen: false,
-                                                                )
-                                                                .updateLabel(
-                                                                  index,
-                                                                  labelnameController
-                                                                      .text,
-                                                                );
-
-                                                            NavigationService
-                                                                .goBack;
-                                                          }
-                                                        },
-                                                        text: "Update label",
-                                                      ),
-                                                    ),
-                                                  ],
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                      );
+                                        ],
+                                      ).then((value) {
+                                        if (value == 'edit') {
+                                          // Update Label
+
+                                          labelnameController.text =
+                                              item.label ?? '';
+
+                                          showDialog(
+                                            context: context,
+                                            builder: (_) {
+                                              return AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadiusGeometry.circular(
+                                                        10.r,
+                                                      ),
+                                                ),
+                                                content: Form(
+                                                  key: _formKey,
+                                                  child: Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                          horizontal: 8.w,
+
+                                                          vertical: 8.h,
+                                                        ),
+                                                    child: UpdateLabel(
+                                                      labelnameController:
+                                                          labelnameController,
+                                                      onTap: () {
+                                                        if (_formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                          updateLabelRxObj
+                                                              .updateLabelRx(
+                                                                label:
+                                                                    labelnameController
+                                                                        .text,
+                                                                id: item.id!,
+                                                              )
+                                                              .waitingForFuture()
+                                                              .then((success) {
+                                                                if (success) {
+                                                                  context
+                                                                      .read<
+                                                                        LabelProvider
+                                                                      >()
+                                                                      .refreshAllLabel();
+                                                                  ToastUtil.showShortToast(
+                                                                    "Update Label successfully",
+                                                                  );
+                                                                  NavigationService
+                                                                      .goBack;
+                                                                }
+                                                              });
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        } else if (value == 'delete') {
+                                          // ignore: avoid_single_cascade_in_expression_statements
+                                          deleteLabelRxObj
+                                            ..deleteLabelRx(
+                                              id: item.id!,
+                                            ).waitingForFuture().then((
+                                              success,
+                                            ) {
+                                              if (success) {
+                                                context
+                                                    .read<LabelProvider>()
+                                                    .refreshAllLabel();
+                                                ToastUtil.showShortToast(
+                                                  "Delete Label successfully",
+                                                );
+                                              }
+                                            });
+                                        }
+                                      });
                                     },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 16.w,
+                                        vertical: 10.h,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(
+                                          0xFF2D8D7C,
+                                        ).withValues(alpha: 0.1),
+                                        borderRadius: BorderRadius.circular(
+                                          20.r,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        item.label ?? '',
+                                        style: TextFontStyle
+                                            .headLine14c323539InterW400,
+
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
                                   );
                                 },
+                              ),
+                            ),
 
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w,
-                                    vertical: 6.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    color: const Color(0xFFEFEFF1),
-                                  ),
-                                  child: Text(
-                                    data,
-                                    style: TextFontStyle
-                                        .headLine14c323539InterW400,
+                            if (labelProvider.isLoading &&
+                                labelProvider.hasMore)
+                              Padding(
+                                padding: EdgeInsets.all(16.sp),
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xFF2D8D7C),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
 
           floatingActionButton: CreateJob(

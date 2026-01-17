@@ -101,9 +101,29 @@ final class Endpoints {
 
   static String createLabel() => "/image-label";
 
+  // update
+  static String updateLabel({required String id}) => "/image-label/$id";
+  // All Job
+  static String getAllLabel({int? page, int? limit, String? search}) {
+    final Map<String, String> queryParams = {};
 
+    if (page != null) queryParams["page"] = page.toString();
+    if (limit != null) queryParams["limit"] = limit.toString();
+    if (search != null && search.trim().isNotEmpty) {
+      queryParams["search"] = search;
+    }
 
-//
+    final uri = Uri.parse(
+      "/image-label",
+    ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
+
+    return uri.toString();
+  }
+
+  // Delete label
+  static String deleteLabel({required String id}) => "/image-label/$id";
+
+  //
   static String logout() => "/api/logout";
   static String getBabyProfile() => "/api/baby/profile/show";
   static String getProfile() => "/api/user/data";
