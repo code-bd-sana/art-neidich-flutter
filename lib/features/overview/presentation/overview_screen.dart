@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common_widget/create_job.dart';
 import '../../../helpers/all_routes.dart';
 import '../../../helpers/navigation_service.dart';
+import '../../../networks/api_acess.dart';
 import '../widgets/job_section_widget.dart';
 import '../widgets/overview_app_bar_widget.dart';
 
@@ -18,9 +19,24 @@ class OverviewScreen extends StatefulWidget {
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
+  String firstName = "";
+  String lastName = "";
+  String email = "";
+
+  @override
+  void initState() {
+    super.initState();
+    profileRxObj.profileRx().then((response) {
+      setState(() {
+        firstName = response.data?.firstName ?? "";
+        lastName = response.data?.lastName ?? "";
+        email = response.data?.email ?? "";
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    String name = "Arti";
     return Scaffold(
       backgroundColor: Colors.white,
 
@@ -32,9 +48,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               OverviewAppBarWidget(
-                email: 'admin@admin.com',
-                fName: name,
-                name: 'ArtNeidich',
+                email: email,
+                fName: firstName,
+                name: "$firstName $lastName",
               ),
 
               UIHelper.verticalSpace(30.h),
@@ -112,8 +128,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
         heroTag: "overview_screen_tag",
         title: 'Create New Job',
         onpressed: () {
-          NavigationService.navigateTo(Routes.dataTableScreen);
-          //    NavigationService.navigateTo(Routes.createJobScreen);
+          NavigationService.navigateTo(Routes.createJobScreen);
         },
       ),
     );

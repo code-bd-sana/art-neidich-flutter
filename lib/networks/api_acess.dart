@@ -11,6 +11,8 @@ import '../features/create_job/data/rx_post_create/rx.dart';
 import '../features/create_label/data/rx_post/rx.dart';
 import '../features/inspection/data/model/all_job_response.dart';
 import '../features/inspection/data/rx_get/rx.dart';
+import '../features/inspector_list/data/rx_suspend/rx.dart';
+import '../features/inspector_list/data/rx_unsuspend/rx.dart';
 import '../features/job_details/data/rx_get_report/model/job_report_response.dart';
 import '../features/job_details/data/rx_get_report/rx.dart';
 import '../features/job_details/data/rx_get_summary/model/summary_response.dart';
@@ -85,6 +87,15 @@ DeleteLabelRx deleteLabelRxObj = DeleteLabelRx(
 );
 
 UpdateLabelRx updateLabelRxObj = UpdateLabelRx(
+  empty: {},
+  dataFetcher: BehaviorSubject<Map>(),
+);
+
+SuspendRx suspendRxObj = SuspendRx(
+  empty: {},
+  dataFetcher: BehaviorSubject<Map>(),
+);
+UnSuspendRx unSuspendRxObj = UnSuspendRx(
   empty: {},
   dataFetcher: BehaviorSubject<Map>(),
 );

@@ -35,27 +35,35 @@ class SettingAppBarWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.r),
           ),
 
-          child: Text(fName.trim().split(' ').first[0]),
+          child: Text(
+            fName.isNotEmpty ? fName.trim().split(' ').first[0] : "?",
+          ),
         ),
 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 6.h,
-          children: [
-            Text(
-              name,
-              style: TextFontStyle.headLine16c2D8D7CInterW700.copyWith(
-                color: Colors.black,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 6.h,
+            children: [
+              Text(
+                name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextFontStyle.headLine16c2D8D7CInterW700.copyWith(
+                  color: Colors.black,
+                ),
               ),
-            ),
-            Text(
-              email,
-              style: TextFontStyle.headLine16c2D8D7CInterW700.copyWith(
-                color: Color(0xFFB3B3B3),
-                fontSize: 13.sp,
+              Text(
+                email,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextFontStyle.headLine16c2D8D7CInterW700.copyWith(
+                  color: Color(0xFFB3B3B3),
+                  fontSize: 13.sp,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

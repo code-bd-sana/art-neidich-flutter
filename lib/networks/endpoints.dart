@@ -62,7 +62,7 @@ final class Endpoints {
     if (isApproved != null) queryParams["isApproved"] = isApproved.toString();
 
     final uri = Uri.parse(
-      "$url/user",
+      "/user",
     ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
 
     return uri.toString();
@@ -122,6 +122,14 @@ final class Endpoints {
 
   // Delete label
   static String deleteLabel({required String id}) => "/image-label/$id";
+
+
+  // Suspend inspector User
+   static String suspend({required String id}) => "/user/$id/suspend";
+   // Unsuspend inspector user
+    static String unSuspend({required String id}) => "/user/$id/unsuspend";
+
+ 
 
   //
   static String logout() => "/api/logout";

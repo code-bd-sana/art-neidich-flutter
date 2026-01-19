@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/text_font_style.dart';
-import '../../../provider/job_details_provider.dart';
 
 class ReportWidget extends StatelessWidget {
-  final JobDetailsProvider provider;
-  const ReportWidget({super.key, required this.provider});
+ 
+  const ReportWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +50,14 @@ class ReportWidget extends StatelessWidget {
                 ),
               ),
 
-              Text(
-                "${provider.reportData?.inspector?.firstName ?? ""} ${provider.reportData?.inspector?.lastName ?? ""}",
-                style: TextFontStyle.headLine16c141414InterW400.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14.sp,
-                ),
-              ),
+              // Text(
+              //   "${provider.reportData?.inspector?.firstName ?? ""} ${provider.reportData?.inspector?.lastName ?? ""}",
+              //   style: TextFontStyle.headLine16c141414InterW400.copyWith(
+              //     color: Colors.black,
+              //     fontWeight: FontWeight.w500,
+              //     fontSize: 14.sp,
+              //   ),
+              // ),
 
               Image.asset(
                 Assets.icons.download.path,

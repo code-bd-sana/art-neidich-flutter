@@ -1,8 +1,5 @@
 import 'dart:developer';
 
-import 'package:artneidich_app/constants/app_constants.dart';
-import 'package:artneidich_app/helpers/di.dart';
-import 'package:artneidich_app/networks/dio/dio.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -13,20 +10,16 @@ import '../../../../helpers/navigation_service.dart';
 import '../../../../networks/stream_cleaner.dart';
 import 'api.dart';
 
-final class SigninRx extends RxResponseInt<Map> {
-  String? role;
-  final api = SigninApi.instance;
+final class SuspendRx extends RxResponseInt<Map> {
+  final api = SuspendApi.instance;
 
-  SigninRx({required super.empty, required super.dataFetcher});
+  SuspendRx({required super.empty, required super.dataFetcher});
 
-  ValueStream<Map> get signinApiStream => dataFetcher.stream;
+  ValueStream<Map> get suspendRxStream => dataFetcher.stream;
 
-  Future<bool> signinRx({
-    required String email,
-    required String password,
-  }) async {
+  Future<bool> suspendRx({required String id}) async {
     try {
-      final data = await api.signupApi(email: email, password: password);
+      final data = await api.suspendApi(id: id);
       handleSuccessWithReturn(data);
       return true;
     } catch (error) {
@@ -36,19 +29,6 @@ final class SigninRx extends RxResponseInt<Map> {
 
   @override
   handleSuccessWithReturn(Map data) {
-    appData.write(kKeyAccessToken, data["token"]);
-    // User Info
-    appData.write(kKeyFirstName, data["user"]["firstName"]);
-    appData.write(kKeyLastName, data["user"]["lastName"]);
-
-    log("First Name ========================${appData.read(kKeyFirstName)}");
-    log("Last Name ========================${appData.read(kKeyLastName)}");
-    log("EMail  ========================${appData.read(kKeyEMail)}");
-    appData.write(kKeyEMail, data["user"]["email"]);
-    appData.write(kKeyRole, data["user"]["role"]);
-    role = data["user"]["role"];
-    appData.write(kKeyIsLoggedIn, true);
-    DioSingleton.instance.update(appData.read(kKeyAccessToken));
     dataFetcher.sink.add(data);
     return true;
   }

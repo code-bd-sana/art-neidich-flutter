@@ -8,6 +8,8 @@ import '../../../../../../networks/rx_base.dart';
 import '../../../../../helpers/all_routes.dart';
 import '../../../../../helpers/navigation_service.dart';
 import '../../../../../networks/stream_cleaner.dart';
+import '../../../../constants/app_constants.dart';
+import '../../../../helpers/di.dart';
 import 'api.dart';
 import 'model/profile_response_model.dart';
 
@@ -29,6 +31,9 @@ final class ProfileRx extends RxResponseInt<ProfileResponse> {
 
   @override
   handleSuccessWithReturn(ProfileResponse data) {
+    // User Info
+    appData.write(kKeyFirstName, data.data?.firstName ?? "");
+    appData.write(kKeyLastName, data.data?.lastName ?? "");
     dataFetcher.sink.add(data);
     return data;
   }

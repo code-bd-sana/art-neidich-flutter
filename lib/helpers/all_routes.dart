@@ -14,7 +14,6 @@ import '../features/create_job/presentation/create_job_screen_1.dart';
 import '../features/create_job/presentation/create_job_screen_2.dart';
 import '../features/create_job/presentation/create_job_screen_3.dart';
 import '../features/create_label/create_label_screen.dart';
-import '../features/inspection/presentation/data_table_screen.dart';
 import '../features/inspector/inspector_screen.dart';
 import '../features/inspector_list/presentation/inspector_list_screen.dart';
 import '../features/inspector_role/camera_setting/camera_setting_screen.dart';
@@ -97,13 +96,13 @@ final class RouteGenerator {
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.dataTableScreen:
-        return Platform.isAndroid
-            ? _FadedTransitionRoute(
-                widget: DataTableScreen(),
-                settings: settings,
-              )
-            : CupertinoPageRoute(builder: (context) => DataTableScreen());
+      // case Routes.dataTableScreen:
+      //   return Platform.isAndroid
+      //       ? _FadedTransitionRoute(
+      //           widget: DataTableScreen(),
+      //           settings: settings,
+      //         )
+      //       : CupertinoPageRoute(builder: (context) => DataTableScreen());
 
       case Routes.createJobScreen3:
         final args = settings.arguments as Map;

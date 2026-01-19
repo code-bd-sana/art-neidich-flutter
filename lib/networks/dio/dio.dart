@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+
 import '/helpers/di.dart';
 import '../../constants/app_constants.dart';
 import '../endpoints.dart';
@@ -16,14 +17,15 @@ final class DioSingleton {
 
   void create() {
     BaseOptions options = BaseOptions(
-        baseUrl: url,
-        connectTimeout: const Duration(milliseconds: 100000),
-        receiveTimeout: const Duration(milliseconds: 100000),
-        headers: {
-          NetworkConstants.ACCEPT: NetworkConstants.ACCEPT_TYPE,
-          NetworkConstants.ACCEPT_LANGUAGE: appData.read(kKeyCountryCode) ?? "pt",
-          NetworkConstants.APP_KEY: NetworkConstants.APP_KEY_VALUE,
-        });
+      baseUrl: url,
+      connectTimeout: const Duration(milliseconds: 100000),
+      receiveTimeout: const Duration(milliseconds: 100000),
+      headers: {
+        NetworkConstants.ACCEPT: NetworkConstants.ACCEPT_TYPE,
+        NetworkConstants.ACCEPT_LANGUAGE: appData.read(kKeyCountryCode) ?? "pt",
+        NetworkConstants.APP_KEY: NetworkConstants.APP_KEY_VALUE,
+      },
+    );
     dio = Dio(options)..interceptors.add(Logger());
   }
 
@@ -57,7 +59,8 @@ final class DioSingleton {
         NetworkConstants.ACCEPT: NetworkConstants.ACCEPT_TYPE,
         NetworkConstants.ACCEPT_LANGUAGE: countryCode,
         NetworkConstants.APP_KEY: NetworkConstants.APP_KEY_VALUE,
-        NetworkConstants.AUTHORIZATION: "Bearer ${appData.read(kKeyAccessToken)} ",
+        NetworkConstants.AUTHORIZATION:
+            "Bearer ${appData.read(kKeyAccessToken)} ",
       },
       connectTimeout: const Duration(milliseconds: 100000),
       receiveTimeout: const Duration(milliseconds: 100000),
@@ -66,14 +69,26 @@ final class DioSingleton {
   }
 }
 
-Future<Response> postHttp(String path, [dynamic data]) =>
-    DioSingleton.instance.dio.post(path, data: data, cancelToken: DioSingleton.cancelToken);
+Future<Response> postHttp(String path, [dynamic data]) => DioSingleton
+    .instance
+    .dio
+    .post(path, data: data, cancelToken: DioSingleton.cancelToken);
 
-Future<Response> putHttp(String path, [dynamic data]) =>
-    DioSingleton.instance.dio.put(path, data: data, cancelToken: DioSingleton.cancelToken);
+Future<Response> putHttp(String path, [dynamic data]) => DioSingleton
+    .instance
+    .dio
+    .put(path, data: data, cancelToken: DioSingleton.cancelToken);
 
 Future<Response> getHttp(String path, [dynamic data]) =>
     DioSingleton.instance.dio.get(path, cancelToken: DioSingleton.cancelToken);
 
-Future<Response> deleteHttp(String path, [dynamic data]) =>
-    DioSingleton.instance.dio.delete(path, data: data, cancelToken: DioSingleton.cancelToken);
+Future<Response> deleteHttp(String path, [dynamic data]) => DioSingleton
+    .instance
+    .dio
+    .delete(path, data: data, cancelToken: DioSingleton.cancelToken);
+
+// patch
+Future<Response> patchHttp(String path, [dynamic data]) => DioSingleton
+    .instance
+    .dio
+    .patch(path, data: data, cancelToken: DioSingleton.cancelToken);

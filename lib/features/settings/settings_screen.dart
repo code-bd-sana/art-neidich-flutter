@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common_widget/settings_bar_widget.dart';
+import '../../networks/api_acess.dart';
 import 'widgets/settings_title_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -20,12 +21,27 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  String firstName = "";
+  String lastName = "";
+  String email = "";
+
+  @override
+  void initState() {
+    super.initState();
+    profileRxObj.profileRx().then((response) {
+      setState(() {
+        firstName = response.data?.firstName ?? "";
+        lastName = response.data?.lastName ?? "";
+        email = response.data?.email ?? "";
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-
         padding: EdgeInsets.symmetric(horizontal: 20.w),
 
         child: SafeArea(
@@ -33,9 +49,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SettingAppBarWidget(
-                email: 'admin@admin.com',
-                fName: "name",
-                name: 'ArtNeidich',
+                email: email,
+                fName: firstName,
+                name: "$firstName $lastName",
               ),
 
               UIHelper.verticalSpace(30.h),

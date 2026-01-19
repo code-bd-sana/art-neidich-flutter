@@ -90,7 +90,7 @@ class _CreateJobScreen1State extends State<CreateJobScreen1> {
               ),
               UIHelper.verticalSpace(10.h),
 
-              /// Inspector selection
+              /// Inspector Name
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: CustomTextField(

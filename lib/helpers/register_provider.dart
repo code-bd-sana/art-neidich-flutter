@@ -1,3 +1,4 @@
+import 'package:artneidich_app/provider/admin_provider.dart';
 import 'package:artneidich_app/provider/reset_password_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -51,6 +52,8 @@ var providers = [
   ChangeNotifierProvider<JobDetailsProvider>(
     create: ((context) => JobDetailsProvider()),
   ),
+
+  ChangeNotifierProvider<AdminProvider>(create: ((context) => AdminProvider())),
 ];
 
 //

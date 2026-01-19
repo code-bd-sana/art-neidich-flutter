@@ -1,11 +1,11 @@
-class AdminTableRowData {
-  final String name;
-  final String email;
+// class AdminTableRowData {
+//   final String name;
+//   final String email;
 
 
-  AdminTableRowData({
-    required this.name,
-    required this.email,
+//   AdminTableRowData({
+//     required this.name,
+//     required this.email,
 
-  });
-}
+//   });
+// }

@@ -29,7 +29,6 @@ class _InspectionScreenState extends State<InspectionScreen> {
   @override
   void dispose() {
     super.dispose();
-
     _searchController.dispose();
   }
 
@@ -47,9 +46,9 @@ class _InspectionScreenState extends State<InspectionScreen> {
                   width: 1.sw,
                   height: 180.h,
                   color: Color(0xFF2D8D7C),
-                  child: SafeArea(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: SafeArea(
                       child: Column(
                         spacing: 30.h,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,6 +66,8 @@ class _InspectionScreenState extends State<InspectionScreen> {
                               ),
 
                               PopupMenuButton<String>(
+                                padding: EdgeInsets.zero,
+                                menuPadding: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadiusGeometry.circular(
                                     10,
@@ -92,21 +93,18 @@ class _InspectionScreenState extends State<InspectionScreen> {
                                         return Theme(
                                           data: Theme.of(context).copyWith(
                                             colorScheme: ColorScheme.light(
-                                              primary: Color(
-                                                0xFF2D8D7C,
-                                              ), // header background color (top bar)
-                                              onPrimary: Colors
-                                                  .white, // header text color
-                                              onSurface: Colors
-                                                  .black, // body text color
+                                              primary: Color(0xFF2D8D7C),
+                                              onPrimary: Colors.white,
+                                              onSurface: Colors.black,
                                             ),
-                                            textButtonTheme: TextButtonThemeData(
-                                              style: TextButton.styleFrom(
-                                                foregroundColor: Color(
-                                                  0xFF2D8D7C,
-                                                ), // "CANCEL"/"OK" button color
-                                              ),
-                                            ),
+                                            textButtonTheme:
+                                                TextButtonThemeData(
+                                                  style: TextButton.styleFrom(
+                                                    foregroundColor: Color(
+                                                      0xFF2D8D7C,
+                                                    ),
+                                                  ),
+                                                ),
                                           ),
                                           child: child!,
                                         );
@@ -363,7 +361,7 @@ class _InspectionScreenState extends State<InspectionScreen> {
 
                 UIHelper.verticalSpace(40.h),
 
-               Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
+                Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
               ],
             ),
           ),

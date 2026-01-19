@@ -33,6 +33,13 @@ final class SummaryRx extends RxResponseInt<SummaryResponse> {
   handleSuccessWithReturn(SummaryResponse data) {
     appData.write(kKeyReportId, data.data?.reportId ?? "");
     appData.write(kKeyHasReport, data.data?.hasReport ?? false);
+
+    log(
+      "kKeyReportId=======================================>${appData.read(kKeyReportId)}",
+    );
+    log(
+      "kKeyHasReport=======================================>${appData.read(kKeyHasReport)}",
+    );
     dataFetcher.sink.add(data);
     return data;
   }

@@ -1,6 +1,7 @@
 import 'package:artneidich_app/common_widget/header_widget.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/loading_helper.dart';
+import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:artneidich_app/helpers/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,16 +27,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _firstNameController.text = response.data?.firstName ?? "";
       _lastNameController.text = response.data?.lastName ?? "";
       _emailontroller.text = response.data?.email ?? "";
-      // _firstNameController.text = response.data?.firstName ?? "";
-      //_firstNameController.text = response.data?.firstName ?? "";
     });
   }
 
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _emailontroller = TextEditingController();
-  //  final _phoneController = TextEditingController();
-  // final _changePasswordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -45,8 +42,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _emailontroller.dispose();
-    // _phoneController.dispose();
-    // _changePasswordController.dispose();
   }
 
   @override
@@ -93,6 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ToastUtil.showShortToast(
                                 "Profile updated successfully",
                               );
+                              NavigationService.goBack;
                             }
                           });
                     }

@@ -1,4 +1,3 @@
-import 'package:artneidich_app/common_widget/header_widget.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:artneidich_app/provider/label_provider.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common_widget/create_job.dart';
+import '../../../common_widget/label_header_widget.dart';
 import '../../../constants/text_font_style.dart';
 import '../../../helpers/all_routes.dart';
 import '../../../helpers/loading_helper.dart';
@@ -38,7 +38,7 @@ class _LabelsScreenState extends State<LabelsScreen> {
         return Scaffold(
           body: Column(
             children: [
-              HeaderWidget(
+              LabelHeaderWidget(
                 title: "Labels",
                 icon: Assets.icons.label.path,
                 subtitle: "Total Labels",
