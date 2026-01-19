@@ -5,19 +5,16 @@ import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../helpers/ui_helpers.dart';
+import '../../inspection_view/data/rx_get/model/inspection_response.dart';
 import '../widgets/inspection_contact_widget.dart';
 import '../widgets/inspection_details_widget.dart';
 import '../widgets/inspection_internal_widget.dart';
 
-class InspectionSummaryScreen extends StatefulWidget {
-  const InspectionSummaryScreen({super.key});
+class InspectionSummaryScreen extends StatelessWidget {
+  final Datum datum;
 
-  @override
-  State<InspectionSummaryScreen> createState() =>
-      _InspectionSummaryScreenState();
-}
+  const InspectionSummaryScreen({super.key, required this.datum});
 
-class _InspectionSummaryScreenState extends State<InspectionSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,32 +42,45 @@ class _InspectionSummaryScreenState extends State<InspectionSummaryScreen> {
             ),
 
             UIHelper.verticalSpace(20.h),
-            InspectionDetailsWidget(title: 'Inspector', value: 'John Doe'),
+            InspectionDetailsWidget(
+              title: 'Assigned By',
+              value:
+                  '${datum.createdBy?.firstName} ${datum.createdBy?.lastName}',
+            ),
             UIHelper.verticalSpace(20.h),
             InspectionDetailsWidget(
               title: 'FHA Case Details',
-              value: 'Case-001',
+              value: datum.fhaCaseDetailsNo ?? 'N/A',
             ),
             UIHelper.verticalSpace(20.h),
-            InspectionDetailsWidget(title: 'OrderID', value: '8813218R'),
+            InspectionDetailsWidget(
+              title: 'OrderID',
+              value: datum.orderId ?? 'N/A',
+            ),
             UIHelper.verticalSpace(20.h),
-            InspectionDetailsWidget(title: 'Fee Status', value: 'Standard Fee'),
+            InspectionDetailsWidget(
+              title: 'Fee Status',
+              value: datum.feeStatus ?? 'N/A',
+            ),
             UIHelper.verticalSpace(20.h),
-            InspectionDetailsWidget(title: 'Agreed Feee', value: '\$150'),
+            InspectionDetailsWidget(
+              title: 'Agreed Feee',
+              value: datum.agreedFee.toString(),
+            ),
             UIHelper.verticalSpace(20.h),
             InspectionDetailsWidget(
               title: 'Form Type',
-              value: 'RCI Residential Building Code Inspection',
+              value: datum.formType ?? 'N/A',
             ),
             UIHelper.verticalSpace(20.h),
             InspectionDetailsWidget(
               title: 'Street Address',
-              value: '1184 Crestview Drive, San Jose, California 95132',
+              value: datum.streetAddress ?? 'N/A',
             ),
             UIHelper.verticalSpace(20.h),
             InspectionDetailsWidget(
               title: 'Development',
-              value: 'Histrung Heights',
+              value: datum.developmentName.toString(),
             ),
 
             UIHelper.verticalSpace(30.h),
@@ -88,9 +98,9 @@ class _InspectionSummaryScreenState extends State<InspectionSummaryScreen> {
             UIHelper.verticalSpace(20.h),
 
             InspectionContactCardWidget(
-              name: 'John Doe',
-              phone: '+123456789',
-              email: 'jonh@gmail.com',
+              name: datum.siteContactName ?? '',
+              phone: datum.siteContactPhone ?? '',
+              email: datum.siteContactEmail ?? '',
             ),
 
             UIHelper.verticalSpace(20.h),
@@ -153,7 +163,13 @@ class _InspectionSummaryScreenState extends State<InspectionSummaryScreen> {
                       ),
 
                       child: Text(
-                        "In Progress",
+                        datum.reportStatus == "submitted"
+                            ? "Submitted"
+                            : datum.reportStatus == "in_progress"
+                            ? "In Progress"
+                            : datum.reportStatus == "completed"
+                            ? "Completed"
+                            : "Rejected",
                         style: TextFontStyle.headLine16c141414InterW400
                             .copyWith(
                               fontWeight: FontWeight.w400,

@@ -9,6 +9,7 @@ import '../../../helpers/all_routes.dart';
 import '../../../helpers/di.dart';
 import '../../../helpers/navigation_service.dart';
 import '../../../helpers/toast.dart';
+import '../../../networks/api_acess.dart';
 import '../../settings/widgets/settings_title_widget.dart';
 import '../widgets/inspector_overview_widget.dart';
 
@@ -21,9 +22,28 @@ class InspectionSettingScreen extends StatefulWidget {
 }
 
 class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
+
+    String firstName = "";
+  String lastName = "";
+  String email = "";
+
+  @override
+  void initState() {
+    super.initState();
+    profileRxObj.profileRx().then((response) {
+      setState(() {
+        firstName = response.data?.firstName ?? "";
+        lastName = response.data?.lastName ?? "";
+        email = response.data?.email ?? "";
+      });
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
-    String name = "Arti";
+   
     return Scaffold(
       backgroundColor: Colors.white,
 
@@ -35,9 +55,9 @@ class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InspectorOverviewAppBarWidget(
-                email: 'admin@admin.com',
-                fName: name,
-                name: 'ArtNeidich',
+               email: email,
+                fName: firstName,
+                name: "$firstName $lastName",
               ),
 
               UIHelper.verticalSpace(30.h),

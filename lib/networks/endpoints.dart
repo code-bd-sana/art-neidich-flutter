@@ -123,13 +123,27 @@ final class Endpoints {
   // Delete label
   static String deleteLabel({required String id}) => "/image-label/$id";
 
-
   // Suspend inspector User
-   static String suspend({required String id}) => "/user/$id/suspend";
-   // Unsuspend inspector user
-    static String unSuspend({required String id}) => "/user/$id/unsuspend";
+  static String suspend({required String id}) => "/user/$id/suspend";
+  // Unsuspend inspector user
+  static String unSuspend({required String id}) => "/user/$id/unsuspend";
 
- 
+  // my job inspection
+  static String getMyJob({int? page, int? limit, String? search}) {
+    final Map<String, String> queryParams = {};
+
+    if (page != null) queryParams["page"] = page.toString();
+    if (limit != null) queryParams["limit"] = limit.toString();
+    if (search != null && search.trim().isNotEmpty) {
+      queryParams["search"] = search;
+    }
+
+    final uri = Uri.parse(
+      "/job/my-jobs",
+    ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
+
+    return uri.toString();
+  }
 
   //
   static String logout() => "/api/logout";

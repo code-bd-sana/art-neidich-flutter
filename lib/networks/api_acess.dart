@@ -13,6 +13,8 @@ import '../features/inspection/data/model/all_job_response.dart';
 import '../features/inspection/data/rx_get/rx.dart';
 import '../features/inspector_list/data/rx_suspend/rx.dart';
 import '../features/inspector_list/data/rx_unsuspend/rx.dart';
+import '../features/inspector_role/inspection_view/data/rx_get/model/inspection_response.dart';
+import '../features/inspector_role/inspection_view/data/rx_get/rx.dart';
 import '../features/job_details/data/rx_get_report/model/job_report_response.dart';
 import '../features/job_details/data/rx_get_report/rx.dart';
 import '../features/job_details/data/rx_get_summary/model/summary_response.dart';
@@ -98,4 +100,8 @@ SuspendRx suspendRxObj = SuspendRx(
 UnSuspendRx unSuspendRxObj = UnSuspendRx(
   empty: {},
   dataFetcher: BehaviorSubject<Map>(),
+);
+InspectionRx inspectionRxObj = InspectionRx(
+  empty: InspectionResponse(),
+  dataFetcher: BehaviorSubject<InspectionResponse>(),
 );

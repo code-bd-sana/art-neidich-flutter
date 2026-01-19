@@ -28,7 +28,9 @@ class InspectorOverviewAppBarWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.r),
           ),
 
-          child: Text(fName.trim().split(' ').first[0]),
+          child: Text(
+            fName.isNotEmpty ? fName.trim().split(' ').first[0] : "?",
+          ),
         ),
 
         Column(

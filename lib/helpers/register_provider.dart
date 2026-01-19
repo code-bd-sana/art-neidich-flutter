@@ -1,4 +1,5 @@
 import 'package:artneidich_app/provider/admin_provider.dart';
+import 'package:artneidich_app/provider/assign_inspector_provider.dart';
 import 'package:artneidich_app/provider/reset_password_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,10 @@ import '../provider/signin_provider.dart';
 import '../provider/signup_provider.dart';
 
 var providers = [
+  ChangeNotifierProvider<AssignInspectorProvider>(
+    create: ((context) => AssignInspectorProvider()),
+  ),
+
   //New
   ChangeNotifierProvider<SignupProvider>(
     create: ((context) => SignupProvider()),

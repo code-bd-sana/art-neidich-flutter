@@ -3,6 +3,7 @@ import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../networks/api_acess.dart';
 import '../../overview/widgets/job_section_widget.dart';
 import '../widgets/inspector_overview_widget.dart';
 
@@ -15,9 +16,25 @@ class InspectorOverviewScreen extends StatefulWidget {
 }
 
 class _InspectorOverviewScreenState extends State<InspectorOverviewScreen> {
+  String firstName = "";
+  String lastName = "";
+  String email = "";
+
+  @override
+  void initState() {
+    super.initState();
+    profileRxObj.profileRx().then((response) {
+      setState(() {
+        firstName = response.data?.firstName ?? "";
+        lastName = response.data?.lastName ?? "";
+        email = response.data?.email ?? "";
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    String name = "Arti";
+   
     return Scaffold(
       backgroundColor: Colors.white,
 
@@ -29,9 +46,9 @@ class _InspectorOverviewScreenState extends State<InspectorOverviewScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InspectorOverviewAppBarWidget(
-                email: 'admin@admin.com',
-                fName: name,
-                name: 'ArtNeidich',
+              email: email,
+                fName: firstName,
+                name: "$firstName $lastName",
               ),
 
               UIHelper.verticalSpace(30.h),
