@@ -86,6 +86,10 @@ class $AssetsIconsGen {
   AssetGenImage get arrowRight =>
       const AssetGenImage('assets/icons/arrow_right.png');
 
+  /// File path: assets/icons/attachment.png
+  AssetGenImage get attachment =>
+      const AssetGenImage('assets/icons/attachment.png');
+
   /// File path: assets/icons/camera.png
   AssetGenImage get camera => const AssetGenImage('assets/icons/camera.png');
 
@@ -110,6 +114,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/log-out.png
   AssetGenImage get logOut => const AssetGenImage('assets/icons/log-out.png');
+
+  /// File path: assets/icons/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/icons/logo.png');
 
   /// File path: assets/icons/profile.png
   AssetGenImage get profile => const AssetGenImage('assets/icons/profile.png');
@@ -147,6 +154,7 @@ class $AssetsIconsGen {
         appIcon,
         arrowRightIcon,
         arrowRight,
+        attachment,
         camera,
         download,
         eyeOff,
@@ -155,6 +163,7 @@ class $AssetsIconsGen {
         filter,
         label,
         logOut,
+        logo,
         profile,
         push,
         rightArrow,
@@ -186,6 +195,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/help_support.png
   AssetGenImage get helpSupport =>
       const AssetGenImage('assets/images/help_support.png');
+
+  /// File path: assets/images/image_1.png
+  AssetGenImage get image1 => const AssetGenImage('assets/images/image_1.png');
+
+  /// File path: assets/images/image_2.png
+  AssetGenImage get image2 => const AssetGenImage('assets/images/image_2.png');
 
   /// File path: assets/images/inspection.png
   AssetGenImage get inspection =>
@@ -240,6 +255,8 @@ class $AssetsImagesGen {
         createJob,
         email,
         helpSupport,
+        image1,
+        image2,
         inspection,
         jobs,
         jobsIcon,

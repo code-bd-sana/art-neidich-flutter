@@ -171,41 +171,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ? ReportWidget()
                 : EmailLog(),
 
-            // : Consumer<JobDetailsProvider>(
-            //     builder: (context, photoProvider, child) {
-            //       if (photoProvider.isLoading) {
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             color: Color(0xFF2D8D7C),
-            //           ),
-            //         );
-            //       }
-
-            //       if (photoProvider.error != null) {
-            //         return Center(
-            //           child: Text(
-            //             photoProvider.error!,
-            //             style: const TextStyle(color: Colors.red),
-            //           ),
-            //         );
-            //       }
-
-            //       if (photoProvider.data == null) {
-            //         return Center(
-            //           child: Text(
-            //             "Photos not Available ",
-            //             style: TextFontStyle.headLine16c141414InterW400,
-            //           ),
-            //         );
-            //       }
-
-            //       return selectedTabIndex == 1
-            //           ? PhotosWidget()
-            //           : selectedTabIndex == 2
-            //           ? ReportWidget(provider: photoProvider)
-            //           : EmailLog(provider: photoProvider);
-            //     },
-            //   ),
+          
             UIHelper.verticalSpaceExtraLarge,
           ],
         ),
