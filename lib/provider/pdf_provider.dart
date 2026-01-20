@@ -228,7 +228,6 @@ class PdfProvider extends ChangeNotifier {
         },
         build: (pw.Context context) => [
           pw.ListView.builder(
-            
             itemBuilder: (_, index) {
               return pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -241,30 +240,32 @@ class PdfProvider extends ChangeNotifier {
                   pw.SizedBox(height: 10),
 
                   pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    //    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       // Image 1
                       pw.Expanded(
+                        flex: 1,
                         child: pw.Image(
                           image1,
                           height: 200,
-                          fit: pw.BoxFit.contain,
+                          fit: pw.BoxFit.fitWidth,
                         ),
                       ),
 
-                     pw.SizedBox(width: 16),
+                      pw.SizedBox(width: 16),
 
                       pw.Expanded(
+                        flex: 1,
                         child: pw.Image(
                           image2,
                           height: 200,
-                          fit: pw.BoxFit.contain,
+                          fit: pw.BoxFit.fitWidth,
                         ),
                       ),
                     ],
                   ),
 
-                   pw.SizedBox(height: 16),
+                  pw.SizedBox(height: 16),
                 ],
               );
             },
