@@ -5,7 +5,13 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfProvider extends ChangeNotifier {
-  Future<Uint8List> generateSamplePdf({required String fhaFormId}) async {
+  Future<Uint8List> generateSamplePdf({
+    required String fhaFormId,
+    required String inspectionType,
+    required String inspectionDate,
+    required String subjectProperty,
+    required String caseNumber,
+  }) async {
     final pdf = pw.Document();
 
     // Logo Image
@@ -82,7 +88,7 @@ class PdfProvider extends ChangeNotifier {
                             ),
                           ),
                           pw.TextSpan(
-                            text: "JHUD-FHA 92051 Compliance - FINAL",
+                            text: inspectionType,
                             style: pw.TextStyle(fontSize: 12),
                           ),
                         ],
@@ -103,7 +109,7 @@ class PdfProvider extends ChangeNotifier {
                             ),
                           ),
                           pw.TextSpan(
-                            text: "09/06/2025",
+                            text: inspectionDate,
                             style: pw.TextStyle(fontSize: 12),
                           ),
                         ],
@@ -131,7 +137,7 @@ class PdfProvider extends ChangeNotifier {
                             ),
                           ),
                           pw.TextSpan(
-                            text: "15024 Baikal Drive, Dallas, TX, 75253",
+                            text: subjectProperty,
                             style: pw.TextStyle(fontSize: 12),
                           ),
                         ],
@@ -152,7 +158,7 @@ class PdfProvider extends ChangeNotifier {
                             ),
                           ),
                           pw.TextSpan(
-                            text: "# 511-3746727",
+                            text: caseNumber,
                             style: pw.TextStyle(fontSize: 12),
                           ),
                         ],
@@ -234,13 +240,15 @@ class PdfProvider extends ChangeNotifier {
                 children: [
                   pw.Text(
                     'Label Number ${index + 1}',
-                    style: pw.TextStyle(fontSize: 16),
+                    style: pw.TextStyle(
+                      fontSize: 16,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
                   ),
 
                   pw.SizedBox(height: 10),
 
                   pw.Row(
-                    //    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                     children: [
                       // Image 1
                       pw.Expanded(
