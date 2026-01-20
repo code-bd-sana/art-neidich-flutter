@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:artneidich_app/constants/app_constants.dart';
 import 'package:artneidich_app/features/job_details/tab/photos_widget.dart';
+import 'package:artneidich_app/helpers/di.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:artneidich_app/provider/job_details_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class JobDetailsScreen extends StatefulWidget {
 
 class _JobDetailsScreenState extends State<JobDetailsScreen> {
   int selectedTabIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +45,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     log("ID=========================== ${widget.id}");
+    log("Has Report=========================== ${appData.read(kKeyHasReport)}");
     return Scaffold(
       body: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
@@ -67,6 +71,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       onTap: () {
                         setState(() {
                           selectedTabIndex = index;
+
+                          log(
+                            "Has Report=========================== ${appData.read(kKeyHasReport)}",
+                          );
                         });
                       },
                       child: Container(
@@ -166,12 +174,102 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     },
                   )
                 : selectedTabIndex == 1
-                ? PhotosWidget()
-                : selectedTabIndex == 2
-                ? ReportWidget()
-                : EmailLog(),
+                ? Consumer<JobDetailsProvider>(
+                    builder: (context, provider, _) {
+                      if (provider.data?.hasReport != true) {
+                        return const Center(child: Text("No photos available"));
+                      }
 
-          
+                      if (provider.isReportLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (provider.reportData == null) {
+                        return const Center(child: Text("No photos found"));
+                      }
+
+                      return PhotosWidget(
+                        images: provider.reportData?.images ?? [],
+                      );
+                    },
+                  )
+                : selectedTabIndex == 2
+                ? Consumer<JobDetailsProvider>(
+                    builder: (context, provider, _) {
+                      if (provider.data?.hasReport != true) {
+                        return const Center(child: Text("No report available"));
+                      }
+
+                      if (provider.isReportLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (provider.reportError != null) {
+                        return Center(child: Text(provider.reportError!));
+                      }
+
+                      if (provider.reportData == null) {
+                        return const Center(child: Text("Empty report"));
+                      }
+
+                      return ReportWidget(reportData: provider.reportData!);
+                    },
+                  )
+                : Consumer<JobDetailsProvider>(
+                    builder: (context, provider, _) {
+                      if (provider.data?.hasReport != true) {
+                        return const Center(
+                          child: Text("No email logs available"),
+                        );
+                      }
+
+                      if (provider.reportData == null) {
+                        return const Center(child: Text("No email log data"));
+                      }
+
+                      return EmailLog(
+                          reportData: provider.reportData!,
+                      );
+                    },
+                  ),
+
+            // selectedTabIndex == 0
+            //     ? Consumer<JobDetailsProvider>(
+            //         builder: (context, provider, child) {
+            //           if (provider.isLoading) {
+            //             return Center(
+            //               child: CircularProgressIndicator(
+            //                 color: Color(0xFF2D8D7C),
+            //               ),
+            //             );
+            //           }
+
+            //           if (provider.error != null) {
+            //             return Center(
+            //               child: Text(
+            //                 provider.error!,
+            //                 style: const TextStyle(color: Colors.red),
+            //               ),
+            //             );
+            //           }
+
+            //           if (provider.data == null) {
+            //             return Center(
+            //               child: Text(
+            //                 "No job summary available",
+            //                 style: TextFontStyle.headLine16c141414InterW400,
+            //               ),
+            //             );
+            //           }
+
+            //           return SummaryWidget(provider: provider);
+            //         },
+            //       )
+            //     : selectedTabIndex == 1
+            //     ? PhotosWidget()
+            //     : selectedTabIndex == 2
+            //     ? ReportWidget()
+            //     : EmailLog(),
             UIHelper.verticalSpaceExtraLarge,
           ],
         ),

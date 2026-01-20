@@ -13,7 +13,7 @@ final class JobReportApi {
 
   static JobReportApi get instance => _singleton;
 
-  Future<ReportResponse> summaryApi({required String id}) async {
+  Future<ReportResponse> jobReportApi({required String id}) async {
     try {
       Response response = await getHttp(Endpoints.getReportJob(id: id));
       if (response.statusCode == 200 || response.statusCode == 201) {

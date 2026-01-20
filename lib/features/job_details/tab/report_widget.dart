@@ -2,12 +2,17 @@ import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:printing/printing.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/text_font_style.dart';
+import '../../../provider/pdf_provider.dart';
+import '../data/rx_get_report/model/job_report_response.dart';
 
 class ReportWidget extends StatelessWidget {
- 
-  const ReportWidget({super.key});
+  final ReportData reportData;
+
+  const ReportWidget({super.key, required this.reportData});
 
   @override
   Widget build(BuildContext context) {
@@ -50,19 +55,27 @@ class ReportWidget extends StatelessWidget {
                 ),
               ),
 
-              // Text(
-              //   "${provider.reportData?.inspector?.firstName ?? ""} ${provider.reportData?.inspector?.lastName ?? ""}",
-              //   style: TextFontStyle.headLine16c141414InterW400.copyWith(
-              //     color: Colors.black,
-              //     fontWeight: FontWeight.w500,
-              //     fontSize: 14.sp,
-              //   ),
-              // ),
+              InkWell(
+                // Handle download action
+                onTap: () async {
+                  final provider = context.read<PdfProvider>();
 
-              Image.asset(
-                Assets.icons.download.path,
-                width: 20.w,
-                height: 20.h,
+                  await Printing.layoutPdf(
+                    onLayout: (format) async => provider.generateSamplePdf(
+                      images: reportData.images ?? [],
+                      fhaFormId: '92051',
+                      inspectionType: 'JHUD-FHA 92051 Compliance - FINAL',
+                      inspectionDate: '09/06/2025',
+                      subjectProperty: '15024 Baikal Drive, Dallas, TX, 75253',
+                      caseNumber: '# 511-3746727',
+                    ),
+                  );
+                },
+                child: Image.asset(
+                  Assets.icons.download.path,
+                  width: 20.w,
+                  height: 20.h,
+                ),
               ),
             ],
           ),

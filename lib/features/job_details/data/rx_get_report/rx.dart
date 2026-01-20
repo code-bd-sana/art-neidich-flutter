@@ -20,7 +20,7 @@ final class JobReportRx extends RxResponseInt<ReportResponse> {
 
   Future<ReportResponse> jobReportRx({required String id}) async {
     try {
-      ReportResponse data = await api.summaryApi(id: id);
+      ReportResponse data = await api.jobReportApi(id: id);
       return handleSuccessWithReturn(data);
     } catch (error) {
       return handleErrorWithReturn(error);

@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../features/job_details/data/rx_get_report/model/job_report_response.dart';
+
 class PdfProvider extends ChangeNotifier {
   Future<Uint8List> generateSamplePdf({
     required String fhaFormId,
@@ -11,6 +13,7 @@ class PdfProvider extends ChangeNotifier {
     required String inspectionDate,
     required String subjectProperty,
     required String caseNumber,
+    required List<DataImage> images,
   }) async {
     final pdf = pw.Document();
 
@@ -234,12 +237,14 @@ class PdfProvider extends ChangeNotifier {
         },
         build: (pw.Context context) => [
           pw.ListView.builder(
+             itemCount: images.length,
             itemBuilder: (_, index) {
+              final data = images[index];
               return pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Text(
-                    'Label Number ${index + 1}',
+                    data.imageLabel ?? "",
                     style: pw.TextStyle(
                       fontSize: 16,
                       fontWeight: pw.FontWeight.bold,
@@ -277,7 +282,7 @@ class PdfProvider extends ChangeNotifier {
                 ],
               );
             },
-            itemCount: 10,
+           
           ),
         ],
       ),

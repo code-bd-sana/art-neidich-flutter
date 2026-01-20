@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:printing/printing.dart';
-import 'package:provider/provider.dart';
-import '../../provider/pdf_provider.dart';
 
 class PdfScreen extends StatelessWidget {
   const PdfScreen({super.key});
@@ -13,17 +10,18 @@ class PdfScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
-            final provider = context.read<PdfProvider>();
+            //  final provider = context.read<PdfProvider>();
 
-            await Printing.layoutPdf(
-              onLayout: (format) async => provider.generateSamplePdf(
-                fhaFormId: '92051',
-                inspectionType: 'JHUD-FHA 92051 Compliance - FINAL',
-                inspectionDate: '09/06/2025',
-                subjectProperty: '15024 Baikal Drive, Dallas, TX, 75253',
-                caseNumber: '# 511-3746727',
-              ),
-            );
+            // await Printing.layoutPdf(
+            //   onLayout: (format) async => provider.generateSamplePdf(
+            //     images: [],
+            //     fhaFormId: '92051',
+            //     inspectionType: 'JHUD-FHA 92051 Compliance - FINAL',
+            //     inspectionDate: '09/06/2025',
+            //     subjectProperty: '15024 Baikal Drive, Dallas, TX, 75253',
+            //     caseNumber: '# 511-3746727',
+            //   ),
+            // );
           },
           child: const Text('Generate PDF'),
         ),
