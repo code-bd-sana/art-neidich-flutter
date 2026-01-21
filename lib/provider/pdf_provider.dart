@@ -3,10 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-
+import 'package:printing/printing.dart';
 import '../features/job_details/data/rx_get_report/model/job_report_response.dart';
 
 class PdfProvider extends ChangeNotifier {
+  Future<pw.ImageProvider> imagePath() async {
+    final netImage = await networkImage('https://www.nfet.net/nfet.jpg');
+
+    return netImage;
+  }
+
   Future<Uint8List> generateSamplePdf({
     required String fhaFormId,
     required String inspectionType,
@@ -237,14 +243,15 @@ class PdfProvider extends ChangeNotifier {
         },
         build: (pw.Context context) => [
           pw.ListView.builder(
-             itemCount: images.length,
+            itemCount: images.length,
             itemBuilder: (_, index) {
-              final data = images[index];
+              final datum = images[index];
+
               return pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Text(
-                    data.imageLabel ?? "",
+                    datum.imageLabel ?? "",
                     style: pw.TextStyle(
                       fontSize: 16,
                       fontWeight: pw.FontWeight.bold,
@@ -282,7 +289,6 @@ class PdfProvider extends ChangeNotifier {
                 ],
               );
             },
-           
           ),
         ],
       ),
