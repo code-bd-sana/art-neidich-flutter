@@ -21,7 +21,7 @@ class JobSection extends StatefulWidget {
 }
 
 class _JobSectionState extends State<JobSection> {
-  bool _isExpanded = true;
+  bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +35,19 @@ class _JobSectionState extends State<JobSection> {
             fontSize: 14.sp,
           ),
         ),
-        subtitle: !_isExpanded && widget.subtitle != null
+
+          subtitle: _isExpanded && widget.subtitle != null
             ? Text(
                 widget.subtitle!,
                 style: TextStyle(color: Colors.grey, fontSize: 12.sp),
               )
             : null,
+        // subtitle: !_isExpanded && widget.subtitle != null
+        //     ? Text(
+        //         widget.subtitle!,
+        //         style: TextStyle(color: Colors.grey, fontSize: 12.sp),
+        //       )
+        //     : null,
         childrenPadding: EdgeInsets.symmetric(horizontal: 16.w),
         initiallyExpanded: _isExpanded,
 

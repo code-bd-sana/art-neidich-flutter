@@ -23,6 +23,8 @@ import '../features/labels/data/rx_delete/rx.dart';
 import '../features/labels/data/rx_get/model/label_response.dart';
 import '../features/labels/data/rx_get/rx.dart';
 import '../features/labels/data/rx_update/rx.dart';
+import '../features/overview/data/rx_get/model/admin_overview_response.dart';
+import '../features/overview/data/rx_get/rx.dart';
 import '../features/profile/data/rx_get_profile/model/profile_response_model.dart';
 import '../features/profile/data/rx_get_profile/rx.dart';
 import '../features/profile/data/rx_post_profile/rx.dart';
@@ -104,4 +106,9 @@ UnSuspendRx unSuspendRxObj = UnSuspendRx(
 InspectionRx inspectionRxObj = InspectionRx(
   empty: InspectionResponse(),
   dataFetcher: BehaviorSubject<InspectionResponse>(),
+);
+
+AdminOverviewRx adminOverviewRxObj = AdminOverviewRx(
+  empty: AdminOverviewResponse(),
+  dataFetcher: BehaviorSubject<AdminOverviewResponse>(),
 );

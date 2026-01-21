@@ -144,7 +144,8 @@ final class Endpoints {
 
     return uri.toString();
   }
-
+// admin overview
+  static String adminOverVIew() => "/admin/overview";
   //
   static String logout() => "/api/logout";
   static String getBabyProfile() => "/api/baby/profile/show";

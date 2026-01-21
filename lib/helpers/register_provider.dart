@@ -3,6 +3,7 @@ import 'package:artneidich_app/provider/assign_inspector_provider.dart';
 import 'package:artneidich_app/provider/reset_password_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/admin_overview_provider.dart';
 import '../provider/camera_setting_provider.dart';
 import '../provider/create_job_provider.dart';
 import '../provider/inspection_provider.dart';
@@ -62,6 +63,8 @@ var providers = [
   ),
 
   ChangeNotifierProvider<AdminProvider>(create: ((context) => AdminProvider())),
+
+   ChangeNotifierProvider<AdminOverviewProvider>(create: ((context) => AdminOverviewProvider())),
 ];
 
 //
