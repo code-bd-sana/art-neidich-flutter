@@ -1,6 +1,7 @@
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/common_widget/header_widget.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:artneidich_app/helpers/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../helpers/ui_helpers.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../common_widget/custom_button.dart';
+import '../../../helpers/toast.dart';
+import '../../../networks/api_acess.dart';
 
 class EmailSupportScreen extends StatefulWidget {
   const EmailSupportScreen({super.key});
@@ -66,7 +69,7 @@ class _EmailSupportScreenState extends State<EmailSupportScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: CustomTextField(
                   controller: supportController,
-                  maxLength: 5,
+                  maxLength: 250,
                   maxLines: 5,
 
                   validator: (value) {
@@ -108,7 +111,17 @@ class _EmailSupportScreenState extends State<EmailSupportScreen> {
                   child: CustomButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        NavigationService.goBack;
+                        emailSupportRxObj
+                            .emailSupportRx(message: supportController.text)
+                            .waitingForFuture()
+                            .then((success) {
+                              if (success) {
+                                ToastUtil.showShortToast(
+                                  "Message sent successfully",
+                                );
+                                NavigationService.goBack;
+                              }
+                            });
                       }
                     },
                     borderRadius: 30.r,

@@ -23,13 +23,24 @@ final class AllJobRx extends RxResponseInt<AllJobResponse> {
     int? limit,
     String? search,
     String? status,
+    String? dateType,
+    String? customDate,
   }) async {
     try {
+
+           log("DateType RX==================: $dateType");
+      log(
+        "customDateFormatted RX==================: $customDate",
+      );
+
+
       AllJobResponse data = await api.allJobApi(
-        status: status,
         limit: limit,
         page: page,
+        status: status,
         search: search,
+        dateType: dateType,
+        customDate: customDate,
       );
       return handleSuccessWithReturn(data);
     } catch (error) {

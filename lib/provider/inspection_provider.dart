@@ -4,6 +4,39 @@ import 'package:flutter/material.dart';
 import '../networks/api_acess.dart';
 
 class InspectionProvider extends ChangeNotifier {
+  // popup
+  String _dateType = 'this_month';
+  DateTime? _customDate;
+
+  String get dateType => _dateType;
+  DateTime? get customDate => _customDate;
+
+  void setThisMonth() {
+    _dateType = 'this_month';
+    _customDate = null;
+    notifyListeners();
+  }
+
+  void setPreviousMonth() {
+    _dateType = 'previous_month';
+    _customDate = null;
+    notifyListeners();
+  }
+
+  void setCustomDate(DateTime date) {
+    _dateType = 'custom';
+    _customDate = date;
+    notifyListeners();
+  }
+
+  /// API-ready values
+  String? get customDateFormatted {
+    if (_dateType == 'custom' && _customDate != null) {
+      return _customDate!.toIso8601String().split('T').first;
+    }
+    return null;
+  }
+
   final ScrollController _scrollController = ScrollController();
 
   final int _limit = 10;
@@ -64,6 +97,8 @@ class InspectionProvider extends ChangeNotifier {
       page: _page,
       status: _selectFilter2 == "all" ? null : _selectFilter2,
       search: _selectFilter2 == "all" ? null : _searchJob,
+      dateType: _dateType,
+      customDate: customDateFormatted,
     );
 
     if (response.data != null && response.data!.isNotEmpty) {
@@ -130,6 +165,19 @@ class InspectionProvider extends ChangeNotifier {
     _hasMore = true;
     notifyListeners();
     // fetch with new filter
+    fetchAllJob();
+  }
+
+  void applyDateFilter({required String dateType, DateTime? customDate}) {
+    _dateType = dateType;
+    _customDate = customDate;
+
+    //  reset pagination & data
+    _datum.clear();
+    _page = 1;
+    _hasMore = true;
+
+    notifyListeners();
     fetchAllJob();
   }
 }

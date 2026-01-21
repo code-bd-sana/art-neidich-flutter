@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+
 import '../features/job_details/data/rx_get_report/model/job_report_response.dart';
 
 class PdfProvider extends ChangeNotifier {

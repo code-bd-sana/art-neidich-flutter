@@ -79,9 +79,18 @@ class _InspectionScreenState extends State<InspectionScreen> {
                                   color: Colors.white,
                                 ),
                                 onSelected: (value) async {
+                                  final provider = context
+                                      .read<InspectionProvider>();
+
                                   if (value == 'this_month') {
+                                    provider.applyDateFilter(
+                                      dateType: 'this_month',
+                                    );
                                   } else if (value == 'previous_month') {
-                                  } else {
+                                    provider.applyDateFilter(
+                                      dateType: 'previous_month',
+                                    );
+                                  } else if (value == 'custom') {
                                     final DateTime?
                                     pickedDate = await showDatePicker(
                                       context: context,
@@ -112,15 +121,15 @@ class _InspectionScreenState extends State<InspectionScreen> {
                                     );
 
                                     if (pickedDate != null) {
-                                      setState(() {
-                                        // _dateController.text = DateFormat(
-                                        //   'dd-MM-yyyy',
-                                        // ).format(pickedDate);
-                                      });
+                                      provider.applyDateFilter(
+                                        dateType: 'custom',
+                                        customDate: pickedDate,
+                                      );
                                     }
                                   }
                                 },
-                                itemBuilder: (context) => [
+
+                                itemBuilder: (context) => const [
                                   PopupMenuItem(
                                     value: 'this_month',
                                     child: Text('This Month'),
@@ -135,6 +144,77 @@ class _InspectionScreenState extends State<InspectionScreen> {
                                   ),
                                 ],
                               ),
+
+                              // PopupMenuButton<String>(
+                              //   padding: EdgeInsets.zero,
+                              //   menuPadding: EdgeInsets.zero,
+                              //   shape: RoundedRectangleBorder(
+                              //     borderRadius: BorderRadiusGeometry.circular(
+                              //       10,
+                              //     ),
+                              //   ),
+                              //   borderRadius: BorderRadius.circular(10.r),
+                              //   icon: Icon(
+                              //     Icons.more_vert,
+                              //     color: Colors.white,
+                              //   ),
+                              //   onSelected: (value) async {
+                              //     if (value == 'this_month') {
+                              //     } else if (value == 'previous_month') {
+                              //     } else {
+                              //       final DateTime?
+                              //       pickedDate = await showDatePicker(
+                              //         context: context,
+                              //         initialDate: DateTime.now(),
+                              //         firstDate: DateTime(2000),
+                              //         lastDate: DateTime.now(),
+
+                              //         builder: (context, child) {
+                              //           return Theme(
+                              //             data: Theme.of(context).copyWith(
+                              //               colorScheme: ColorScheme.light(
+                              //                 primary: Color(0xFF2D8D7C),
+                              //                 onPrimary: Colors.white,
+                              //                 onSurface: Colors.black,
+                              //               ),
+                              //               textButtonTheme:
+                              //                   TextButtonThemeData(
+                              //                     style: TextButton.styleFrom(
+                              //                       foregroundColor: Color(
+                              //                         0xFF2D8D7C,
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //             ),
+                              //             child: child!,
+                              //           );
+                              //         },
+                              //       );
+
+                              //       if (pickedDate != null) {
+                              //         setState(() {
+                              //           // _dateController.text = DateFormat(
+                              //           //   'dd-MM-yyyy',
+                              //           // ).format(pickedDate);
+                              //         });
+                              //       }
+                              //     }
+                              //   },
+                              //   itemBuilder: (context) => [
+                              //     PopupMenuItem(
+                              //       value: 'this_month',
+                              //       child: Text('This Month'),
+                              //     ),
+                              //     PopupMenuItem(
+                              //       value: 'previous_month',
+                              //       child: Text('Previous Month'),
+                              //     ),
+                              //     PopupMenuItem(
+                              //       value: 'custom',
+                              //       child: Text('Custom'),
+                              //     ),
+                              //   ],
+                              // ),
                             ],
                           ),
 

@@ -18,6 +18,8 @@ final class AllJobApi {
     int? limit,
     String? search,
     String? status,
+    String? dateType,
+    String? customDate,
   }) async {
     try {
       Response response = await getHttp(
@@ -26,6 +28,8 @@ final class AllJobApi {
           page: page,
           status: status,
           search: search,
+          dateType: dateType,
+          customDate: customDate,
         ),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {

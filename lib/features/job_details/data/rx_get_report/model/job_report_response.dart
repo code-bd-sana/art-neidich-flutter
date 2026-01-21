@@ -77,7 +77,8 @@ class ReportData {
     images: images ?? this.images,
   );
 
-  factory ReportData.fromRawJson(String str) => ReportData.fromJson(json.decode(str));
+  factory ReportData.fromRawJson(String str) =>
+      ReportData.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
@@ -270,7 +271,10 @@ class Inspector {
 
 class Job {
   Inspector? createdBy;
+  Inspector? lastUpdatedBy;
   String? id;
+  String? fhaCaseDetailsNo;
+  String? formType;
   String? orderId;
   String? streetAddress;
   String? developmentName;
@@ -280,11 +284,13 @@ class Job {
   DateTime? dueDate;
   DateTime? createdAt;
   DateTime? updatedAt;
-  LastUpdatedBy? lastUpdatedBy;
 
   Job({
     this.createdBy,
+    this.lastUpdatedBy,
     this.id,
+    this.fhaCaseDetailsNo,
+    this.formType,
     this.orderId,
     this.streetAddress,
     this.developmentName,
@@ -294,12 +300,14 @@ class Job {
     this.dueDate,
     this.createdAt,
     this.updatedAt,
-    this.lastUpdatedBy,
   });
 
   Job copyWith({
     Inspector? createdBy,
+    Inspector? lastUpdatedBy,
     String? id,
+    String? fhaCaseDetailsNo,
+    String? formType,
     String? orderId,
     String? streetAddress,
     String? developmentName,
@@ -309,10 +317,12 @@ class Job {
     DateTime? dueDate,
     DateTime? createdAt,
     DateTime? updatedAt,
-    LastUpdatedBy? lastUpdatedBy,
   }) => Job(
     createdBy: createdBy ?? this.createdBy,
+    lastUpdatedBy: lastUpdatedBy ?? this.lastUpdatedBy,
     id: id ?? this.id,
+    fhaCaseDetailsNo: fhaCaseDetailsNo ?? this.fhaCaseDetailsNo,
+    formType: formType ?? this.formType,
     orderId: orderId ?? this.orderId,
     streetAddress: streetAddress ?? this.streetAddress,
     developmentName: developmentName ?? this.developmentName,
@@ -322,7 +332,6 @@ class Job {
     dueDate: dueDate ?? this.dueDate,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
-    lastUpdatedBy: lastUpdatedBy ?? this.lastUpdatedBy,
   );
 
   factory Job.fromRawJson(String str) => Job.fromJson(json.decode(str));
@@ -333,7 +342,12 @@ class Job {
     createdBy: json["createdBy"] == null
         ? null
         : Inspector.fromJson(json["createdBy"]),
+    lastUpdatedBy: json["lastUpdatedBy"] == null
+        ? null
+        : Inspector.fromJson(json["lastUpdatedBy"]),
     id: json["_id"],
+    fhaCaseDetailsNo: json["fhaCaseDetailsNo"],
+    formType: json["formType"],
     orderId: json["orderId"],
     streetAddress: json["streetAddress"],
     developmentName: json["developmentName"],
@@ -347,14 +361,14 @@ class Job {
     updatedAt: json["updatedAt"] == null
         ? null
         : DateTime.parse(json["updatedAt"]),
-    lastUpdatedBy: json["lastUpdatedBy"] == null
-        ? null
-        : LastUpdatedBy.fromJson(json["lastUpdatedBy"]),
   );
 
   Map<String, dynamic> toJson() => {
     "createdBy": createdBy?.toJson(),
+    "lastUpdatedBy": lastUpdatedBy?.toJson(),
     "_id": id,
+    "fhaCaseDetailsNo": fhaCaseDetailsNo,
+    "formType": formType,
     "orderId": orderId,
     "streetAddress": streetAddress,
     "developmentName": developmentName,
@@ -364,25 +378,5 @@ class Job {
     "dueDate": dueDate?.toIso8601String(),
     "createdAt": createdAt?.toIso8601String(),
     "updatedAt": updatedAt?.toIso8601String(),
-    "lastUpdatedBy": lastUpdatedBy?.toJson(),
   };
-}
-
-class LastUpdatedBy {
-  String? role;
-
-  LastUpdatedBy({this.role});
-
-  LastUpdatedBy copyWith({String? role}) =>
-      LastUpdatedBy(role: role ?? this.role);
-
-  factory LastUpdatedBy.fromRawJson(String str) =>
-      LastUpdatedBy.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory LastUpdatedBy.fromJson(Map<String, dynamic> json) =>
-      LastUpdatedBy(role: json["role"]);
-
-  Map<String, dynamic> toJson() => {"role": role};
 }

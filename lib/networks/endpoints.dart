@@ -36,6 +36,8 @@ final class Endpoints {
   static String getProfiles() => "/user/profile";
   static String updateProfiles() => "/user/profile";
 
+   static String emailSupport() => "/email/support";
+
   // Create job from admin
   static String createJob() => "/job";
 
@@ -69,20 +71,40 @@ final class Endpoints {
   }
 
   // All Job
+
   static String getAllJob({
     int? page,
     int? limit,
     String? search,
     String? status,
+
+    /// allowed values: this_month, previous_month, custom
+    String? dateType,
+
+    /// only required when dateType == custom
+    String? customDate,
   }) {
     final Map<String, String> queryParams = {};
 
     if (page != null) queryParams["page"] = page.toString();
     if (limit != null) queryParams["limit"] = limit.toString();
+
     if (search != null && search.trim().isNotEmpty) {
       queryParams["search"] = search;
     }
-    if (status != null) queryParams["status"] = status.toString();
+
+    if (status != null && status.isNotEmpty) {
+      queryParams["status"] = status;
+    }
+
+    if (dateType != null && dateType.isNotEmpty) {
+      queryParams["dateType"] = dateType;
+
+      //  only when custom
+      if (dateType == "custom" && customDate != null && customDate.isNotEmpty) {
+        queryParams["customDate"] = customDate;
+      }
+    }
 
     final uri = Uri.parse(
       "/job",
@@ -90,6 +112,31 @@ final class Endpoints {
 
     return uri.toString();
   }
+
+  // static String getAllJob({
+  //   int? page,
+  //   int? limit,
+  //   String? search,
+  //   String? status,
+  //   String? custom,
+  // }) {
+  //   final Map<String, String> queryParams = {};
+
+  //   if (page != null) queryParams["page"] = page.toString();
+  //   if (limit != null) queryParams["limit"] = limit.toString();
+  //   if (search != null && search.trim().isNotEmpty) {
+  //     queryParams["search"] = search;
+  //   }
+  //   if (status != null) queryParams["status"] = status.toString();
+
+  //   if (custom != null) queryParams["custom"] = custom.toString();
+
+  //   final uri = Uri.parse(
+  //     "/job",
+  //   ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
+
+  //   return uri.toString();
+  // }
 
   static String logIn() => "/api/login";
 
@@ -146,6 +193,7 @@ final class Endpoints {
   }
 // admin overview
   static String adminOverVIew() => "/admin/overview";
+  static String inspectorOverVIew() => "/inspector/overview";
   //
   static String logout() => "/api/logout";
   static String getBabyProfile() => "/api/baby/profile/show";
