@@ -14,8 +14,11 @@ import '../features/inspection/data/rx_get/rx.dart';
 import '../features/inspector_list/data/rx_suspend/rx.dart';
 import '../features/inspector_list/data/rx_unsuspend/rx.dart';
 import '../features/inspector_role/email_support/data/rx.dart';
+import '../features/inspector_role/inspection_progress/data/rx_post/rx.dart';
 import '../features/inspector_role/inspection_view/data/rx_get/model/inspection_response.dart';
 import '../features/inspector_role/inspection_view/data/rx_get/rx.dart';
+import '../features/inspector_role/inspector_label/data/rx_get/model/inspector_label_response.dart';
+import '../features/inspector_role/inspector_label/data/rx_get/rx.dart';
 import '../features/inspector_role/inspector_overview/data/rx_get/model/inspector_overview_response.dart';
 import '../features/inspector_role/inspector_overview/data/rx_get/rx.dart';
 import '../features/job_details/data/rx_get_report/model/job_report_response.dart';
@@ -121,6 +124,19 @@ InspectorOverviewRx inspectorOverviewRxObj = InspectorOverviewRx(
   dataFetcher: BehaviorSubject<InspectorOverviewResponse>(),
 );
 EmailSupportRx emailSupportRxObj = EmailSupportRx(
+  empty: {},
+  dataFetcher: BehaviorSubject<Map>(),
+);
+
+InspectorLabelRx inspectorLabelRxObj = InspectorLabelRx(
+  empty: LabelInspectorResponse(),
+  dataFetcher: BehaviorSubject<LabelInspectorResponse>(),
+
+  
+);
+
+
+CreateReportRx createReportRxObj = CreateReportRx(
   empty: {},
   dataFetcher: BehaviorSubject<Map>(),
 );

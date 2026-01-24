@@ -1,27 +1,23 @@
-import 'dart:developer';
-
-import 'package:artneidich_app/helpers/all_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 import '../../../common_widget/custom_button.dart';
 import '../../../common_widget/custom_drop_down_widget.dart';
 import '../../../common_widget/header_widget.dart';
 import '../../../constants/text_font_style.dart';
 import '../../../gen/assets.gen.dart';
-import '../../../helpers/navigation_service.dart';
 import '../../../helpers/ui_helpers.dart';
-import '../../../provider/inspector_progress_provider.dart';
 
 class RepeatInspectionLabelScreen extends StatefulWidget {
   const RepeatInspectionLabelScreen({super.key});
 
   @override
-  State<RepeatInspectionLabelScreen> createState() => _RepeatInspectionLabelScreenState();
+  State<RepeatInspectionLabelScreen> createState() =>
+      _RepeatInspectionLabelScreenState();
 }
 
-class _RepeatInspectionLabelScreenState extends State<RepeatInspectionLabelScreen> {
+class _RepeatInspectionLabelScreenState
+    extends State<RepeatInspectionLabelScreen> {
   //Inspector List
   int selectedInspectorLabel = -1;
 
@@ -86,17 +82,17 @@ class _RepeatInspectionLabelScreenState extends State<RepeatInspectionLabelScree
                   alignment: Alignment.topRight,
                   child: CustomButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Added Level
-                        context.read<InspectorProgressProvider>().addLabel(
-                          labelName,
-                        );
-                        NavigationService.navigateToWithArgs(
-                          Routes.inspectionProgressScreen,
-                          {"labelName": labelName},
-                        );
-                        log(labelName);
-                      }
+                      // if (_formKey.currentState!.validate()) {
+                      //   // Added Level
+                      //   context.read<InspectorProgressProvider>().addLabel(
+                      //     labelName,
+                      //   );
+                      //   NavigationService.navigateToWithArgs(
+                      //     Routes.inspectionProgressScreen,
+                      //     {"labelName": labelName},
+                      //   );
+                      //   log(labelName);
+                      // }
                     },
                     borderRadius: 30.r,
                     padding: EdgeInsets.symmetric(

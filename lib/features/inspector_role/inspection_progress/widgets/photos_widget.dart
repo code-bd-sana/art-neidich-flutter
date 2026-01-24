@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -38,6 +39,8 @@ class LabelPhotosWidget extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final imagePath = imageList[index];
+
+            log("File Path =================== $imagePath");
 
             return AnimationConfiguration.staggeredGrid(
               position: index,

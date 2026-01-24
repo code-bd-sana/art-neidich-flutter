@@ -36,14 +36,14 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
         return Scaffold(
           body: SingleChildScrollView(
             child: RefreshIndicator(
-              onRefresh: () async{
-                 provider.resetData();
+              onRefresh: () async {
+                provider.resetData();
               },
               child: Column(
                 children: [
                   // Header AppBar Widget
                   InspectionHeaderWidget(title: "Assigned Inspections"),
-              
+
                   SizedBox(
                     height: 0.55.sh,
                     child: provider.datum.isEmpty
@@ -57,7 +57,7 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                             ),
                             //  empty: Center(child: Text("No Data Found")),
                             border: TableBorder.all(color: Color(0xFFEFEFF1)),
-              
+
                             scrollController: provider.scrollController,
                             columnSpacing: 20,
                             horizontalMargin: 16,
@@ -97,7 +97,9 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                                   padding: EdgeInsets.all(8.r),
                                                   child:
                                                       CircularProgressIndicator(
-                                                        color: Color(0xFF2D8D7C),
+                                                        color: Color(
+                                                          0xFF2D8D7C,
+                                                        ),
                                                       ),
                                                 ),
                                               ),
@@ -106,23 +108,25 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                     ),
                                   );
                                 }
-              
+
                                 final item = provider.datum[index];
                                 return DataRow(
                                   cells: [
-                                    DataCell(Text(item.fhaCaseDetailsNo ?? "-")),
+                                    DataCell(
+                                      Text(item.fhaCaseDetailsNo ?? "-"),
+                                    ),
                                     DataCell(Text(item.orderId ?? "-")),
-              
+
                                     DataCell(
                                       Text(
                                         item.dueDate != null
-                                            ? DateFormat(
-                                                'dd-MM-yyyy',
-                                              ).format((item.dueDate!).toLocal())
+                                            ? DateFormat('dd-MM-yyyy').format(
+                                                (item.dueDate!).toLocal(),
+                                              )
                                             : '-',
                                       ),
                                     ),
-              
+
                                     DataCell(
                                       Container(
                                         padding: EdgeInsets.symmetric(
@@ -130,27 +134,31 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                           vertical: 6.h,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: item.reportStatus == "submitted"
+                                          color:
+                                              item.reportStatus == "submitted"
                                               ? Color(0xFFECFFEB)
-                                              : item.reportStatus == "in_progress"
+                                              : item.reportStatus ==
+                                                    "in_progress"
                                               ? Color(0xFFFDF3D7)
                                               : item.reportStatus == "completed"
                                               ? Color(0xFFEBECFF)
                                               : Color(0xFFFFEBEB),
-              
+
                                           borderRadius: BorderRadius.circular(
                                             6.r,
                                           ),
                                         ),
                                         child: Text(
-                                          item.reportStatus == "submitted"
-                                              ? "Submitted"
-                                              : item.reportStatus == "in_progress"
-                                              ? "In Progress"
-                                              : item.reportStatus == "completed"
-                                              ? "Completed"
-                                              : "Rejected",
-              
+                                          item.reportStatusLabel ?? "",
+                                          // item.reportStatus == "submitted"
+                                          //     ? "Submitted"
+                                          //     : item.reportStatus ==
+                                          //           "in_progress"
+                                          //     ? "In Progress"
+                                          //     : item.reportStatus == "completed"
+                                          //     ? "Completed"
+                                          //     : "Rejected",
+
                                           style: TextFontStyle
                                               .headLine14c323539InterW400
                                               .copyWith(
@@ -169,15 +177,21 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                         ),
                                       ),
                                     ),
-              
+
                                     DataCell(
                                       InkWell(
                                         onTap: () {
-                                          NavigationService.navigateTo(
-                                            Routes.inspectionIdScreen,
+                                          NavigationService.navigateToWithArgs(
+                                            Routes.inspectionLabelScreen,
+                                            {
+                                              "labelType": "startInspector",
+                                              "datum": item,
+                                            },
                                           );
                                         },
-                                        borderRadius: BorderRadius.circular(6.r),
+                                        borderRadius: BorderRadius.circular(
+                                          6.r,
+                                        ),
                                         child: Row(
                                           spacing: 4.w,
                                           mainAxisAlignment:
@@ -190,7 +204,7 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
-              
+
                                             Image.asset(
                                               Assets.icons.arrowRightIcon.path,
                                               width: 16.w,
@@ -201,7 +215,7 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                         ),
                                       ),
                                     ),
-              
+
                                     DataCell(
                                       InkWell(
                                         onTap: () {
@@ -210,13 +224,15 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                             {"datum": item},
                                           );
                                         },
-                                        borderRadius: BorderRadius.circular(6.r),
+                                        borderRadius: BorderRadius.circular(
+                                          6.r,
+                                        ),
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
                                             // horizontal: 12.w,
                                             vertical: 6.h,
                                           ),
-              
+
                                           child: Row(
                                             spacing: 4.w,
                                             mainAxisAlignment:
@@ -229,9 +245,12 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
-              
+
                                               Image.asset(
-                                                Assets.icons.arrowRightIcon.path,
+                                                Assets
+                                                    .icons
+                                                    .arrowRightIcon
+                                                    .path,
                                                 width: 16.w,
                                                 height: 16.h,
                                                 color: Color(0xFFFF7F60),

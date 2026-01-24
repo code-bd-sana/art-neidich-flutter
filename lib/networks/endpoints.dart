@@ -36,10 +36,14 @@ final class Endpoints {
   static String getProfiles() => "/user/profile";
   static String updateProfiles() => "/user/profile";
 
-   static String emailSupport() => "/email/support";
+  static String emailSupport() => "/email/support";
 
   // Create job from admin
   static String createJob() => "/job";
+
+  // Create Report
+  static String createReport() => "/report";
+
 
   // all user
   static String getAllUser({
@@ -138,6 +142,25 @@ final class Endpoints {
   //   return uri.toString();
   // }
 
+  // Image Label
+
+  static String getLabel({int? page, int? limit, String? search}) {
+    final Map<String, String> queryParams = {};
+
+    if (page != null) queryParams["page"] = page.toString();
+    if (limit != null) queryParams["limit"] = limit.toString();
+
+    if (search != null && search.trim().isNotEmpty) {
+      queryParams["search"] = search;
+    }
+
+    final uri = Uri.parse(
+      "/image-label",
+    ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
+
+    return uri.toString();
+  }
+
   static String logIn() => "/api/login";
 
   /// Job Details Summary
@@ -191,7 +214,8 @@ final class Endpoints {
 
     return uri.toString();
   }
-// admin overview
+
+  // admin overview
   static String adminOverVIew() => "/admin/overview";
   static String inspectorOverVIew() => "/inspector/overview";
   //

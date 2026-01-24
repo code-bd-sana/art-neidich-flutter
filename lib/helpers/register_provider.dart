@@ -7,6 +7,7 @@ import '../provider/admin_overview_provider.dart';
 import '../provider/camera_setting_provider.dart';
 import '../provider/create_job_provider.dart';
 import '../provider/inspection_provider.dart';
+import '../provider/inspector_label_provider.dart';
 import '../provider/inspector_overview_provider.dart';
 import '../provider/inspector_progress_provider.dart';
 import '../provider/job_details_provider.dart';
@@ -70,6 +71,9 @@ var providers = [
   ),
   ChangeNotifierProvider<InspectorOverviewProvider>(
     create: ((context) => InspectorOverviewProvider()),
+  ),
+  ChangeNotifierProvider<InspectorLabelProvider>(
+    create: ((context) => InspectorLabelProvider()),
   ),
 ];
 

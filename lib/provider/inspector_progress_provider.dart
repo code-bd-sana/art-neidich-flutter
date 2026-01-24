@@ -2,15 +2,19 @@ import 'package:artneidich_app/helpers/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class InspectorProgressProvider extends ChangeNotifier {
-  List<Map<String, dynamic>> inspectorLabelList = [];
+import '../features/inspector_role/inspection_progress/model/inspector_label_model.dart';
 
-  // add label
-  void addLabel(String label) {
-    inspectorLabelList.add({
-      "label": label,
-      "images": List<String>.filled(2, ""), // two empty slots
-    });
+class InspectorProgressProvider extends ChangeNotifier {
+  //  List
+  List<InspectorLabelModel> inspectorList = [];
+
+  void createLabel({required String labelName}) {
+    inspectorList.add(
+      InspectorLabelModel(
+        labelName: labelName,
+        images: List<String>.filled(2, ""),
+      ),
+    );
     notifyListeners();
   }
 
@@ -22,16 +26,24 @@ class InspectorProgressProvider extends ChangeNotifier {
     );
 
     if (file != null) {
-      inspectorLabelList[labelIndex]["images"][imageIndex] = file.path;
-      notifyListeners();
+      inspectorList[labelIndex].images![imageIndex] = file.path;
     } else {
       ToastUtil.showShortToast("You haven't selected any image.");
     }
+    notifyListeners();
   }
 
   // remove image
   void removeImage(int labelIndex, int imageIndex) {
-    inspectorLabelList[labelIndex]["images"][imageIndex] = "";
+    inspectorList[labelIndex].images![imageIndex] = "";
     notifyListeners();
   }
+
+  // Remove Label
+  void removeLabel(int index) {
+    inspectorList.removeAt(index);
+    notifyListeners();
+  }
+
+  
 }

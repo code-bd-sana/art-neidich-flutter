@@ -24,7 +24,7 @@ import '../features/inspector_role/inspection_case/inspection_case_screen.dart';
 import '../features/inspector_role/inspection_id/inspection_id_screen.dart';
 import '../features/inspector_role/inspection_progress/presentation/inspection_progress_screen.dart';
 import '../features/inspector_role/inspection_summary/presentation/inspection_summary_screen.dart';
-import '../features/inspector_role/inspector_label/inspector_label_screen.dart';
+import '../features/inspector_role/inspector_label/presentation/inspector_label_screen.dart';
 import '../features/inspector_role/repeat_inpection_label/repeat_inspection_label_screen.dart';
 import '../features/job_details/presentation/job_details_screen.dart';
 import '../features/notification/notification_screen.dart';
@@ -174,12 +174,21 @@ final class RouteGenerator {
               );
 
       case Routes.inspectionLabelScreen:
+        final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: InspectionLabelScreen(),
+                widget: InspectionLabelScreen(
+                  labelType: args["labelType"],
+                  datum: args["datum"],
+                ),
                 settings: settings,
               )
-            : CupertinoPageRoute(builder: (context) => InspectionLabelScreen());
+            : CupertinoPageRoute(
+                builder: (context) => InspectionLabelScreen(
+                  labelType: args["labelType"],
+                  datum: args["datum"],
+                ),
+              );
 
       case Routes.notificationScreen:
         return Platform.isAndroid
@@ -227,12 +236,17 @@ final class RouteGenerator {
         final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: InspectionProgressScreen(labelName: args["labelName"]),
+                widget: InspectionProgressScreen(
+                  labelName: args["labelName"],
+                  datum: args["datum"],
+                ),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) =>
-                    InspectionProgressScreen(labelName: args["labelName"]),
+                builder: (context) => InspectionProgressScreen(
+                  labelName: args["labelName"],
+                  datum: args["datum"],
+                ),
               );
 
       case Routes.inspectionCaseScreen:
@@ -244,15 +258,15 @@ final class RouteGenerator {
             : CupertinoPageRoute(builder: (context) => InspectionCaseScreen());
 
       case Routes.inspectionSummaryScreen:
-
-      final args = settings.arguments as Map;
+        final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: InspectionSummaryScreen(datum: args["datum"],),
+                widget: InspectionSummaryScreen(datum: args["datum"]),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) => InspectionSummaryScreen(datum: args["datum"],),
+                builder: (context) =>
+                    InspectionSummaryScreen(datum: args["datum"]),
               );
 
       case Routes.inspectionIdScreen:
@@ -338,10 +352,12 @@ final class RouteGenerator {
         final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: JobDetailsScreen(id: args["id"],),
+                widget: JobDetailsScreen(id: args["id"]),
                 settings: settings,
               )
-            : CupertinoPageRoute(builder: (context) => JobDetailsScreen(id: args["id"]));
+            : CupertinoPageRoute(
+                builder: (context) => JobDetailsScreen(id: args["id"]),
+              );
 
       case Routes.resetPasswordScreen:
         return Platform.isAndroid
