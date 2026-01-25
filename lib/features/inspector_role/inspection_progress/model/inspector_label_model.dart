@@ -1,5 +1,6 @@
 class InspectorLabelModel {
-  String? labelName;
+  String? labelID;
+   String? labelName;
   List<String>? images;
-  InspectorLabelModel({this.labelName, this.images});
+  InspectorLabelModel({this.labelID, this.images, this.labelName});
 }

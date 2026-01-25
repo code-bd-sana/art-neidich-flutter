@@ -8,10 +8,11 @@ class InspectorProgressProvider extends ChangeNotifier {
   //  List
   List<InspectorLabelModel> inspectorList = [];
 
-  void createLabel({required String labelName}) {
+  void createLabel({required String labelID, required String labeName}) {
     inspectorList.add(
       InspectorLabelModel(
-        labelName: labelName,
+        labelID: labelID,
+        labelName: labeName,
         images: List<String>.filled(2, ""),
       ),
     );
@@ -44,6 +45,4 @@ class InspectorProgressProvider extends ChangeNotifier {
     inspectorList.removeAt(index);
     notifyListeners();
   }
-
-  
 }

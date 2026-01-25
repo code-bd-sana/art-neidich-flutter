@@ -239,6 +239,7 @@ final class RouteGenerator {
                 widget: InspectionProgressScreen(
                   labelName: args["labelName"],
                   datum: args["datum"],
+                  labelID: args["labelID"],
                 ),
                 settings: settings,
               )
@@ -246,6 +247,7 @@ final class RouteGenerator {
                 builder: (context) => InspectionProgressScreen(
                   labelName: args["labelName"],
                   datum: args["datum"],
+                  labelID: args["labelID"],
                 ),
               );
 

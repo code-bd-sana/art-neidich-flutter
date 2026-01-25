@@ -40,6 +40,7 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
     labelName.dispose();
   }
 
+  String selectedlabelID = "";
   @override
   Widget build(BuildContext context) {
     log(
@@ -111,11 +112,16 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
                                       labelName.text =
                                           selectedLabel.label ?? "";
 
+                                      selectedlabelID = selectedLabel.id
+                                          .toString();
+
                                       context
                                           .read<InspectorProgressProvider>()
                                           .createLabel(
-                                            labelName: labelName.text
-                                                .toString(),
+                                            labelID: selectedLabel.id!,
+                                            labeName: labelName.text.toString(),
+
+                                
                                           );
 
                                       // Close bottom sheet
@@ -163,11 +169,9 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
                         {
                           "labelName": labelName.text.toString(),
 
-                          "datum" : widget.datum,
+                          "datum": widget.datum,
 
-                  
-
-                         
+                          "labelID": selectedlabelID,
                         },
                       );
                     }

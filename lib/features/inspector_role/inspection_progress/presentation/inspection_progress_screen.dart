@@ -21,11 +21,13 @@ import '../widgets/photos_widget.dart';
 
 class InspectionProgressScreen extends StatefulWidget {
   final String labelName;
+  final String labelID;
   final Datum datum;
   const InspectionProgressScreen({
     super.key,
     required this.labelName,
     required this.datum,
+    required this.labelID,
   });
 
   @override
@@ -44,7 +46,9 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log("ID  ==============> ${widget.datum.id ?? ""}");
+    log("JOB ID  ==============> ${widget.datum.id ?? ""}");
+
+    log("LABEL ID  ==============> ${widget.labelID}");
 
     return Consumer<InspectorProgressProvider>(
       builder: (context, provider, child) {
@@ -324,33 +328,67 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                     onPressed: () async {
                       //
 
-                      final imagesPayload = provider.inspectorList
-                          .where(
-                            (e) => e.images != null && e.images!.isNotEmpty,
-                          )
-                          .map((e) {
-                            return {
-                              "imageLabel": e.labelName,
-                              "images": e.images!.map((img) => {MultipartFile.fromFileSync(img, filename: img.split("/").last)}).toList(),
-                            };
-                          })
-                          .toList();
+                      // final imageEntries = await Future.wait(
+                      //   provider.inspectorList
+                      //       .where(
+                      //         (e) => e.images != null && e.images!.isNotEmpty,
+                      //       )
+                      //       .map((e) async {
+                      //         return {
+                      //           "imageLabel": e.labelName,
+                      //           "images": await Future.wait(
+                      //             e.images!.map(
+                      //               (img) async => await MultipartFile.fromFile(
+                      //                 img,
+                      //                 filename: img.split("/").last,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         };
+                      //       }),
+                      // );
 
-                      createReportRxObj.createJobRx(formData: FormData(
 
-                      
+                      final imageEntries = await Future.wait(
+                        provider.inspectorList
+                            .where(
+                              (e) => e.images != null && e.images!.isNotEmpty,
+                            )
+                            .map((e) async {
+                              return {
+                                "imageLabel": e.labelID, // ID, NOT name
+                                "images": await Future.wait(
+                                  e.images!.map(
+                                    (img) async => MultipartFile.fromFile(
+                                      img,
+                                      filename: img.split('/').last,
+                                    ),
+                                  ),
+                                ),
+                              };
+                            }),
+                      );
+
+                      FormData formData = FormData.fromMap({
+                        "job": widget.datum.id,
+                        "imageEntries": imageEntries,
+                      });
 
 
 
 
 
-                      ));
+                      debugPrint("PAYLOAD LOG:");
+                      debugPrint(
+                        {
+                          "job": widget.datum.id,
+                          "images": imageEntries,
+                        }.toString(),
+                      );
 
-                      debugPrint(imagesPayload.toString());
+                  
 
-                     // debugPrint(imagesPayload.toString());
-
-                      print(imagesPayload);
+                      createReportRxObj.createJobRx(formData: formData);
                     },
                     text: "Submit",
                   ),
