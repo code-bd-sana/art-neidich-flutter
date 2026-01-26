@@ -220,6 +220,7 @@ final class Endpoints {
   // Test Images
   // Create Report
   static String singleImageP() => "/test/single-upload";
+    static String multipleImageP() => "/test/multiple-upload";
 
   // admin overview
   static String adminOverVIew() => "/admin/overview";

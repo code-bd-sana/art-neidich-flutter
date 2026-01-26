@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class TestImageProvider with ChangeNotifier {
+class MultipleImageProvider extends ChangeNotifier {
   final List<File> _fileList = [];
   final ImagePicker _imagePicker = ImagePicker();
 

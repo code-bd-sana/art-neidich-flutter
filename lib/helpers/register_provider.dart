@@ -13,13 +13,13 @@ import '../provider/inspector_overview_provider.dart';
 import '../provider/inspector_progress_provider.dart';
 import '../provider/job_details_provider.dart';
 import '../provider/label_provider.dart';
+import '../provider/multiple_image_provider.dart';
 import '../provider/otp_provider.dart';
 import '../provider/pdf_provider.dart';
 import '../provider/push_notification_provider.dart';
 import '../provider/role_provider.dart';
 import '../provider/signin_provider.dart';
 import '../provider/signup_provider.dart';
-import '../provider/test_image_provider.dart';
 
 var providers = [
   ChangeNotifierProvider<PdfProvider>(create: ((context) => PdfProvider())),
@@ -78,12 +78,12 @@ var providers = [
     create: ((context) => InspectorLabelProvider()),
   ),
 
-  ChangeNotifierProvider<TestImageProvider>(
-    create: ((context) => TestImageProvider()),
-  ),
-
   ChangeNotifierProvider<SingleImageProvider>(
     create: ((context) => SingleImageProvider()),
+  ),
+
+  ChangeNotifierProvider<MultipleImageProvider>(
+    create: ((context) => MultipleImageProvider()),
   ),
 ];
 

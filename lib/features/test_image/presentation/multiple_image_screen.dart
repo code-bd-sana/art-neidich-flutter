@@ -1,19 +1,20 @@
-import 'dart:developer';
-
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../common_widget/custom_button.dart';
-import '../../gen/assets.gen.dart';
-import '../../provider/test_image_provider.dart';
+import '../../../common_widget/custom_button.dart';
+import '../../../gen/assets.gen.dart';
+import '../../../helpers/loading_helper.dart';
+import '../../../networks/api_acess.dart';
+import '../../../provider/multiple_image_provider.dart';
 
-class TestImageScreen extends StatelessWidget {
-  const TestImageScreen({super.key});
+class MultipleImageScreen extends StatelessWidget {
+  const MultipleImageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TestImageProvider>(
+    return Consumer<MultipleImageProvider>(
       builder: (context, provider, child) {
         return Scaffold(
           appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
@@ -24,7 +25,7 @@ class TestImageScreen extends StatelessWidget {
               ///  Pick Image
               InkWell(
                 onTap: () {
-                  provider.pickedIMage(imageSource: ImageSource.camera);
+                  provider.pickedIMage(imageSource: ImageSource.gallery);
                 },
                 child: ClipOval(
                   child: SizedBox(
@@ -71,24 +72,22 @@ class TestImageScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomButton(
                   onPressed: () {
-                    log(
-                      "Length ================== ${provider.fileList.length}",
-                    );
-
-                    final docs = provider.fileList
-                        .map((e) => log("IMages ========= $e"))
-                        .toList();
-
-                    log(docs.toString());
-
-                    // createReportRxObj
-                    //     .createJobRx(images: provider.fileList)
-                    //     .waitingForFuture()
-                    //     .then((success) {
-                    //       if (success) {
-                    //         log("Image Uploaded successsfully");
-                    //       }
-                    //     });
+                    if (provider.fileList.isNotEmpty) {
+                      multipleImageRXObj
+                          .multipleImageRX(images: provider.fileList)
+                          .waitingForFuture()
+                          .then((success) {
+                            if (success) {
+                              ToastUtil.showShortToast(
+                                "Multiple Image Uploaded successsfully",
+                              );
+                            }
+                          });
+                    } else {
+                      ToastUtil.showShortToast(
+                        "Please select multiple images.",
+                      );
+                    }
                   },
                   text: "Upload Here",
                 ),
