@@ -328,7 +328,20 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                   child: CustomButton(
-                    onPressed: () {
+                  onPressed: () {
+                      // Step 1: check if any images exist
+                      bool hasImages = provider.inspectorList.any(
+                        (label) =>
+                            label.images != null && label.images!.isNotEmpty,
+                      );
+
+                      if (!hasImages) {
+                        // Step 2: show only the error message
+                        ToastUtil.showShortToast("Something went wrong");
+                        return; // API call won't happen
+                      }
+
+                      // Step 3: call API safely
                       createReportRxObj
                           .createJobRx(id: widget.datum.id!, provider: provider)
                           .waitingForFuture()
@@ -337,11 +350,18 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                               ToastUtil.showShortToast(
                                 "Report created successfully",
                               );
-                              NavigationService.goBack;
-                              //    debugPrint("Report Created Successfully");
+                              NavigationService.goBack();
+                            } else {
+                              ToastUtil.showShortToast("Something went wrong");
                             }
+                          })
+                          .catchError((error) {
+                            // Safety: unexpected errors
+                            ToastUtil.showShortToast("Something went wrong");
                           });
                     },
+
+
                     text: "Submit",
                   ),
                 ),

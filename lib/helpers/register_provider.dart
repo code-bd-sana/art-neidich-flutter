@@ -1,6 +1,7 @@
 import 'package:artneidich_app/provider/admin_provider.dart';
 import 'package:artneidich_app/provider/assign_inspector_provider.dart';
 import 'package:artneidich_app/provider/reset_password_provider.dart';
+import 'package:artneidich_app/provider/single_image_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/admin_overview_provider.dart';
@@ -79,6 +80,10 @@ var providers = [
 
   ChangeNotifierProvider<TestImageProvider>(
     create: ((context) => TestImageProvider()),
+  ),
+
+  ChangeNotifierProvider<SingleImageProvider>(
+    create: ((context) => SingleImageProvider()),
   ),
 ];
 

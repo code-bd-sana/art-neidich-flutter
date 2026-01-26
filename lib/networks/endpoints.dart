@@ -217,6 +217,10 @@ final class Endpoints {
     return uri.toString();
   }
 
+  // Test Images
+  // Create Report
+  static String singleImageP() => "/test/single-upload";
+
   // admin overview
   static String adminOverVIew() => "/admin/overview";
   static String inspectorOverVIew() => "/inspector/overview";

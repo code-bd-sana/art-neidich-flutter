@@ -34,6 +34,7 @@ import '../features/overview/data/rx_get/rx.dart';
 import '../features/profile/data/rx_get_profile/model/profile_response_model.dart';
 import '../features/profile/data/rx_get_profile/rx.dart';
 import '../features/profile/data/rx_post_profile/rx.dart';
+import '../features/test_image/data/rx_post/rx.dart';
 
 // Authenticate
 SignupRx signupRxObj = SignupRx(empty: {}, dataFetcher: BehaviorSubject<Map>());
@@ -131,12 +132,14 @@ EmailSupportRx emailSupportRxObj = EmailSupportRx(
 InspectorLabelRx inspectorLabelRxObj = InspectorLabelRx(
   empty: LabelInspectorResponse(),
   dataFetcher: BehaviorSubject<LabelInspectorResponse>(),
-
-  
 );
 
-
 CreateReportRx createReportRxObj = CreateReportRx(
+  empty: {},
+  dataFetcher: BehaviorSubject<Map>(),
+);
+
+SingleImageRX singleImageRXObj = SingleImageRX(
   empty: {},
   dataFetcher: BehaviorSubject<Map>(),
 );
