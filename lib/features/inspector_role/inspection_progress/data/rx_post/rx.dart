@@ -17,12 +17,16 @@ final class CreateReportRx extends RxResponseInt<Map> {
 
   ValueStream<Map> get createReportRxStream => dataFetcher.stream;
 
-  Future<bool> createJobRx({required FormData formData}) async {
+  Future<bool> createJobRx({
+    required String job,
+    required List<Map<String, dynamic>> images,
+  }) async {
     try {
-      final data = await api.createReportApi(formData: formData);
+      final data = await api.createReportApi(job: job, images: images);
       handleSuccessWithReturn(data);
       return true;
-    } catch (error) {
+    } catch (error, s) {
+      log("error ==================> $s");
       return handleErrorWithReturn(error);
     }
   }

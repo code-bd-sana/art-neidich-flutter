@@ -185,6 +185,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/Vector.png
   AssetGenImage get vector => const AssetGenImage('assets/images/Vector.png');
 
+  /// File path: assets/images/avatar.png
+  AssetGenImage get avatar => const AssetGenImage('assets/images/avatar.png');
+
   /// File path: assets/images/create_job.png
   AssetGenImage get createJob =>
       const AssetGenImage('assets/images/create_job.png');
@@ -252,6 +255,7 @@ class $AssetsImagesGen {
         frame4,
         frame5,
         vector,
+        avatar,
         createJob,
         email,
         helpSupport,

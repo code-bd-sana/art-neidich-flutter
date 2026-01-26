@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
-import 'package:artneidich_app/networks/api_acess.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +10,10 @@ import 'package:provider/provider.dart';
 import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../helpers/all_routes.dart';
+import '../../../../helpers/loading_helper.dart';
 import '../../../../helpers/navigation_service.dart';
 import '../../../../helpers/ui_helpers.dart';
+import '../../../../networks/api_acess.dart';
 import '../../../../provider/inspector_progress_provider.dart';
 import '../../../job_details/widgets/job_details_widget.dart';
 import '../../inspection_view/data/rx_get/model/inspection_response.dart';
@@ -326,69 +326,36 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                   padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                   child: CustomButton(
                     onPressed: () async {
-                      //
+                      List<Map<String, dynamic>>
+                      imagesPayload = provider.inspectorList.map((e) {
+                        // log(
+                        //   "labelID message =====================${e.labelID}",
+                        // );
+                        // log(
+                        //   "labelName message =====================${e.labelName}",
+                        // );
+                        // log("images message =====================${e.images}");
 
-                      // final imageEntries = await Future.wait(
-                      //   provider.inspectorList
-                      //       .where(
-                      //         (e) => e.images != null && e.images!.isNotEmpty,
-                      //       )
-                      //       .map((e) async {
-                      //         return {
-                      //           "imageLabel": e.labelName,
-                      //           "images": await Future.wait(
-                      //             e.images!.map(
-                      //               (img) async => await MultipartFile.fromFile(
-                      //                 img,
-                      //                 filename: img.split("/").last,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         };
-                      //       }),
-                      // );
+                        return {"imageLabel": e.labelID, "images": e.images};
+                      }).toList();
 
-
-                      final imageEntries = await Future.wait(
-                        provider.inspectorList
-                            .where(
-                              (e) => e.images != null && e.images!.isNotEmpty,
-                            )
-                            .map((e) async {
-                              return {
-                                "imageLabel": e.labelID, // ID, NOT name
-                                "images": await Future.wait(
-                                  e.images!.map(
-                                    (img) async => MultipartFile.fromFile(
-                                      img,
-                                      filename: img.split('/').last,
-                                    ),
-                                  ),
-                                ),
-                              };
-                            }),
+                      log(
+                        " From Clients =============================> $imagesPayload",
                       );
 
-                      FormData formData = FormData.fromMap({
-                        "job": widget.datum.id,
-                        "imageEntries": imageEntries,
-                      });
+                      final result = await createReportRxObj
+                          .createJobRx(
+                            job: widget.datum.id!,
+                            images: imagesPayload,
+                          )
+                          .waitingForFuture()
+                          .then((success) {
+                            if (success) {
+                              debugPrint("Report Created Successfully");
+                            }
+                          });
 
-
-
-
-
-                      debugPrint("PAYLOAD LOG:");
-                      debugPrint(
-                        {
-                          "job": widget.datum.id,
-                          "images": imageEntries,
-                        }.toString(),
-                      );
-
-                  
-
-                      createReportRxObj.createJobRx(formData: formData);
+                      log("reulst ============================> $result");
                     },
                     text: "Submit",
                   ),

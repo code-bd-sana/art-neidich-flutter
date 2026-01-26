@@ -1,7 +1,9 @@
 // ignore_for_file: constant_identifier_names, unnecessary_string_interpolations
 
 // const String url = String.fromEnvironment("BASE_URL");
-const String url = "http://localhost:8080/api/v1";
+//const String url = "http://localhost:8080/api/v1";
+
+const String url = "http://76.13.100.15:8080/api/v1";
 // ignore: unnecessary_brace_in_string_interps
 const String imageUrl = "${url}";
 
@@ -15,6 +17,7 @@ final class NetworkConstants {
   static const ACCEPT_TYPE = "application/json";
   static const AUTHORIZATION = "Authorization";
   static const CONTENT_TYPE = "content-Type";
+  static const MULTIPART_DATA = "multipart/form-data";
 }
 
 // final class PaymentGateway {
@@ -43,7 +46,6 @@ final class Endpoints {
 
   // Create Report
   static String createReport() => "/report";
-
 
   // all user
   static String getAllUser({

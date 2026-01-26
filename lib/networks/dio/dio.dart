@@ -24,6 +24,8 @@ final class DioSingleton {
         NetworkConstants.ACCEPT: NetworkConstants.ACCEPT_TYPE,
         NetworkConstants.ACCEPT_LANGUAGE: appData.read(kKeyCountryCode) ?? "pt",
         NetworkConstants.APP_KEY: NetworkConstants.APP_KEY_VALUE,
+
+       //   NetworkConstants.CONTENT_TYPE: NetworkConstants.MULTIPART_DATA,
       },
     );
     dio = Dio(options)..interceptors.add(Logger());

@@ -18,6 +18,7 @@ import '../provider/push_notification_provider.dart';
 import '../provider/role_provider.dart';
 import '../provider/signin_provider.dart';
 import '../provider/signup_provider.dart';
+import '../provider/test_image_provider.dart';
 
 var providers = [
   ChangeNotifierProvider<PdfProvider>(create: ((context) => PdfProvider())),
@@ -74,6 +75,10 @@ var providers = [
   ),
   ChangeNotifierProvider<InspectorLabelProvider>(
     create: ((context) => InspectorLabelProvider()),
+  ),
+
+  ChangeNotifierProvider<TestImageProvider>(
+    create: ((context) => TestImageProvider()),
   ),
 ];
 
