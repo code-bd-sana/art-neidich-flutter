@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -329,14 +330,15 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                   child: CustomButton(
                     onPressed: () {
                       createReportRxObj
-                          .createJobRx(
-                            job: widget.datum.id!,
-                            images: provider.inspectorList,
-                          )
+                          .createJobRx(id: widget.datum.id!, provider: provider)
                           .waitingForFuture()
                           .then((success) {
                             if (success) {
-                              debugPrint("Report Created Successfully");
+                              ToastUtil.showShortToast(
+                                "Report created successfully",
+                              );
+                              NavigationService.goBack;
+                              //    debugPrint("Report Created Successfully");
                             }
                           });
                     },

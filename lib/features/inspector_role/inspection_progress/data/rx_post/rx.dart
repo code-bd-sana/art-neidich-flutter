@@ -8,7 +8,7 @@ import '../../../../../../../networks/rx_base.dart';
 import '../../../../../../helpers/all_routes.dart';
 import '../../../../../../helpers/navigation_service.dart';
 import '../../../../../../networks/stream_cleaner.dart';
-import '../../model/inspector_label_model.dart';
+import '../../../../../provider/inspector_progress_provider.dart';
 import 'api.dart';
 
 final class CreateReportRx extends RxResponseInt<Map> {
@@ -19,16 +19,14 @@ final class CreateReportRx extends RxResponseInt<Map> {
   ValueStream<Map> get createReportRxStream => dataFetcher.stream;
 
   Future<bool> createJobRx({
-    required List<InspectorLabelModel> images,
-    required String job,
-    // required List<Map<String, dynamic>> images,
+    required String id,
+    required InspectorProgressProvider provider,
   }) async {
     try {
-      final data = await api.createReportApi(images: images, job: job);
+      final data = await api.createReportApi(id: id, provider: provider);
       handleSuccessWithReturn(data);
       return true;
-    } catch (error, s) {
-      log("error ==================> $s");
+    } catch (error) {
       return handleErrorWithReturn(error);
     }
   }
