@@ -119,9 +119,8 @@ class _InspectionLabelScreenState extends State<InspectionLabelScreen> {
                                           .read<InspectorProgressProvider>()
                                           .createLabel(
                                             labelID: selectedLabel.id!,
-                                            labeName: labelName.text.toString(),
-
-                                
+                                            labelName: labelName.text
+                                                .toString(),
                                           );
 
                                       // Close bottom sheet

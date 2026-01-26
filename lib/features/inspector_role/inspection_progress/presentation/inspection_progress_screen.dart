@@ -104,6 +104,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                   itemCount: provider.inspectorList.length,
                   itemBuilder: (_, index) {
                     var data = provider.inspectorList[index];
+
                     return GestureDetector(
                       onDoubleTap: () {
                         // Remove Label
@@ -117,6 +118,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // Label
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -163,7 +165,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                                       data.labelName ?? "",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      //provider.inspectorLabelList[index]["label"],
+
                                       style: TextFontStyle
                                           .headLine16c141414InterW400
                                           .copyWith(
@@ -179,7 +181,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
 
                             UIHelper.verticalSpace(10.h),
 
-                            // Image
+                            //
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -211,9 +213,9 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                                 Expanded(
                                   flex: 2,
                                   child: LabelPhotosWidget(
-                                    labelIndex: index,
+                                    // for image index find and remove index
                                     provider: provider,
-                                    imageList: data.images ?? [],
+                                    labelIndex: index,
                                   ),
                                 ),
                               ],
@@ -243,7 +245,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
 
                         NavigationService.navigateToWithArgs(
                           Routes.inspectionLabelScreen,
-                          {"labelType": "createLabel"},
+                          {"labelType": "createLabel", "datum": widget.datum},
                         );
                       },
                       borderRadius: 12.r,
@@ -325,28 +327,11 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                   child: CustomButton(
-                    onPressed: () async {
-                      List<Map<String, dynamic>>
-                      imagesPayload = provider.inspectorList.map((e) {
-                        // log(
-                        //   "labelID message =====================${e.labelID}",
-                        // );
-                        // log(
-                        //   "labelName message =====================${e.labelName}",
-                        // );
-                        // log("images message =====================${e.images}");
-
-                        return {"imageLabel": e.labelID, "images": e.images};
-                      }).toList();
-
-                      log(
-                        " From Clients =============================> $imagesPayload",
-                      );
-
-                      final result = await createReportRxObj
+                    onPressed: () {
+                      createReportRxObj
                           .createJobRx(
                             job: widget.datum.id!,
-                            images: imagesPayload,
+                            images: provider.inspectorList,
                           )
                           .waitingForFuture()
                           .then((success) {
@@ -354,8 +339,6 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                               debugPrint("Report Created Successfully");
                             }
                           });
-
-                      log("reulst ============================> $result");
                     },
                     text: "Submit",
                   ),

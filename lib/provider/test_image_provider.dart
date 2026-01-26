@@ -4,20 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TestImageProvider with ChangeNotifier {
-  File? _file;
+  final List<File> _fileList = [];
+  final ImagePicker _imagePicker = ImagePicker();
 
-  File? get file => _file;
+  List<File> get fileList => _fileList;
 
-  final _imagePicker = ImagePicker();
+  File? get latestFile => _fileList.isNotEmpty ? _fileList.last : null;
 
   Future<void> pickedIMage({required ImageSource imageSource}) async {
-    XFile? pickedFile = await _imagePicker.pickImage(source: imageSource);
+    final XFile? pickedFile = await _imagePicker.pickImage(source: imageSource);
 
     if (pickedFile != null) {
-      _file = File(pickedFile.path);
-    } else {
-      debugPrint("Failed to uploaded Images");
+      _fileList.add(File(pickedFile.path));
+      notifyListeners();
     }
-    notifyListeners();
   }
 }
