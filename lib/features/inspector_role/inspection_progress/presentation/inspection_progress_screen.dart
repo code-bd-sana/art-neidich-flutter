@@ -94,9 +94,6 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                 JobDetailsWidget(title: 'Total Labels', value: '10'),
                 UIHelper.verticalSpace(20.h),
 
-                UIHelper.verticalSpace(10.h),
-                Divider(color: Colors.black),
-
                 // Dynamic Data
                 ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
@@ -162,18 +159,35 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                                       horizontal: 8.w,
                                       vertical: 6.h,
                                     ),
-                                    child: Text(
-                                      data.labelName ?? "",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          data.labelName ?? "",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
 
-                                      style: TextFontStyle
-                                          .headLine16c141414InterW400
-                                          .copyWith(
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.black,
-                                            fontSize: 14.sp,
+                                          style: TextFontStyle
+                                              .headLine16c141414InterW400
+                                              .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                                fontSize: 14.sp,
+                                              ),
+                                        ),
+
+                                        //  Delete Label
+                                        InkWell(
+                                          onTap: () {
+                                            provider.removeLabel(index);
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
                                           ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -328,7 +342,7 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                   child: CustomButton(
-                  onPressed: () {
+                    onPressed: () {
                       // Step 1: check if any images exist
                       bool hasImages = provider.inspectorList.any(
                         (label) =>
@@ -360,7 +374,6 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                             ToastUtil.showShortToast("Something went wrong");
                           });
                     },
-
 
                     text: "Submit",
                   ),
