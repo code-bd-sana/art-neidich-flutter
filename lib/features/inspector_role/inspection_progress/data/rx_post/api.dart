@@ -15,6 +15,7 @@ final class CreateReportApi {
   Future<Map> createReportApi({
     required String id,
     required InspectorProgressProvider provider,
+    required String noteToAdmin,
   }) async {
     try {
       FormData formData = FormData();
@@ -22,7 +23,10 @@ final class CreateReportApi {
       /// job
       formData.fields.add(MapEntry("job", id));
 
-      ///  1) images JSON (text)
+      // noteAdmin
+      formData.fields.add(MapEntry("noteForAdmin", noteToAdmin));
+
+      ///  1)images JSON (text)
       final List<Map<String, dynamic>> imagesJson = [];
 
       for (final label in provider.inspectorList) {

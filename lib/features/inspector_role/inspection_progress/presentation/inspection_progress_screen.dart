@@ -53,6 +53,12 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
 
     return Consumer<InspectorProgressProvider>(
       builder: (context, provider, child) {
+        int totalLabels = provider.inspectorList.length;
+        int totalImages = provider.inspectorList.fold(
+          0,
+          (prev, label) =>
+              prev + label.images!.where((img) => img != null).length,
+        );
         return Scaffold(
           body: SingleChildScrollView(
             physics: ClampingScrollPhysics(),
@@ -83,15 +89,25 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
 
                 JobDetailsWidget(
                   title: 'FHA Case Details',
-                  value: '1234-4589-8984',
+                  value: widget.datum.fhaCaseDetailsNo ?? "",
                 ),
                 UIHelper.verticalSpace(20.h),
 
-                JobDetailsWidget(title: 'Inspector Name', value: 'John Doe'),
+                JobDetailsWidget(
+                  title: 'Assignee Name',
+                  value:
+                      "${widget.datum.createdBy?.firstName ?? ""} ${widget.datum.createdBy?.lastName ?? ""}",
+                ),
                 UIHelper.verticalSpace(20.h),
-                JobDetailsWidget(title: 'Total Image', value: '23'),
+                JobDetailsWidget(
+                  title: 'Total Images',
+                  value: totalImages.toString(),
+                ),
                 UIHelper.verticalSpace(20.h),
-                JobDetailsWidget(title: 'Total Labels', value: '10'),
+                JobDetailsWidget(
+                  title: 'Total Labels',
+                  value: totalLabels.toString(),
+                ),
                 UIHelper.verticalSpace(20.h),
 
                 // Dynamic Data
@@ -253,11 +269,6 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                       minWidth: 0,
                       borderSide: BorderSide(color: Colors.grey.shade300),
                       onPressed: () {
-                        // provider.createLabel();
-                        // NavigationService.navigateTo(
-                        //   Routes.repeatInspectionLabelScreen,
-                        // );
-
                         NavigationService.navigateToWithArgs(
                           Routes.inspectionLabelScreen,
                           {"labelType": "createLabel", "datum": widget.datum},
@@ -357,7 +368,11 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
 
                       // Step 3: call API safely
                       createReportRxObj
-                          .createJobRx(id: widget.datum.id!, provider: provider)
+                          .createJobRx(
+                            id: widget.datum.id!,
+                            provider: provider,
+                            noteToAdmin: _noteController.text.toString(),
+                          )
                           .waitingForFuture()
                           .then((success) {
                             if (success) {

@@ -21,9 +21,14 @@ final class CreateReportRx extends RxResponseInt<Map> {
   Future<bool> createJobRx({
     required String id,
     required InspectorProgressProvider provider,
+    required String noteToAdmin,
   }) async {
     try {
-      final data = await api.createReportApi(id: id, provider: provider);
+      final data = await api.createReportApi(
+        id: id,
+        provider: provider,
+        noteToAdmin: noteToAdmin,
+      );
       handleSuccessWithReturn(data);
       return true;
     } catch (error) {
