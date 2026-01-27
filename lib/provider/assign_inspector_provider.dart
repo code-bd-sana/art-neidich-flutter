@@ -89,4 +89,14 @@ class AssignInspectorProvider extends ChangeNotifier {
     // fetch with new filter
     fetchAllJob();
   }
+
+  Future<void> refreshData() async {
+    _datum.clear();
+    _page = 1;
+    _hasMore = true;
+    _isLoading = false;
+    notifyListeners(); // let UI rebuild immediately
+    await fetchAllJob(); // fetch fresh data
+  }
+
 }

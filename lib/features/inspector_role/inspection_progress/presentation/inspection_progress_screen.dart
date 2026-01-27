@@ -12,6 +12,7 @@ import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../helpers/all_routes.dart';
 import '../../../../helpers/navigation_service.dart';
+import '../../../../helpers/toast.dart';
 import '../../../../helpers/ui_helpers.dart';
 import '../../../../networks/api_acess.dart';
 import '../../../../provider/inspector_progress_provider.dart';
@@ -354,26 +355,31 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                   padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                   child: CustomButton(
                     onPressed: () async {
+                      //
 
-                      // 
-                      createReportRxObj
-                          .createJobRx(
-                            id: widget.datum.id!,
-                            provider: provider,
-                               noteToAdmin: _noteController.text.toString(),
-                          )
-                          .waitingForFuture()
-                          .then((success) {
-                            if (success) {
-                              showDialog(
-                                context: context,
-                                builder: (dilogCOntetx) => SuccessAlert(
-                                  provider: provider,
-                                  controller: _noteController,
-                                ),
-                              );
-                            }
-                          });
+                      if (provider.inspectorList.isEmpty) {
+                        ToastUtil.showShortToast("No labels exist.");
+                      } else {
+                        createReportRxObj
+                            .createJobRx(
+                              id: widget.datum.id!,
+                              provider: provider,
+                              noteToAdmin: _noteController.text.toString(),
+                            )
+                            .waitingForFuture()
+                            .then((success) {
+                              if (success) {
+                                showDialog(
+                                  context: context,
+                                  builder: (dilogCOntetx) => SuccessAlert(
+                                    provider: provider,
+                                    controller: _noteController,
+                                  ),
+                                );
+                              }
+                            });
+                      }
+
                       // if (provider.inspectorList.isEmpty) {
                       //   ToastUtil.showShortToast("No labels exist.");
                       // } else if (!provider.hasAnyImage()) {

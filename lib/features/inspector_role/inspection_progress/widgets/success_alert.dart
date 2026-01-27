@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../common_widget/custom_button.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../helpers/navigation_service.dart';
+import '../../../../provider/assign_inspector_provider.dart';
 import '../../../../provider/inspector_progress_provider.dart';
 
 class SuccessAlert extends StatelessWidget {
@@ -52,6 +54,7 @@ class SuccessAlert extends StatelessWidget {
                   color: Color(0xFFF4F4F5),
                   onPressed: () {
                     NavigationService.goBack;
+                    context.read<AssignInspectorProvider>().refreshData();
                   },
                   style: TextFontStyle.headLine16c2D8D7CInterW700.copyWith(
                     color: const Color(0xFF09090B),
@@ -68,9 +71,9 @@ class SuccessAlert extends StatelessWidget {
                 child: CustomButton(
                   onPressed: () {
                     NavigationService.goBack;
-
                     provider.clearAllData();
                     controller.clear();
+                    context.read<AssignInspectorProvider>().refreshData();
                   },
 
                   text: "Start Inspection",
