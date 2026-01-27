@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:artneidich_app/common_widget/media_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,13 +43,22 @@ class LabelPhotosWidget extends StatelessWidget {
               columnCount: 2,
               child: ScaleAnimation(
                 child: GestureDetector(
-                  onDoubleTap: () {
-                    provider.removeImage(labelIndex, index);
-                  },
-                  onTap: () {
-                    provider.pickedImage(
-                      labelIndex: labelIndex,
-                      imageIndex: index,
+                  onTap: () async {
+                    // provider.pickedImage(
+                    //   labelIndex: labelIndex,
+                    //   imageIndex: index,
+                    // );
+
+                    await showModalBottomSheet(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(10.r),
+                      ),
+
+                      context: context,
+                      builder: (_) {
+                        return MediaWidget(provider: provider, labelIndex: labelIndex,imageIndex: index,);
+                      },
                     );
                   },
                   child: FadeInAnimation(
