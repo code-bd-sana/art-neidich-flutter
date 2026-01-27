@@ -1,6 +1,5 @@
 import 'package:artneidich_app/common_widget/header_widget.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
-import 'package:artneidich_app/provider/camera_setting_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../constants/text_font_style.dart';
 import '../../../../helpers/ui_helpers.dart';
+import '../../../provider/inspector_progress_provider.dart';
 
 class CameraSettingScreen extends StatefulWidget {
   const CameraSettingScreen({super.key});
@@ -19,7 +19,7 @@ class CameraSettingScreen extends StatefulWidget {
 class _CameraSettingScreenState extends State<CameraSettingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<CameraSettingProvider>(
+    return Consumer<InspectorProgressProvider>(
       builder: (context, provider, child) {
         return Scaffold(
           body: SingleChildScrollView(

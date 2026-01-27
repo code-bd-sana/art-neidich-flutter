@@ -1,17 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../features/inspector_role/inspection_progress/model/inspector_label_model.dart';
 import '../helpers/toast.dart';
 
 class InspectorProgressProvider extends ChangeNotifier {
-
   // Camera Mode Settings
 
-    final controller = ValueNotifier<bool>(false);
+  final controller = ValueNotifier<bool>(false);
 
   bool isCamera = false;
 
@@ -20,7 +18,6 @@ class InspectorProgressProvider extends ChangeNotifier {
     isCamera = value;
     notifyListeners();
   }
-
 
   ////
   List<InspectorLabelModel> inspectorList = [];
@@ -45,11 +42,7 @@ class InspectorProgressProvider extends ChangeNotifier {
   }) async {
     final picker = ImagePicker();
 
-
-   
     final XFile? file = await picker.pickImage(source: imageSource);
-
-  
 
     if (file != null) {
       inspectorList[labelIndex].images![imageIndex] = File(file.path);
