@@ -99,4 +99,6 @@ class AssignInspectorProvider extends ChangeNotifier {
     await fetchAllJob(); // fetch fresh data
   }
 
+
+
 }

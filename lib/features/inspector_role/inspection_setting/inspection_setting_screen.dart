@@ -22,8 +22,7 @@ class InspectionSettingScreen extends StatefulWidget {
 }
 
 class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
-
-    String firstName = "";
+  String firstName = "";
   String lastName = "";
   String email = "";
 
@@ -39,11 +38,8 @@ class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       backgroundColor: Colors.white,
 
@@ -55,7 +51,7 @@ class _InspectionSettingScreenState extends State<InspectionSettingScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InspectorOverviewAppBarWidget(
-               email: email,
+                email: email,
                 fName: firstName,
                 name: "$firstName $lastName",
               ),

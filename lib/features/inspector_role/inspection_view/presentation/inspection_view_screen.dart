@@ -178,9 +178,8 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                       ),
                                     ),
 
-                                  //  item.reportStatusLabel == "Pending"
-                                       // ? 
-                                        DataCell(
+                                    item.reportStatusLabel == "In Progress"
+                                        ? DataCell(
                                             InkWell(
                                               onTap: () {
                                                 NavigationService.navigateToWithArgs(
@@ -220,8 +219,8 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                                 ],
                                               ),
                                             ),
-                                          ),
-                                       // : DataCell(SizedBox.shrink()),
+                                          )
+                                        : DataCell(SizedBox.shrink()),
 
                                     DataCell(
                                       InkWell(

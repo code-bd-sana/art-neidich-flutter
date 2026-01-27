@@ -163,13 +163,7 @@ class InspectionSummaryScreen extends StatelessWidget {
                       ),
 
                       child: Text(
-                        datum.reportStatus == "submitted"
-                            ? "Submitted"
-                            : datum.reportStatus == "in_progress"
-                            ? "In Progress"
-                            : datum.reportStatus == "completed"
-                            ? "Completed"
-                            : "Rejected",
+                        datum.reportStatusLabel ?? "",
                         style: TextFontStyle.headLine16c141414InterW400
                             .copyWith(
                               fontWeight: FontWeight.w400,
@@ -196,10 +190,12 @@ class InspectionSummaryScreen extends StatelessWidget {
 
             UIHelper.verticalSpace(20.h),
             InspectionInternalNotesWidget(
-              noteInspector: 'Look for the damages caused by thunder',
-              noteAp: 'None',
-              formInspector:
-                  'Looked for the damages caused by thunder, and found prove of damages in rooftop',
+              noteInspector:   datum.specialNotesForInspector ?? "",
+              //'Look for the damages caused by thunder',
+              noteAp:  datum.specialNoteForApOrAr ?? "",
+              //'None',
+              // formInspector:
+              //     'Looked for the damages caused by thunder, and found prove of damages in rooftop',
             ),
 
             UIHelper.verticalSpaceExtraLarge,
