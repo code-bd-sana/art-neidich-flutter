@@ -150,6 +150,7 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                         ),
                                         child: Text(
                                           item.reportStatusLabel ?? "",
+
                                           // item.reportStatus == "submitted"
                                           //     ? "Submitted"
                                           //     : item.reportStatus ==
@@ -158,7 +159,6 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                           //     : item.reportStatus == "completed"
                                           //     ? "Completed"
                                           //     : "Rejected",
-
                                           style: TextFontStyle
                                               .headLine14c323539InterW400
                                               .copyWith(
@@ -178,43 +178,50 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                                       ),
                                     ),
 
-                                    DataCell(
-                                      InkWell(
-                                        onTap: () {
-                                          NavigationService.navigateToWithArgs(
-                                            Routes.inspectionLabelScreen,
-                                            {
-                                              "labelType": "startInspector",
-                                              "datum": item,
-                                            },
-                                          );
-                                        },
-                                        borderRadius: BorderRadius.circular(
-                                          6.r,
-                                        ),
-                                        child: Row(
-                                          spacing: 4.w,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Start Inspector",
-                                              style: TextStyle(
-                                                color: Color(0xFF0097B2),
-                                                fontWeight: FontWeight.w500,
+                                  //  item.reportStatusLabel == "Pending"
+                                       // ? 
+                                        DataCell(
+                                            InkWell(
+                                              onTap: () {
+                                                NavigationService.navigateToWithArgs(
+                                                  Routes.inspectionLabelScreen,
+                                                  {
+                                                    "labelType":
+                                                        "startInspector",
+                                                    "datum": item,
+                                                  },
+                                                );
+                                              },
+                                              borderRadius:
+                                                  BorderRadius.circular(6.r),
+                                              child: Row(
+                                                spacing: 4.w,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Start Inspector",
+                                                    style: TextStyle(
+                                                      color: Color(0xFF0097B2),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+
+                                                  Image.asset(
+                                                    Assets
+                                                        .icons
+                                                        .arrowRightIcon
+                                                        .path,
+                                                    width: 16.w,
+                                                    height: 16.h,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ],
                                               ),
                                             ),
-
-                                            Image.asset(
-                                              Assets.icons.arrowRightIcon.path,
-                                              width: 16.w,
-                                              height: 16.h,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                          ),
+                                       // : DataCell(SizedBox.shrink()),
 
                                     DataCell(
                                       InkWell(

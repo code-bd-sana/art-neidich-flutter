@@ -47,4 +47,26 @@ class InspectorProgressProvider extends ChangeNotifier {
     inspectorList.removeAt(index);
     notifyListeners();
   }
+
+  bool hasAnyImage() {
+    return inspectorList.any(
+      (label) =>
+          label.images != null && label.images!.any((img) => img != null),
+    );
+  }
+
+  bool allLabelsEmpty() {
+    return inspectorList.isNotEmpty &&
+        inspectorList.every(
+          (label) =>
+              label.images == null || label.images!.every((img) => img == null),
+        );
+  }
+
+  // Clear all
+
+  void clearAllData() {
+    inspectorList.clear();
+    notifyListeners();
+  }
 }

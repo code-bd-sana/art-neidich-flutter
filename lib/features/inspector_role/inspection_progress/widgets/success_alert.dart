@@ -4,9 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../common_widget/custom_button.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../helpers/navigation_service.dart';
+import '../../../../provider/inspector_progress_provider.dart';
 
 class SuccessAlert extends StatelessWidget {
-  const SuccessAlert({super.key});
+  final InspectorProgressProvider provider;
+
+  final TextEditingController controller;
+  const SuccessAlert({
+    super.key,
+    required this.provider,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +35,7 @@ class SuccessAlert extends StatelessWidget {
           ),
 
           Text(
-            "Congrats! the assigned 10,001 job successfully completed. ",
+            "Congrats! the assigned job successfully completed. ",
             style: TextFontStyle.headLine14c323539InterW400.copyWith(
               color: const Color(0xFF71717A),
               fontSize: 14.sp,
@@ -60,6 +68,9 @@ class SuccessAlert extends StatelessWidget {
                 child: CustomButton(
                   onPressed: () {
                     NavigationService.goBack;
+
+                    provider.clearAllData();
+                    controller.clear();
                   },
 
                   text: "Start Inspection",

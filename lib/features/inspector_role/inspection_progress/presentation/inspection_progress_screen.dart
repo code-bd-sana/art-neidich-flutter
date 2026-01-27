@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:artneidich_app/common_widget/custom_button.dart';
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
 import 'package:artneidich_app/gen/assets.gen.dart';
-import 'package:artneidich_app/helpers/toast.dart';
+import 'package:artneidich_app/helpers/loading_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../helpers/all_routes.dart';
-import '../../../../helpers/loading_helper.dart';
 import '../../../../helpers/navigation_service.dart';
 import '../../../../helpers/ui_helpers.dart';
 import '../../../../networks/api_acess.dart';
@@ -19,6 +18,7 @@ import '../../../../provider/inspector_progress_provider.dart';
 import '../../../job_details/widgets/job_details_widget.dart';
 import '../../inspection_view/data/rx_get/model/inspection_response.dart';
 import '../widgets/photos_widget.dart';
+import '../widgets/success_alert.dart';
 
 class InspectionProgressScreen extends StatefulWidget {
   final String labelName;
@@ -353,41 +353,68 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                   child: CustomButton(
-                    onPressed: () {
-                      // Step 1: check if any images exist
-                      bool hasImages = provider.inspectorList.any(
-                        (label) =>
-                            label.images != null && label.images!.isNotEmpty,
-                      );
+                    onPressed: () async {
 
-                      if (!hasImages) {
-                        // Step 2: show only the error message
-                        ToastUtil.showShortToast("Something went wrong");
-                        return; // API call won't happen
-                      }
-
-                      // Step 3: call API safely
+                      // 
                       createReportRxObj
                           .createJobRx(
                             id: widget.datum.id!,
                             provider: provider,
-                            noteToAdmin: _noteController.text.toString(),
+                               noteToAdmin: _noteController.text.toString(),
                           )
                           .waitingForFuture()
                           .then((success) {
                             if (success) {
-                              ToastUtil.showShortToast(
-                                "Report created successfully",
+                              showDialog(
+                                context: context,
+                                builder: (dilogCOntetx) => SuccessAlert(
+                                  provider: provider,
+                                  controller: _noteController,
+                                ),
                               );
-                              NavigationService.goBack();
-                            } else {
-                              ToastUtil.showShortToast("Something went wrong");
                             }
-                          })
-                          .catchError((error) {
-                            // Safety: unexpected errors
-                            ToastUtil.showShortToast("Something went wrong");
                           });
+                      // if (provider.inspectorList.isEmpty) {
+                      //   ToastUtil.showShortToast("No labels exist.");
+                      // } else if (!provider.hasAnyImage()) {
+                      //   ToastUtil.showShortToast(
+                      //     "No images uploaded in any label.",
+                      //   );
+                      // } else {
+                      //   // Check if every label has at least one image
+                      //   bool allLabelsHaveImage = provider.inspectorList.every(
+                      //     (label) =>
+                      //         label.images != null &&
+                      //         label.images!.any((img) => img != null),
+                      //   );
+
+                      //   if (!allLabelsHaveImage) {
+                      //     ToastUtil.showShortToast(
+                      //       "Each label must have at least one image.",
+                      //     );
+                      //   } else {
+                      //     // All validations passed - proceed with API call
+                      //     // ToastUtil.showShortToast("YEAH!!!");
+                      //     createReportRxObj
+                      //         .createJobRx(
+                      //           id: widget.datum.id!,
+                      //           provider: provider,
+                      //       //    noteToAdmin: _noteController.text.toString(),
+                      //         )
+                      //         .waitingForFuture()
+                      //         .then((success) {
+                      //           if (success) {
+                      //             showDialog(
+                      //               context: context,
+                      //               builder: (dilogCOntetx) => SuccessAlert(
+                      //                 provider: provider,
+                      //                 controller: _noteController,
+                      //               ),
+                      //             );
+                      //           }
+                      //         });
+                      //   }
+                      // }
                     },
 
                     text: "Submit",

@@ -15,7 +15,7 @@ final class CreateReportApi {
   Future<Map> createReportApi({
     required String id,
     required InspectorProgressProvider provider,
-    required String noteToAdmin,
+   required String noteToAdmin,
   }) async {
     try {
       FormData formData = FormData();
