@@ -11,10 +11,9 @@ class CameraSettingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   // Notification
 
-   final pushController = ValueNotifier<bool>(false);
+  final pushController = ValueNotifier<bool>(false);
 
   bool isPush = false;
 
