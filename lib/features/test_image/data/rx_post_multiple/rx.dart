@@ -22,7 +22,7 @@ final class MultipleImageRX extends RxResponseInt<Map> {
     try {
       log("MultipleImageRX ============================> $images");
       final data = await api.multipleImageApi(images: images);
-    //  handleSuccessWithReturn(data);
+      handleSuccessWithReturn(data);
       return true;
     } catch (error) {
       return handleErrorWithReturn(error);
