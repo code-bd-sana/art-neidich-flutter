@@ -25,50 +25,52 @@ class HeaderWidget extends StatelessWidget {
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            spacing: 30.h,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  BackButton(
-                    color: Colors.white,
-                    onPressed: () {
-                      NavigationService.goBack;
-                    },
-                  ),
-                  UIHelper.horizontalSpace(8.w),
-                  Text(
-                    title,
-                    style: TextFontStyle.headLine28c3D3D3DInterW700.copyWith(
-                      fontSize: 18.sp,
+          child: SingleChildScrollView(
+            child: Column(
+              spacing: 30.h,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    BackButton(
                       color: Colors.white,
+                      onPressed: () {
+                        NavigationService.goBack;
+                      },
                     ),
-                  ),
-                ],
-              ),
-
-              Row(
-                spacing: 10.w,
-                children: [
-                  Image.asset(
-                    icon,
-                    width: 40.w,
-                    height: 40.h,
-                    fit: BoxFit.cover,
-                  ),
-
-                  Text(
-                    subtitle,
-                    style: TextFontStyle.headLine28c3D3D3DInterW700.copyWith(
-                      fontSize: 18.sp,
-                      color: Colors.white,
+                    UIHelper.horizontalSpace(8.w),
+                    Text(
+                      title,
+                      style: TextFontStyle.headLine28c3D3D3DInterW700.copyWith(
+                        fontSize: 18.sp,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+
+                Row(
+                  spacing: 10.w,
+                  children: [
+                    Image.asset(
+                      icon,
+                      width: 40.w,
+                      height: 40.h,
+                      fit: BoxFit.cover,
+                    ),
+
+                    Text(
+                      subtitle,
+                      style: TextFontStyle.headLine28c3D3D3DInterW700.copyWith(
+                        fontSize: 18.sp,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
