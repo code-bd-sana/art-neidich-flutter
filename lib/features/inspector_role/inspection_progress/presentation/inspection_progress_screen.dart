@@ -351,82 +351,82 @@ class _InspectionProgressScreenState extends State<InspectionProgressScreen> {
                   ),
                 ),
                 UIHelper.verticalSpace(30.h),
+
                 Padding(
                   padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
                   child: CustomButton(
                     onPressed: () async {
-                      //
-
+                      // Validation checks
                       if (provider.inspectorList.isEmpty) {
                         ToastUtil.showShortToast("No labels exist.");
-                      } else {
-                        createReportRxObj
-                            .createJobRx(
-                              id: widget.datum.id!,
-                              provider: provider,
-                              noteToAdmin: _noteController.text.toString(),
-                            )
-                            .waitingForFuture()
-                            .then((success) {
-                              if (success) {
-                                showDialog(
-                                  context: context,
-                                  builder: (dilogCOntetx) => SuccessAlert(
-                                    provider: provider,
-                                    controller: _noteController,
-                                  ),
-                                );
-                              }
-                            });
+                        return;
                       }
 
-                      // if (provider.inspectorList.isEmpty) {
-                      //   ToastUtil.showShortToast("No labels exist.");
-                      // } else if (!provider.hasAnyImage()) {
-                      //   ToastUtil.showShortToast(
-                      //     "No images uploaded in any label.",
-                      //   );
-                      // } else {
-                      //   // Check if every label has at least one image
-                      //   bool allLabelsHaveImage = provider.inspectorList.every(
-                      //     (label) =>
-                      //         label.images != null &&
-                      //         label.images!.any((img) => img != null),
-                      //   );
+                      if (!provider.everyLabelHasAtLeastOneImage()) {
+                        ToastUtil.showShortToast(
+                          "Each label must have at least one image.",
+                        );
+                        return;
+                      }
 
-                      //   if (!allLabelsHaveImage) {
-                      //     ToastUtil.showShortToast(
-                      //       "Each label must have at least one image.",
-                      //     );
-                      //   } else {
-                      //     // All validations passed - proceed with API call
-                      //     // ToastUtil.showShortToast("YEAH!!!");
-                      //     createReportRxObj
-                      //         .createJobRx(
-                      //           id: widget.datum.id!,
-                      //           provider: provider,
-                      //       //    noteToAdmin: _noteController.text.toString(),
-                      //         )
-                      //         .waitingForFuture()
-                      //         .then((success) {
-                      //           if (success) {
-                      //             showDialog(
-                      //               context: context,
-                      //               builder: (dilogCOntetx) => SuccessAlert(
-                      //                 provider: provider,
-                      //                 controller: _noteController,
-                      //               ),
-                      //             );
-                      //           }
-                      //         });
-                      //   }
-                      // }
+                      // All validations passed - API call
+                      createReportRxObj
+                          .createJobRx(
+                            id: widget.datum.id!,
+                            provider: provider,
+                            noteToAdmin: _noteController.text.toString(),
+                          )
+                          .waitingForFuture()
+                          .then((success) {
+                            if (success) {
+                              showDialog(
+                                context: context,
+                                builder: (dilogCOntetx) => SuccessAlert(
+                                  provider: provider,
+                                  controller: _noteController,
+                                ),
+                              );
+                            }
+                          });
                     },
-
                     text: "Submit",
                   ),
                 ),
 
+                // Padding(
+                //   padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
+                //   child: CustomButton(
+                //     onPressed: () async {
+                //       //
+
+                //       if (provider.inspectorList.isEmpty) {
+                //         ToastUtil.showShortToast("No labels exist.");
+                //       } else {
+                //         createReportRxObj
+                //             .createJobRx(
+                //               id: widget.datum.id!,
+                //               provider: provider,
+                //               noteToAdmin: _noteController.text.toString(),
+                //             )
+                //             .waitingForFuture()
+                //             .then((success) {
+                //               if (success) {
+                //                 showDialog(
+                //                   context: context,
+                //                   builder: (dilogCOntetx) => SuccessAlert(
+                //                     provider: provider,
+                //                     controller: _noteController,
+                //                   ),
+                //                 );
+                //               }
+                //             });
+                //       }
+
+                //     },
+
+                //     text: "Submit",
+                //   ),
+                // ),
                 UIHelper.verticalSpaceSemiLarge,
               ],
             ),
