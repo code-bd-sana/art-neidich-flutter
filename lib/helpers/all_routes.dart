@@ -252,12 +252,16 @@ final class RouteGenerator {
               );
 
       case Routes.inspectionCaseScreen:
+        final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: InspectionCaseScreen(),
+                widget: InspectionCaseScreen(fhaCaseID: args["fhaCaseID"]),
                 settings: settings,
               )
-            : CupertinoPageRoute(builder: (context) => InspectionCaseScreen());
+            : CupertinoPageRoute(
+                builder: (context) =>
+                    InspectionCaseScreen(fhaCaseID: args["fhaCaseID"]),
+              );
 
       case Routes.inspectionSummaryScreen:
         final args = settings.arguments as Map;
@@ -272,15 +276,12 @@ final class RouteGenerator {
               );
 
       case Routes.inspectionIdScreen:
-        
         return Platform.isAndroid
             ? _FadedTransitionRoute(
                 widget: InspectionIdScreen(),
                 settings: settings,
               )
-            : CupertinoPageRoute(
-                builder: (context) => InspectionIdScreen(),
-              );
+            : CupertinoPageRoute(builder: (context) => InspectionIdScreen());
 
       case Routes.createLabelScreen:
         return Platform.isAndroid

@@ -8,7 +8,6 @@ import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../helpers/ui_helpers.dart';
-import '../../../../provider/inspector_progress_provider.dart';
 import '../../../helpers/all_routes.dart';
 import '../../../helpers/navigation_service.dart';
 import '../../../provider/inspection_id_provider.dart';
@@ -32,6 +31,8 @@ class _InspectionIdScreenState extends State<InspectionIdScreen> {
   }
 
   String selectedorderID = "";
+
+  String selectedFHACASEID = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,15 +101,14 @@ class _InspectionIdScreenState extends State<InspectionIdScreen> {
                                       orderId.text =
                                           selectedOrderId.orderId ?? "";
 
+                                      // fha case
+
+                                      selectedFHACASEID =
+                                          selectedOrderId.fhaCaseDetailsNo ??
+                                          "";
+
                                       selectedorderID = selectedOrderId.id
                                           .toString();
-
-                                      context
-                                          .read<InspectorProgressProvider>()
-                                          .createLabel(
-                                            labelID: selectedOrderId.id!,
-                                            labelName: orderId.text.toString(),
-                                          );
 
                                       // Close bottom sheet
                                       Navigator.pop(context);
@@ -150,15 +150,9 @@ class _InspectionIdScreenState extends State<InspectionIdScreen> {
                 child: CustomButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      NavigationService.navigateTo(
+                      NavigationService.navigateToWithArgs(
                         Routes.inspectionCaseScreen,
-                        // {
-                        //   "labelName": labelName.text.toString(),
-
-                        //   "datum": widget.datum,
-
-                        //   "labelID": selectedlabelID,
-                        // },
+                        {"fhaCaseID": selectedFHACASEID},
                       );
                     }
                   },
