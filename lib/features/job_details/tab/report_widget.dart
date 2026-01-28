@@ -2,6 +2,7 @@ import 'package:artneidich_app/gen/assets.gen.dart';
 import 'package:artneidich_app/helpers/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:printing/printing.dart';
 import 'package:provider/provider.dart';
 
@@ -63,11 +64,14 @@ class ReportWidget extends StatelessWidget {
                   await Printing.layoutPdf(
                     onLayout: (format) async => provider.generateSamplePdf(
                       images: reportData.images ?? [],
-                      fhaFormId: '92051',
-                      inspectionType: 'JHUD-FHA 92051 Compliance - FINAL',
-                      inspectionDate: '09/06/2025',
-                      subjectProperty: '15024 Baikal Drive, Dallas, TX, 75253',
-                      caseNumber: '# 511-3746727',
+                      fhaFormId: reportData.job?.fhaCaseDetailsNo ?? "",
+                      inspectionType: reportData.job?.formType ?? "",
+                      inspectionDate: DateFormat(
+                        'dd-MM-yyyy',
+                      ).format(reportData.createdAt ?? DateTime.now()),
+                      subjectProperty:
+                          "${reportData.job?.streetAddress ?? ""}, ${reportData.job?.developmentName ?? ""}",
+                      orderID: reportData.job?.orderId ?? "",
                     ),
                   );
                 },
