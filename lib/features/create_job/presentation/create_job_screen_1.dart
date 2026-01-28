@@ -285,7 +285,9 @@ class _CreateJobScreen1State extends State<CreateJobScreen1> {
                 child: CustomTextField(
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  hintText: "status",
+                  hintText: "status fees",
+                  
+                  prefix: Text("\$"),
                   hintStyle: TextFontStyle.headLine14c323539InterW400.copyWith(
                     color: Color(0xFF71717A).withValues(alpha: 0.7),
                   ),

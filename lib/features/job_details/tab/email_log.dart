@@ -37,8 +37,8 @@ class EmailLog extends StatelessWidget {
         ),
         UIHelper.verticalSpace(20.h),
         EmailLogWidget(title: 'Status', value: reportData.status ?? ""),
-      //  UIHelper.verticalSpace(20.h),
-      //  EmailLogWidget(title: 'Message ID', value: '-', status: false),
+        //  UIHelper.verticalSpace(20.h),
+        //  EmailLogWidget(title: 'Message ID', value: '-', status: false),
       ],
     );
   }

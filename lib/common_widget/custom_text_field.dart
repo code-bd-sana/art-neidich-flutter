@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final String? errorText;
   final String? prefixIcon;
   final Widget? suffixIcon;
+  final Widget? prefix;
   final bool obscureText;
   final TextInputType keyboardType;
   final bool readOnly;
@@ -45,7 +46,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     this.controller,
-
+    this.prefix,
     this.labelText,
     this.hintText,
     this.helperText,
@@ -100,6 +101,7 @@ class CustomTextField extends StatelessWidget {
       inputFormatters: inputFormatters,
       onTap: onTap,
       decoration: InputDecoration(
+        prefix: prefix,
         hintStyle: hintStyle ?? TextFontStyle.text14c3B3F4BPoppinsW500,
         fillColor: fillColor ?? Color(0xFFEFEFF1),
         filled: filled,
