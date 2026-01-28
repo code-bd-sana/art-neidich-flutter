@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../provider/admin_overview_provider.dart';
 import '../provider/camera_setting_provider.dart';
 import '../provider/create_job_provider.dart';
+import '../provider/inspection_id_provider.dart';
 import '../provider/inspection_provider.dart';
 import '../provider/inspector_label_provider.dart';
 import '../provider/inspector_overview_provider.dart';
@@ -84,6 +85,10 @@ var providers = [
 
   ChangeNotifierProvider<MultipleImageProvider>(
     create: ((context) => MultipleImageProvider()),
+  ),
+
+  ChangeNotifierProvider<InspectionIdProvider>(
+    create: ((context) => InspectionIdProvider()),
   ),
 ];
 

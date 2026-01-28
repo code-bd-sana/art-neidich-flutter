@@ -323,7 +323,10 @@ class _InspectionViewScreenState extends State<InspectionViewScreen> {
                   heroTag: "inpectionview_screen_tag",
                   title: 'Start Inspection',
                   onpressed: () {
-                    NavigationService.navigateTo(Routes.inspectionIdScreen);
+                    NavigationService.navigateTo(
+                      Routes.inspectionIdScreen,
+                    
+                    );
                   },
                 ),
               ],

@@ -272,12 +272,15 @@ final class RouteGenerator {
               );
 
       case Routes.inspectionIdScreen:
+        
         return Platform.isAndroid
             ? _FadedTransitionRoute(
                 widget: InspectionIdScreen(),
                 settings: settings,
               )
-            : CupertinoPageRoute(builder: (context) => InspectionIdScreen());
+            : CupertinoPageRoute(
+                builder: (context) => InspectionIdScreen(),
+              );
 
       case Routes.createLabelScreen:
         return Platform.isAndroid
