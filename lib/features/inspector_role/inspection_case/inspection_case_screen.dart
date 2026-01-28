@@ -1,4 +1,5 @@
 import 'package:artneidich_app/common_widget/custom_text_field.dart';
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,10 +8,16 @@ import '../../../../common_widget/header_widget.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../helpers/ui_helpers.dart';
+import '../../../helpers/all_routes.dart';
+import '../../../helpers/navigation_service.dart';
+import '../inspection_view/data/rx_get/model/inspection_response.dart';
 
 class InspectionCaseScreen extends StatefulWidget {
   final String fhaCaseID;
-  const InspectionCaseScreen({super.key, required this.fhaCaseID});
+
+  final Datum? datum;
+
+  const InspectionCaseScreen({super.key, required this.fhaCaseID, this.datum});
 
   @override
   State<InspectionCaseScreen> createState() => _InspectionCaseScreenState();
@@ -71,23 +78,14 @@ class _InspectionCaseScreenState extends State<InspectionCaseScreen> {
                 alignment: Alignment.topRight,
                 child: CustomButton(
                   onPressed: () {
-                    //     if (_formKey.currentState!.validate()) {
-                    //   NavigationService.navigateToWithArgs(
-                    //   Routes.inspectionLabelScreen,
-                    //   {"labelType": "startInspector", "datum": item},
-                    // );
-
-                    // NavigationService.navigateToWithArgs(
-                    //   Routes.inspectionProgressScreen,
-                    //   {
-                    //     "labelName": labelName.text.toString(),
-
-                    //     "datum": widget.datum,
-
-                    //     "labelID": selectedlabelID,
-                    //   },
-                    // );
-                    // }
+                    if (widget.fhaCaseID.isNotEmpty) {
+                      NavigationService.navigateToWithArgs(
+                        Routes.inspectionLabelScreen,
+                        {"labelType": "endInspector", "datum": widget.datum},
+                      );
+                    } else {
+                      ToastUtil.showShortToast("Fha Case Id is Empty");
+                    }
                   },
                   borderRadius: 30.r,
                   padding: EdgeInsets.symmetric(

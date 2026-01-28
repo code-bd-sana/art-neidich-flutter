@@ -255,12 +255,17 @@ final class RouteGenerator {
         final args = settings.arguments as Map;
         return Platform.isAndroid
             ? _FadedTransitionRoute(
-                widget: InspectionCaseScreen(fhaCaseID: args["fhaCaseID"]),
+                widget: InspectionCaseScreen(
+                  fhaCaseID: args["fhaCaseID"],
+                  datum: args["datum"],
+                ),
                 settings: settings,
               )
             : CupertinoPageRoute(
-                builder: (context) =>
-                    InspectionCaseScreen(fhaCaseID: args["fhaCaseID"]),
+                builder: (context) => InspectionCaseScreen(
+                  fhaCaseID: args["fhaCaseID"],
+                  datum: args["datum"],
+                ),
               );
 
       case Routes.inspectionSummaryScreen:

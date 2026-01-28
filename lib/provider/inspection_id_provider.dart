@@ -9,6 +9,15 @@ class InspectionIdProvider extends ChangeNotifier {
     _scrollController.addListener(onScroll);
   }
 
+  Datum? _selectedOrderId;
+
+  Datum? get selectedOrderId => _selectedOrderId;
+
+  void updateOrder(Datum? index) {
+    _selectedOrderId = index;
+    notifyListeners();
+  }
+
   final ScrollController _scrollController = ScrollController();
   int _page = 1;
   final List<Datum> _data = [];
@@ -26,7 +35,6 @@ class InspectionIdProvider extends ChangeNotifier {
   ScrollController get scrollController => _scrollController;
 
   Future<void> fetchLabel() async {
-    // Step 1:
     if (_isLoading || !_hasMore) return;
 
     _isLoading = true;
