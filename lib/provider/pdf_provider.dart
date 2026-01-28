@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
 
 import '../features/job_details/data/rx_get_report/model/job_report_response.dart';
 
 class PdfProvider extends ChangeNotifier {
-  Future<pw.ImageProvider> imagePath() async {
-    final netImage = await networkImage('https://www.nfet.net/nfet.jpg');
+  // Future<pw.ImageProvider> imagePath() async {
+  //   final netImage = await networkImage('https://www.nfet.net/nfet.jpg');
 
-    return netImage;
-  }
+  //   return netImage;
+  // }
 
   Future<Uint8List> generateSamplePdf({
     required String fhaFormId,
