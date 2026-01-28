@@ -1,3 +1,4 @@
+import 'package:artneidich_app/helpers/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,12 +54,15 @@ class HelpSupportWidget extends StatelessWidget {
           icon: Assets.icons.vector.path,
           icon2: Assets.icons.frame16.path,
           onPressed: () async {
-            final Uri uri = Uri(scheme: 'tel', path: "123456789");
-
-            if (await canLaunchUrl(uri)) {
-              await launchUrl(uri);
-            } else {
-              throw 'Could not open dial pad';
+            try {
+              final Uri uri = Uri(scheme: 'tel', path: "123456789");
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri);
+              } else {
+                throw 'Could not open dial pad';
+              }
+            } catch (e) {
+              ToastUtil.showShortToast(e.toString());
             }
           },
         ),
@@ -77,17 +81,17 @@ class HelpSupportWidget extends StatelessWidget {
         UIHelper.verticalSpace(10.h),
         Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
 
-        UIHelper.verticalSpace(10.h),
-        HelpSettingsTitleWidget(
-          title: 'Office Location',
-          icon: Assets.icons.frame19.path,
-          icon2: Assets.icons.frame17.path,
-          onPressed: () {
-            //  NavigationService.navigateTo(Routes.securityScreen);
-          },
-        ),
-        UIHelper.verticalSpace(10.h),
-        Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
+        // UIHelper.verticalSpace(10.h),
+        // HelpSettingsTitleWidget(
+        //   title: 'Office Location',
+        //   icon: Assets.icons.frame19.path,
+        //   icon2: Assets.icons.frame17.path,
+        //   onPressed: () {
+        //     //  NavigationService.navigateTo(Routes.securityScreen);
+        //   },
+        // ),
+        // UIHelper.verticalSpace(10.h),
+        // Divider(color: Color(0xFFEFEFF1), thickness: 1.5),
       ],
     );
   }
