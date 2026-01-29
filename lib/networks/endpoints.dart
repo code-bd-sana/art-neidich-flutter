@@ -217,10 +217,27 @@ final class Endpoints {
     return uri.toString();
   }
 
+  /// getAllNotification
+  static String getAllNotification({int? page, int? limit}) {
+    final Map<String, String> queryParams = {};
+    if (page != null) queryParams["page"] = page.toString();
+    if (limit != null) queryParams["limit"] = limit.toString();
+    final uri = Uri.parse(
+      "/notification",
+    ).replace(queryParameters: queryParams.isEmpty ? null : queryParams);
+    return uri.toString();
+  }
+
+  // registration Token
+  static String registrationToken() => "/notification/token";
+
+  // upate Token
+  static String toggleNotification() => "/notification/token";
+
   // Test Images
   // Create Report
   static String singleImageP() => "/test/single-upload";
-    static String multipleImageP() => "/test/multiple-upload";
+  static String multipleImageP() => "/test/multiple-upload";
 
   // admin overview
   static String adminOverVIew() => "/admin/overview";

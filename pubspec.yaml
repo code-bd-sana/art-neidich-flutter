@@ -37,6 +37,7 @@ dependencies:
   dotted_border: ^3.1.0
   dotted_line: ^3.2.3
   dropdown_button2: ^2.3.9
+  firebase_core: ^4.4.0
   flutter:
     sdk: flutter
   flutter_advanced_switch: ^3.1.0
