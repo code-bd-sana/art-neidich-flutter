@@ -81,7 +81,7 @@ class UtillScreenMobile extends StatelessWidget {
             },
             navigatorKey: NavigationService.navigatorKey,
             onGenerateRoute: RouteGenerator.generateRoute,
-            home: FirebaseScreen(),
+            home: FirebaseScreen(),// new comment added here
           ),
         );
       },
