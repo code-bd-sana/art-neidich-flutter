@@ -10,6 +10,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+<!-- Notification Permissions -->
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+<!-- Notification Permissions Vibration -->
+<uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:label="Fha Inspector"
         android:name="${applicationName}"
