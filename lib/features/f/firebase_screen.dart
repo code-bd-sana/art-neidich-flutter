@@ -16,7 +16,8 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
         child: CustomButton(
           onPressed: () async {
             //  LocalNotificationService.showBasicNotification();
-            // String? token = await FirebaseMessaging.instance.getToken();
+            //  LocalNotificationService.showBasicNotification();
+            // String? token = await FirebaseMessaging.instance.getAPNSToken();
 
             // if ("eqqDj1F3SOKA_GFRHRQcMe:APA91bEDeSBY-vrgCwd612xN15Sk98N3X_v_LSFoOK9DWvkwIpq0Ng2ARDnzDds-OX27flxZP6LZ_gUk2O_I48lWDZmZ0zCre5cfyFtqR0TTxLT6_7yMJtM" ==
             //     token) {

@@ -1,4 +1,3 @@
-import 'package:artneidich_app/loading.dart';
 import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 import '/helpers/all_routes.dart';
+import 'features/f/firebase_screen.dart';
 import 'gen/colors.gen.dart';
 import 'helpers/di.dart';
 import 'helpers/helper_methods.dart';
@@ -17,6 +17,8 @@ import 'networks/dio/dio.dart';
 //Future<void> backgroundHandler(RemoteMessage message) async {}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //await LocalNotificationService.init();
   await GetStorage.init();
   diSetup();
   initiInternetChecker();
@@ -79,7 +81,7 @@ class UtillScreenMobile extends StatelessWidget {
             },
             navigatorKey: NavigationService.navigatorKey,
             onGenerateRoute: RouteGenerator.generateRoute,
-            home: Loading(),
+            home: FirebaseScreen(),
           ),
         );
       },

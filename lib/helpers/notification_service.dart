@@ -1,3 +1,66 @@
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+// class LocalNotificationService {
+//   LocalNotificationService._();
+
+//   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//       FlutterLocalNotificationsPlugin();
+
+//   static onTap(NotificationResponse notificationResponse) {}
+
+//   static Future init() async {
+//     InitializationSettings settings = const InitializationSettings(
+//       android: AndroidInitializationSettings("@mipmap/ic_launcher"),
+//       iOS: DarwinInitializationSettings(),
+//     );
+//     flutterLocalNotificationsPlugin.initialize(
+//       settings: settings,
+//       onDidReceiveNotificationResponse: onTap, // (details) {},
+//       onDidReceiveBackgroundNotificationResponse: onTap, //(details) {},
+//     );
+//   }
+
+//   // Basic Notification
+//   static void showBasicNotification() async {
+//     NotificationDetails details = const NotificationDetails(
+//       android: AndroidNotificationDetails(
+//         "id 1",
+//         "Basic Notification",
+//         importance: Importance.max,
+//         priority: Priority.high,
+//       ),
+//     );
+//     await flutterLocalNotificationsPlugin.show(
+//       id: 0,
+//       title: 'basic notification',
+//       body: 'body notification',
+//       notificationDetails: details,
+//       payload: "",
+//     );
+//   }
+
+//   // Repeat Notification
+//   static void showRepeatNotification() async {
+//     NotificationDetails details = const NotificationDetails(
+//       android: AndroidNotificationDetails(
+//         "id 1",
+//         "repeated Notification",
+//         importance: Importance.max,
+//         priority: Priority.high,
+//       ),
+//     );
+//     await flutterLocalNotificationsPlugin.periodicallyShow(
+//       id: 0,
+//       title: 'repeat notification',
+//       body: 'body',
+//       androidScheduleMode: AndroidScheduleMode.exact,
+
+//       repeatInterval: RepeatInterval.everyMinute,
+//       notificationDetails: details,
+//       payload: "",
+//     );
+//   }
+// }
 /* import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
