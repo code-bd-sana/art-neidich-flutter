@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:artneidich_app/helpers/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../../constants/text_font_style.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../helpers/all_routes.dart';
@@ -26,8 +31,40 @@ class HelpSupportWidget extends StatelessWidget {
           title: 'Inspection Guidelines',
           icon: Assets.icons.frame15.path,
           icon2: Assets.icons.download.path,
-          onPressed: () {
-            //  NavigationService.navigateTo(Routes.securityScreen);
+          onPressed: () async {
+       try {
+              //  Load PDF from assets
+              final byteData = await rootBundle.load(
+                'assets/media/bird.pdf',
+              );
+
+              // Get app document directory
+              final directory = await getApplicationDocumentsDirectory();
+
+              //  Create file path
+              final filePath = '${directory.path}/inspection_guidelines.pdf';
+              final file = File(filePath);
+
+              //  Write bytes to file (Download)
+              await file.writeAsBytes(
+                byteData.buffer.asUint8List(
+                  byteData.offsetInBytes,
+                  byteData.lengthInBytes,
+                ),
+              );
+
+              // // Share using NEW API
+              await SharePlus.instance.share(
+                ShareParams(
+                  files: [XFile(filePath)],
+                  text: 'Inspection Guidelines PDF',
+                ),
+              );
+            } catch (e) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text('Error: $e')));
+            }
           },
         ),
         UIHelper.verticalSpace(10.h),
