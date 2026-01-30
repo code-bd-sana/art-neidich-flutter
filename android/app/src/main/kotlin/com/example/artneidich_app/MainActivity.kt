@@ -1,4 +1,4 @@
-package com.example.artneidich_app
+package com.fhainspector.app
 
 import io.flutter.embedding.android.FlutterActivity
 
